@@ -1,6 +1,7 @@
 package com.sbs.example.mysqlTextBoard.dto;
 
 public class Article {
+	
 
 	public int id;
 	public String regDate;

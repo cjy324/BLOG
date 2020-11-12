@@ -27,6 +27,15 @@ public class App {
 			else if(cmd.equals("article list")) {
 				articleController.list(cmd);
 			}
+			else if(cmd.startsWith("article delete ")) {
+				articleController.delete(cmd);
+			}
+			else if(cmd.startsWith("article modify ")) {
+				articleController.modify(cmd);
+			}
+			else if(cmd.startsWith("article detail ")) {
+				articleController.detail(cmd);
+			}
 			
 			if(cmd.equals("exit")) {
 				System.out.println("종료");

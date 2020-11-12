@@ -12,6 +12,7 @@ import com.sbs.example.mysqlTextBoard.dto.Article;
 
 public class ArticleDao {
 
+	List<Article> articles;
 	Connection con;
 	String driver;
 	String url;
@@ -21,6 +22,7 @@ public class ArticleDao {
 
 	public ArticleDao() {
 
+		articles = new ArrayList<>();
 		driver = "com.mysql.cj.jdbc.Driver";
 		con = null;
 		url = "jdbc:mysql://127.0.0.1:3306/textBoard?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull&connectTimeout=60000&socketTimeout=60000";
@@ -41,7 +43,7 @@ public class ArticleDao {
 	}
 
 	public List<Article> getArticles() {
-		List<Article> articles = new ArrayList<>();
+		
 		// MySQL 드라이버 등록
 		try {
 			try {
@@ -106,46 +108,34 @@ public class ArticleDao {
 	public int add(String title, String body, int memberId, int boardId) {
 
 		try {
-		try {
-			Class.forName(driver);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			try {
+				Class.forName(driver);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
-		try {
-			con = DriverManager.getConnection(url, userId, userPw);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		sql = "INSERT INTO article "
-				+ ""
-				+ "SET regDate = NOW(),"
-				+ ""
-				+ "updateDate = NOW(),"
-				+ ""
-				+ "title = " + "'" + title + "',"
-				+ ""
-				+ "`body` = " + "'" + body + "',"
-				+ ""
-				+ "memberId = " + memberId + ","
-				+ ""
-				+ "boardId = "+ boardId;
-		
-		try {
-			PreparedStatement pstmt = con.prepareStatement(sql);
-			
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		}
-		finally {
+			try {
+				con = DriverManager.getConnection(url, userId, userPw);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			sql = "INSERT INTO article " + "" + "SET regDate = NOW()," + "" + "updateDate = NOW()," + "" + "title = "
+					+ "'" + title + "'," + "" + "`body` = " + "'" + body + "'," + "" + "memberId = " + memberId + ","
+					+ "" + "boardId = " + boardId;
+
+			try {
+				PreparedStatement pstmt = con.prepareStatement(sql);
+
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} finally {
 			try {
 				if (con != null) {
 					con.close();
@@ -157,6 +147,86 @@ public class ArticleDao {
 		}
 
 		return 0;
+	}
+
+	public void deleteArticleById(int inputedId) {
+
+		try {
+			try {
+				Class.forName(driver);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+
+			try {
+				con = DriverManager.getConnection(url, userId, userPw);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			sql = "DELETE FROM article " + "" + "WHERE id = " + inputedId;
+
+			try {
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} finally {
+			try {
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+
+	}
+
+	public void modifyArticle(int inputedId, String title, String body) {
+
+		try {
+			try {
+				Class.forName(driver);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+
+			try {
+				con = DriverManager.getConnection(url, userId, userPw);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			sql = "UPDATE article "
+					+ "SET "
+					+ "updateDate = NOW(), "
+					+ "title = " + "'" + title + "', "
+					+ "`body` = " + "'" + body + "' "
+					+ "WHERE id = " + inputedId;
+
+			try {
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} finally {
+			try {
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
 	}
 
 }

@@ -25,14 +25,14 @@ public class ArticleController {
 		List<Article> articles = articleService.getArticles();
 
 		for (Article article : articles) {
-			System.out.printf("%d / %s / %s / %s / %d\n", article.id, article.title, article.regDate, article.updateDate,
-					article.memberId);
+			System.out.printf("%d / %s / %s / %s / %d\n", article.id, article.title, article.regDate,
+					article.updateDate, article.memberId);
 		}
 
 	}
 
 	public void add(String cmd) {
-		
+
 		System.out.printf("제목 입력) ");
 		String title = sc.nextLine();
 		System.out.printf("내용 입력) ");
@@ -40,9 +40,47 @@ public class ArticleController {
 		int memberId = 1;
 		int boardId = 1;
 
-		int id = articleService.add(title,body,memberId,boardId);
-		
+		int id = articleService.add(title, body, memberId, boardId);
+
 		System.out.printf("게시물 생성 완료\n");
+	}
+
+	public void delete(String cmd) {
+		int inputedId = Integer.parseInt(cmd.split(" ")[2]);
+
+		articleService.deleteArticleById(inputedId);
+
+		System.out.printf("%d번 게시물 삭제 완료\n", inputedId);
+
+	}
+
+	public void modify(String cmd) {
+		int inputedId = Integer.parseInt(cmd.split(" ")[2]);
+
+		System.out.println("수정할 제목 : ");
+		String title = sc.nextLine();
+		System.out.println("수정할 내용 : ");
+		String body = sc.nextLine();
+		
+		articleService.modifyArticle(inputedId, title, body);
+
+		System.out.printf("%d번 게시물 수정 완료\n", inputedId);
+
+	}
+
+	public void detail(String cmd) {
+		int inputedId = Integer.parseInt(cmd.split(" ")[2]);
+
+		Article article = articleService.detailArticleById(inputedId);
+		
+		System.out.printf("번호 : %d\n", article.id);
+		System.out.printf("작성일자 : %s\n", article.regDate);
+		System.out.printf("수정일자 : %s\n", article.updateDate);
+		System.out.printf("제목 : %s\n", article.title);
+		System.out.printf("내용 : %s\n", article.body);
+		System.out.printf("작성자 : %d\n", article.memberId);
+		System.out.printf("게시판 번호 : %d\n", article.boardId);
+		
 	}
 
 }
