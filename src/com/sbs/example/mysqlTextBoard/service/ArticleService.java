@@ -1,17 +1,19 @@
 package com.sbs.example.mysqlTextBoard.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.sbs.example.mysqlTextBoard.container.Container;
 import com.sbs.example.mysqlTextBoard.dao.ArticleDao;
 import com.sbs.example.mysqlTextBoard.dto.Article;
+import com.sbs.example.mysqlTextBoard.dto.Board;
 
 public class ArticleService {
 
 	ArticleDao articleDao;
 
 	public ArticleService() {
-
-		articleDao = new ArticleDao();
+		articleDao = Container.articleDao;
 	}
 
 	public List<Article> getArticles() {
@@ -32,11 +34,33 @@ public class ArticleService {
 
 	}
 
-	public Article detailArticleById(int inputedId) {
-		List<Article> articles = articleDao.getArticles();
+	public Article getDetailArticleById(int inputedId) {
+		return articleDao.getArticleById(inputedId);
 
-		return articles.get(inputedId - 1);
+	}
 
+	public int boardAdd(String boardName) {
+		return articleDao.boardAdd(boardName);
+	}
+
+	public int defultBoard(int i) {
+		Board board = articleDao.getBoard(i);
+		return board.boardId;
+	}
+
+	public Board getBoard(int inputedId) {
+		return articleDao.getBoard(inputedId);
+	}
+
+	public List<Article> getArticlesInBoard(int boardId) {
+		List<Article> articlesInBoard = new ArrayList<>();
+		for (Article article : articleDao.getArticles()) {
+			if (article.boardId == boardId) {
+				articlesInBoard.add(article);
+			}
+		}
+
+		return articlesInBoard;
 	}
 
 }
