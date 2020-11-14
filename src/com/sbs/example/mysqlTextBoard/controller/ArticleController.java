@@ -80,7 +80,7 @@ public class ArticleController extends Controller{
 
 		int boardId = articleService.boardAdd(boardName);
 
-		System.out.printf("%s 게시판 생성 완료\n", boardName);
+		System.out.printf("(%d)%s 게시판 생성 완료\n",boardId, boardName);
 
 	}
 

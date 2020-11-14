@@ -308,6 +308,7 @@ public class ArticleDao {
 
 	// 게시판 추가
 	public int boardAdd(String boardName) {
+		int boardId = 0;
 		try {
 			try {
 				Class.forName(driver);
@@ -326,9 +327,14 @@ public class ArticleDao {
 			sql = "INSERT INTO board " + "" + "SET boardName = " + "'" + boardName + "'";
 
 			try {
-				PreparedStatement pstmt = con.prepareStatement(sql);
+				PreparedStatement pstmt = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 
 				pstmt.executeUpdate();
+
+				ResultSet addedBoardId = pstmt.getGeneratedKeys();
+				addedBoardId.next();
+				boardId = addedBoardId.getInt(1);
+				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -345,7 +351,7 @@ public class ArticleDao {
 			}
 		}
 
-		return 0;
+		return boardId;
 	}
 
 	// 게시판 정보 가져오기
