@@ -1,66 +1,119 @@
 package com.sbs.example.mysqlTextBoard.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.sbs.example.mysqlTextBoard.container.Container;
 import com.sbs.example.mysqlTextBoard.dao.ArticleDao;
 import com.sbs.example.mysqlTextBoard.dto.Article;
 import com.sbs.example.mysqlTextBoard.dto.Board;
+import com.sbs.example.mysqlTextBoard.dto.Recommand;
+import com.sbs.example.mysqlTextBoard.dto.Reply;
+import com.sbs.example.mysqlTextBoard.dto.View;
 
 public class ArticleService {
 
 	ArticleDao articleDao;
 
 	public ArticleService() {
+
 		articleDao = Container.articleDao;
-	}
-
-	public List<Article> getArticles() {
-		return articleDao.getArticles();
-	}
-
-	public int add(String title, String body, int memberId, int boardId) {
-		return articleDao.add(title, body, memberId, boardId);
-	}
-
-	public void deleteArticleById(int inputedId) {
-		articleDao.deleteArticleById(inputedId);
 
 	}
 
-	public void modifyArticle(int inputedId, String title, String body) {
-		articleDao.modifyArticle(inputedId, title, body);
-
+	public int boardAdd(String name, String code) {
+		return articleDao.boardAdd(name, code);
 	}
 
-	public Article getDetailArticleById(int inputedId) {
+	public Board getBoardById(int inputedId) {
+		return articleDao.getBoardById(inputedId);
+	}
+
+	public int add(int boardId, String title, String body, int memberId) {
+		return articleDao.add(boardId, title, body, memberId);
+	}
+
+	public List<Article> getBoardArticlesForPrint(int boardId) {
+		return articleDao.getBoardArticlesForPrint(boardId);
+	}
+
+	public Article getArticleById(int inputedId) {
 		return articleDao.getArticleById(inputedId);
+	}
+
+	public void articleModify(int id, String title, String body) {
+		articleDao.articleModify(id, title, body);
 
 	}
 
-	public int boardAdd(String boardName) {
-		return articleDao.boardAdd(boardName);
+	public void articleDelete(int id) {
+		articleDao.articleDelete(id);
+
 	}
 
-	public int defultBoard(int i) {
-		Board board = articleDao.getBoard(i);
-		return board.boardId;
+	public int replyAdd(int articleId, String replyBody, int replyMemberId) {
+		return articleDao.replyAdd(articleId, replyBody, replyMemberId);
 	}
 
-	public Board getBoard(int inputedId) {
-		return articleDao.getBoard(inputedId);
+	public Reply getReply(int inputedId) {
+		return articleDao.getReply(inputedId);
 	}
 
-	public List<Article> getArticlesInBoard(int boardId) {
-		List<Article> articlesInBoard = new ArrayList<>();
-		for (Article article : articleDao.getArticles()) {
-			if (article.boardId == boardId) {
-				articlesInBoard.add(article);
-			}
-		}
+	public void replyModify(int id, String replyBody) {
+		articleDao.replyModify(id, replyBody);
 
-		return articlesInBoard;
+	}
+
+	public void replyDelete(int id) {
+		articleDao.replyDelete(id);
+
+	}
+
+	public List<Reply> getRepliesForPrint(int articleId) {
+		return articleDao.getRepliesForPrint(articleId);
+	}
+
+	public int recommandAdd(int articleId, int recommandMemberId) {
+		return articleDao.recommandAdd(articleId, recommandMemberId);
+	}
+
+	public Recommand getRecommand(int articleId, int recommandMemberId) {
+		return articleDao.getRecommand(articleId, recommandMemberId);
+	}
+
+	public void recomandDelete(int articleId, int recommandMemberId) {
+		articleDao.recomandDelete(articleId, recommandMemberId);
+
+	}
+
+	public List<Recommand> getRecommands(int articleId) {
+		return articleDao.getRecommands(articleId);
+	}
+
+	public void addView(int articleId) {
+		articleDao.addView(articleId);
+
+	}
+
+	public List<View> getViews(int articleId) {
+		return articleDao.getViews(articleId);
+	}
+
+	public List<Board> getBoards() {
+		return articleDao.getBoards();
+	}
+
+	public Board getBoardByCode(String code) {
+		return articleDao.getBoardByCode(code);
+	}
+
+	public List<Article> getArticlesForPrint() {
+		return articleDao.articles();
+	}
+
+
+	public List<Article> getBoardArticlesByCodeForPrint(String code) {
+		Board board = articleDao.getBoardByCode(code);
+		return articleDao.getBoardArticlesForPrint(board.id);
 	}
 
 }

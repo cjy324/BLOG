@@ -1,7 +1,16 @@
 package com.sbs.example.mysqlTextBoard.dto;
 
-public class Board {
+import java.util.Map;
 
-	public int boardId;
-	public String boardName;
+public class Board {
+	
+	public Board(Map<String, Object> boardMap) {
+		this.id = (int)boardMap.get("id");
+		this.name = (String)boardMap.get("name");
+		this.code = (String)boardMap.get("code");
+	}
+	public int id;
+	public String name;
+	public String code;
+
 }

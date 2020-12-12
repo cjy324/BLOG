@@ -1,407 +1,340 @@
 package com.sbs.example.mysqlTextBoard.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.sbs.example.mysqlTextBoard.dto.Article;
 import com.sbs.example.mysqlTextBoard.dto.Board;
-import com.sbs.example.mysqlTextBoard.dto.Member;
+import com.sbs.example.mysqlTextBoard.dto.Recommand;
+import com.sbs.example.mysqlTextBoard.dto.Reply;
+import com.sbs.example.mysqlTextBoard.dto.View;
+import com.sbs.example.mysqlTextBoard.mysqlutil.MysqlUtil;
+import com.sbs.example.mysqlTextBoard.mysqlutil.SecSql;
+
 
 public class ArticleDao {
 
-	List<Article> articles;
-	List<Board> boards;
-	Connection con;
-	String driver;
-	String url;
-	String userId;
-	String userPw;
-	String sql;
-
 	public ArticleDao() {
 
-		articles = new ArrayList<>();
-		boards = new ArrayList<>();
-		driver = "com.mysql.cj.jdbc.Driver";
-		con = null;
-		url = "jdbc:mysql://127.0.0.1:3306/textBoard?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull&connectTimeout=60000&socketTimeout=60000";
-		// jdbc 국제표준에 의한 통신을 할 것이다.
-		// 대상은 mysql로 간주한다.
-		// 127.0.0.1:3306 주소
-		// textBoard 연결 DB명
-		//
-		// 여기부터는 옵션사항
-		// useUnicode=true&characterEncoding=utf8 컴퓨터상의 표준어인 UTF8을 사용할 것이다.
-		// autoReconnect=true 잠시 연결이 끊어지면 자동으로 다시 연결
-		// serverTimezone=Asia/Seoul 시간은 아시아/서울로 설정
-		// useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull 몰라도 됨?
-		// connectTimeout=60000&socketTimeout=60000 60초 후에는 자동으로 꺼짐
-		userId = "sbsst";
-		userPw = "sbs123414";
-		sql = "";
 	}
 
-	// 게시물 리스팅
-	public List<Article> getArticles() {
+	public int boardAdd(String name, String code) {
+		SecSql sql = new SecSql();
+
+		sql.append("INSERT INTO board");
+		sql.append("SET name = ?,", name);
+		sql.append("code = ?", code);
+
+		return MysqlUtil.insert(sql);
+	}
+
+	public Board getBoardById(int inputedId) {
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT * FROM board");
+		sql.append("WHERE id = ?", inputedId);
+
+		Map<String, Object> boardMap = MysqlUtil.selectRow(sql);
+
+		if (boardMap.isEmpty()) {
+			return null;
+		}
+
+		return new Board(boardMap);
+	}
+
+	public int add(int boardId, String title, String body, int memberId) {
+		SecSql sql = new SecSql();
+
+		sql.append("INSERT INTO article");
+		sql.append("SET regDate = NOW(),");
+		sql.append("updateDate = NOW(),");
+		sql.append("title = ?,", title);
+		sql.append("body = ?,", body);
+		sql.append("boardId = ?,", boardId);
+		sql.append("memberId = ?", memberId);
+
+		return MysqlUtil.insert(sql);
+	}
+
+	public List<Article> getBoardArticlesForPrint(int boardId) {
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT article.*, ");
+		sql.append("member.name AS extra_memberName");
+		sql.append("FROM article");
+		sql.append("INNER JOIN member");
+		sql.append("ON article.memberId = member.id");
+		sql.append("WHERE article.boardId = ?", boardId);
+
 		List<Article> articles = new ArrayList<>();
-		// MySQL 드라이버 등록
-		try {
-			try {
-				Class.forName(driver);
-				// driver를 한번 깨우는 것
-				// 이전에는 반드시 사전 실행되었어야 했지만
-				// 최근에는 자동으로 실행되서 굳이 작성하지 않아도 됨
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
+		List<Map<String, Object>> articlesMapList = MysqlUtil.selectRows(sql);
 
-			// 연결 생성
-			try {
-				con = DriverManager.getConnection(url, userId, userPw);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+		for (Map<String, Object> articlesMap : articlesMapList) {
+			Article article = new Article(articlesMap);
+			
+			articles.add(article);
+			
+		}
+	//	Collections.reverse(articles);
+		return articles;
+	}
 
-			sql = "SELECT * FROM article";
+	public Article getArticleById(int inputedId) {
+		SecSql sql = new SecSql();
 
-			try {
-				PreparedStatement pstmt = con.prepareStatement(sql);
+		sql.append("SELECT article.*, ");
+		sql.append("member.name AS extra_memberName");
+		sql.append("FROM article");
+		sql.append("INNER JOIN member");
+		sql.append("ON article.memberId = member.id");
+		sql.append("WHERE article.id = ?", inputedId);
 
-				ResultSet rs = pstmt.executeQuery();
+		Map<String, Object> articleMap = MysqlUtil.selectRow(sql);
 
-				while (rs.next()) {
-					int id = rs.getInt("id");
-					String regDate = rs.getString("regDate");
-					String updateDate = rs.getString("updateDate");
-					String title = rs.getString("title");
-					String body = rs.getString("body");
-					int memberId = rs.getInt("memberId");
-					int boardId = rs.getInt("boardId");
+		if (articleMap.isEmpty()) {
+			return null;
+		}
 
-					Article article = new Article(id, regDate, updateDate, title, body, memberId, boardId);
+		return new Article(articleMap);
+	}
 
-					articles.add(article);
+	public void articleModify(int id, String title, String body) {
+		SecSql sql = new SecSql();
 
-				}
+		sql.append("UPDATE article");
+		sql.append("SET updateDate = NOW(),");
+		sql.append("title = ?,", title);
+		sql.append("body = ?", body);
+		sql.append("WHERE id = ?", id);
 
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} finally {
-			// ClassNotFoundException, SQLException과 같이 미리 예비한 상황 이외의
-			// 오류 상황이 발생하면 프로그램은 바로 종료되고 다시 켜지고를 반복
-			// 따라서 무조건 실행되는 finally로 con.close();를 감싸준다.
-			// 안꺼지는 일이 없도록
-			try {
-				if (con != null) {
-					con.close();
-					// 자원해제
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+		MysqlUtil.update(sql);
+
+	}
+
+	public void articleDelete(int id) {
+		SecSql sql = new SecSql();
+
+		sql.append("DELETE FROM article");
+		sql.append("WHERE id = ?", id);
+
+		MysqlUtil.update(sql);
+
+	}
+
+	public int replyAdd(int articleId, String replyBody, int replyMemberId) {
+		SecSql sql = new SecSql();
+
+		sql.append("INSERT INTO reply");
+		sql.append("SET regDate = NOW(),");
+		sql.append("replyBody = ?,", replyBody);
+		sql.append("replyArticleId = ?,", articleId);
+		sql.append("replyMemberId = ?", replyMemberId);
+
+		return MysqlUtil.insert(sql);
+	}
+
+	public Reply getReply(int inputedId) {
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT * FROM reply");
+		sql.append("WHERE id = ?", inputedId);
+
+		Map<String, Object> replyMap = MysqlUtil.selectRow(sql);
+
+		if (replyMap.isEmpty()) {
+			return null;
+		}
+
+		return new Reply(replyMap);
+	}
+
+	public void replyModify(int id, String replyBody) {
+		SecSql sql = new SecSql();
+
+		sql.append("UPDATE reply");
+		sql.append("SET");
+		sql.append("replyBody = ?", replyBody);
+		sql.append("WHERE id = ?", id);
+
+		MysqlUtil.update(sql);
+
+	}
+
+	public void replyDelete(int id) {
+		SecSql sql = new SecSql();
+
+		sql.append("DELETE FROM reply");
+		sql.append("WHERE id = ?", id);
+
+		MysqlUtil.delete(sql);
+	}
+
+	public List<Reply> getRepliesForPrint(int articleId) {
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT reply.*, ");
+		sql.append("member.name AS extra_memberName");
+		sql.append("FROM reply");
+		sql.append("INNER JOIN member");
+		sql.append("ON reply.replyMemberId = member.id");
+		sql.append("WHERE reply.replyArticleId = ?", articleId);
+
+		List<Reply> replise = new ArrayList<>();
+		List<Map<String, Object>> repliseMapList = MysqlUtil.selectRows(sql);
+
+		for (Map<String, Object> repliseMap : repliseMapList) {
+			Reply reply = new Reply(repliseMap);
+
+			replise.add(reply);
+		}
+
+		return replise;
+	}
+
+	public int recommandAdd(int articleId, int recommandMemberId) {
+		SecSql sql = new SecSql();
+
+		sql.append("INSERT INTO recommand");
+		sql.append("SET regDate = NOW(),");
+		sql.append("recommandArticleId = ?,", articleId);
+		sql.append("recommandMemberId = ?", recommandMemberId);
+
+		return MysqlUtil.insert(sql);
+	}
+
+	public Recommand getRecommand(int articleId, int recommandMemberId) {
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT * FROM recommand");
+		sql.append("WHERE recommandArticleId = ?", articleId);
+		sql.append("AND");
+		sql.append("recommandMemberId = ?", recommandMemberId);
+
+		Map<String, Object> recomandMap = MysqlUtil.selectRow(sql);
+
+		if (recomandMap.isEmpty()) {
+			return null;
+		}
+
+		return new Recommand(recomandMap);
+	}
+
+	public void recomandDelete(int articleId, int recommandMemberId) {
+		SecSql sql = new SecSql();
+
+		sql.append("DELETE FROM recommand");
+		sql.append("WHERE recommandArticleId = ?", articleId);
+		sql.append("AND");
+		sql.append("recommandMemberId = ?", recommandMemberId);
+
+		MysqlUtil.delete(sql);
+		
+	}
+
+	public List<Recommand> getRecommands(int articleId) {
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT *");
+		sql.append("FROM recommand");
+		sql.append("WHERE recommandArticleId = ?", articleId);
+
+		List<Recommand> recommands = new ArrayList<>();
+		List<Map<String, Object>> recommandsMapList = MysqlUtil.selectRows(sql);
+
+		for (Map<String, Object> recommandsMap : recommandsMapList) {
+			Recommand recommand = new Recommand(recommandsMap);
+
+			recommands.add(recommand);
+		}
+
+		return recommands;
+	}
+
+	public void addView(int articleId) {
+		
+		SecSql sql = new SecSql();
+
+		sql.append("INSERT INTO view");
+		sql.append("SET");
+		sql.append("viewArticleId = ?", articleId);
+
+		MysqlUtil.insert(sql);
+		
+	}
+
+	public List<View> getViews(int articleId) {
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT *");
+		sql.append("FROM view");
+		sql.append("WHERE viewArticleId = ?", articleId);
+
+		List<View> views = new ArrayList<>();
+		List<Map<String, Object>> viewsMapList = MysqlUtil.selectRows(sql);
+
+		for (Map<String, Object> viewsMap : viewsMapList) {
+			View view = new View(viewsMap);
+
+			views.add(view);
+		}
+
+		return views;
+	}
+
+	public List<Board> getBoards() {
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT *");
+		sql.append("FROM board");
+
+		List<Board> boards = new ArrayList<>();
+		List<Map<String, Object>> boardsMapList = MysqlUtil.selectRows(sql);
+
+		for (Map<String, Object> boardsMap : boardsMapList) {
+			Board board = new Board(boardsMap);
+
+			boards.add(board);
+	}
+
+		return boards;
+
+}
+
+	public Board getBoardByCode(String code) {
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT * FROM board");
+		sql.append("WHERE code = ?", code);
+
+		Map<String, Object> boardMap = MysqlUtil.selectRow(sql);
+
+		if (boardMap.isEmpty()) {
+			return null;
+		}
+
+		return new Board(boardMap);
+	}
+
+	public List<Article> articles() {
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT article.*, ");
+		sql.append("member.name AS extra_memberName");
+		sql.append("FROM article");
+		sql.append("INNER JOIN member");
+		sql.append("ON article.memberId = member.id");
+
+		List<Article> articles = new ArrayList<>();
+		List<Map<String, Object>> articlesMapList = MysqlUtil.selectRows(sql);
+
+		for (Map<String, Object> articlesMap : articlesMapList) {
+			Article article = new Article(articlesMap);
+
+			articles.add(article);
 		}
 
 		return articles;
 	}
-
-	// 상세보기
-	public Article getArticleById(int inputedId) {
-		Article article = null;
-
-		try {
-			try {
-				Class.forName(driver);
-
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-
-			try {
-				con = DriverManager.getConnection(url, userId, userPw);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-			sql = "SELECT * FROM article WHERE id = ?";
-			// 보안 문제상 inputedId로 바로 쿼리를 작성하는 것은 좋지않음
-			// 따라서 ?로 쿼리를 작성한 후 setInt 사용
-
-			try {
-				PreparedStatement pstmt = con.prepareStatement(sql);
-
-				pstmt.setInt(1, inputedId); // 1번 '?' 자리에 값은 'inputedId'이다.
-
-				ResultSet rs = pstmt.executeQuery();
-
-				if (rs.next()) {
-					int id = rs.getInt("id");
-					String regDate = rs.getString("regDate");
-					String updateDate = rs.getString("updateDate");
-					String title = rs.getString("title");
-					String body = rs.getString("body");
-					int memberId = rs.getInt("memberId");
-					int boardId = rs.getInt("boardId");
-
-					article = new Article(id, regDate, updateDate, title, body, memberId, boardId);
-
-				}
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		} finally {
-
-			try {
-				if (con != null) {
-					con.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return article;
-	}
-
-	// 게시물 추가
-	public int add(String title, String body, int memberId, int boardId) {
-		int autoGeneratedID = 0;
-		try {
-			try {
-				Class.forName(driver);
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			try {
-				con = DriverManager.getConnection(url, userId, userPw);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			sql = "INSERT INTO article ";
-			sql += "SET regDate = NOW(), ";
-			sql += "updateDate = NOW(), ";
-			sql += "title = ?, ";
-			sql += "body = ?, ";
-			sql += "memberId = ?, ";
-			sql += "boardId = ?";
-
-			try {
-				PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-				pstmt.setString(1, title);
-				pstmt.setString(2, body);
-				pstmt.setInt(3, memberId);
-				pstmt.setInt(4, boardId);
-
-				pstmt.executeUpdate();
-
-				ResultSet tableKeys = pstmt.getGeneratedKeys();
-				tableKeys.next();
-				autoGeneratedID = tableKeys.getInt(1);
-
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		} finally {
-			try {
-				if (con != null) {
-					con.close();
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return autoGeneratedID;
-	}
-
-	// 게시물 삭제
-	public void deleteArticleById(int inputedId) {
-
-		try {
-			try {
-				Class.forName(driver);
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-
-			try {
-				con = DriverManager.getConnection(url, userId, userPw);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-			sql = "DELETE FROM article " + "" + "WHERE id = " + inputedId;
-
-			try {
-				PreparedStatement pstmt = con.prepareStatement(sql);
-				pstmt.executeUpdate();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		} finally {
-			try {
-				if (con != null) {
-					con.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-		}
-
-	}
-
-	// 게시물 수정
-	public void modifyArticle(int inputedId, String title, String body) {
-
-		try {
-			try {
-				Class.forName(driver);
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-
-			try {
-				con = DriverManager.getConnection(url, userId, userPw);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-			sql = "UPDATE article " + "SET " + "updateDate = NOW(), " + "title = " + "'" + title + "', " + "`body` = "
-					+ "'" + body + "' " + "WHERE id = " + inputedId;
-
-			try {
-				PreparedStatement pstmt = con.prepareStatement(sql);
-				pstmt.executeUpdate();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		} finally {
-			try {
-				if (con != null) {
-					con.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-		}
-	}
-
-	// 게시판 추가
-	public int boardAdd(String boardName) {
-		int boardId = 0;
-		try {
-			try {
-				Class.forName(driver);
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			try {
-				con = DriverManager.getConnection(url, userId, userPw);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			sql = "INSERT INTO board " + "" + "SET boardName = " + "'" + boardName + "'";
-
-			try {
-				PreparedStatement pstmt = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-
-				pstmt.executeUpdate();
-
-				ResultSet addedBoardId = pstmt.getGeneratedKeys();
-				addedBoardId.next();
-				boardId = addedBoardId.getInt(1);
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		} finally {
-			try {
-				if (con != null) {
-					con.close();
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-		return boardId;
-	}
-
-	// 게시판 정보 가져오기
-	public Board getBoard(int i) {
-		try {
-			try {
-				Class.forName(driver);
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-			try {
-				con = DriverManager.getConnection(url, userId, userPw);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-			sql = "SELECT * FROM board";
-
-			try {
-				PreparedStatement pstmt = con.prepareStatement(sql);
-
-				ResultSet rs;
-				rs = pstmt.executeQuery();
-
-				while (rs.next()) {
-					if (rs.getInt("boardId") == i) {
-
-						Board board = new Board();
-						board.boardId = rs.getInt("boardId");
-						board.boardName = rs.getString("boardName");
-
-						return board;
-					}
-				}
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-		} finally {
-			try {
-				if (con != null) {
-					con.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return null;
-	}
-
 }

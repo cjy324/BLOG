@@ -14,7 +14,6 @@ public class MemberController extends Controller{
 	public MemberController() {
 		sc = Container.scanner;
 		memberService = Container.memberService;
-
 	}
 
 	public void doCmd(String cmd) {
@@ -26,102 +25,118 @@ public class MemberController extends Controller{
 		else if (cmd.equals("member login")) {
 			login(cmd);
 		}
-		// logout
-		else if (cmd.equals("member logout")) {
-			logout(cmd);
-		}
 		// whoami
 		else if (cmd.equals("member whoami")) {
 			whoami(cmd);
 		}
-
-	}
-
-	private void whoami(String cmd) {
-		if (Container.session.loginStatus() == false) {
-			System.out.println("로그인 상태가 아닙니다.");
-			return;
+		// 로그아웃
+		else if (cmd.equals("member logout")) {
+			logout(cmd);
 		}
-
-		int loginedMemberId = Container.session.loginedMemberId;
-
-		Member member = memberService.getEqualsMemberByMemberId(loginedMemberId);
-
-		System.out.println("== 회원 정보 ==");
-
-		System.out.printf("회원번호 : %d\n", member.memberId);
-		System.out.printf("회원ID : %s\n", member.loginId);
-		System.out.printf("회원PW : %s\n", member.loginPw);
-		System.out.printf("회원이름 : %s\n", member.name);
-
 	}
 
+	// 로그아웃
 	private void logout(String cmd) {
 		if (Container.session.loginStatus() == false) {
-			System.out.println("로그인 상태가 아닙니다.");
+			System.out.println("(로그인 후 이용가능)");
+			return;
+		}
+		
+		Container.session.loginMemberId = 0;
+		Container.session.loginAdminMemberId = 0;
+		
+		System.out.println("== 로그 아웃 ==");
+		System.out.println("--------------------------------------------------");
+	}
+
+	// whoami
+	private void whoami(String cmd) {
+		if (Container.session.loginStatus() == false) {
+			System.out.println("(로그인 후 이용가능)");
 			return;
 		}
 
-		Container.session.loginedMemberId = 0;
+		Member member = memberService.getMemberById(Container.session.loginMemberId);
 
-		System.out.println("로그아웃 되었습니다.");
+		System.out.println("== 회원 정보 ==");
+		System.out.printf("회원 번호: %d\n", member.id);
+		System.out.printf("회원 아이디: %s\n", member.loginId);
+		System.out.printf("회원 이름: %s\n", member.name);
+		System.out.printf("회원 유형: %s\n", member.memberType());
+		System.out.println("--------------------------------------------------");
 
 	}
 
+	// 로그인
 	private void login(String cmd) {
 
+		System.out.println("== 로그인 ==");
+
 		if (Container.session.loginStatus() == true) {
-			System.out.println("로그아웃 먼저 해주세요.");
+			System.out.println("(로그아웃 후 이용가능)");
 			return;
 		}
 
-		System.out.printf("아이디 입력 : ");
+		System.out.printf("아이디) ");
 		String loginId = sc.nextLine();
 
-		Member member = memberService.getEqualsLogindId(loginId);
+		Member member = memberService.getMemberByLoginId(loginId);
 
 		if (member == null) {
-			System.out.println("해당 아이디가 없습니다.");
+			System.out.println("(해당 아이디가 존재하지 않습니다.)");
 			return;
 		}
 
-		System.out.printf("비밀번호 입력 : ");
+		System.out.printf("비밀번호 입력) ");
 		String loginPw = sc.nextLine();
 
 		if (member.loginPw.equals(loginPw) == false) {
-			System.out.println("비밀번호가 틀렸습니다.");
+			System.out.println("(비밀번호가 틀렸습니다.)");
 			return;
 		}
 
-		System.out.printf("'%s'님 로그인 완료\n", member.name);
-		Container.session.loginedMemberId = member.memberId;
-
+		if (member.isAdmin()) {
+			System.out.printf("('관리자', 로그인 완료)\n");
+			Container.session.loginMemberId = member.id;
+			Container.session.loginAdminMemberId = member.id;
+			System.out.println("--------------------------------------------------");
+			return;
+		}
+		System.out.printf("(%s님, 로그인 완료)\n", member.name);
+		Container.session.loginMemberId = member.id;
+		System.out.println("--------------------------------------------------");
 	}
 
+	// 회원가입
 	private void join(String cmd) {
 
+		System.out.println("== 회원가입 ==");
+
 		if (Container.session.loginStatus() == true) {
-			System.out.println("로그아웃 먼저 해주세요.");
+			System.out.println("(로그아웃 후 이용가능)");
 			return;
 		}
 
-		System.out.printf("아이디 입력 : ");
-		String createId = sc.nextLine();
+		System.out.printf("아이디 입력) ");
+		String loginId = sc.nextLine();
 
-		boolean checkEqualsLogindId = memberService.checkEqualsLogindId(createId);
+		Member member = memberService.getMemberByLoginId(loginId);
 
-		if (checkEqualsLogindId == true) {
-			System.out.println("해당 아이디는 이미 사용중입니다.");
+		if (member != null) {
+			System.out.println("(해당 아이디 이미 사용중)");
 			return;
 		}
-		System.out.printf("비밀번호 입력 : ");
-		String createPw = sc.nextLine();
-		System.out.printf("이름 입력 : ");
+
+		System.out.printf("비밀번호 입력) ");
+		String loginPw = sc.nextLine();
+
+		System.out.printf("이름 입력) ");
 		String name = sc.nextLine();
 
-		int memberId = memberService.join(createId, createPw, name);
+		int id = memberService.join(loginId, loginPw, name);
 
-		System.out.printf("'%s' 회원 회원가입 완료\n", createId);
+		System.out.printf("(%d번 회원 회원가입 완료)\n", id);
+		System.out.println("--------------------------------------------------");
 	}
 
 }
