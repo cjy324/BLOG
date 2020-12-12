@@ -24,9 +24,33 @@ public class BuildService {
 		// site_template에 있는 app.css(원본)를 복사해 site폴더 생성시 그 안에 복사본 붙여넣기
 		Util.copy("site_template/app.css", "site/app.css");
 
+		buildIndexPage(); // 함수로 정리
+		buildArticleDetailPages(); // 함수로 정리
+	}
+
+	private void buildIndexPage() {
+		StringBuilder html = new StringBuilder();
+
+		String head = getHeadHtml("index");
+		String foot = Util.getFileContents("site_template/foot.html");
+
+		String mainHtml = Util.getFileContents("site_template/index.html");
+
+		html.append(head);
+		html.append(mainHtml);
+		html.append(foot);
+
+		String fileName = "index.html";
+		String path = "site/" + fileName;
+
+		Util.writeFile(path, html.toString());
+	}
+
+	// 게시물 상세페이지 생성
+	private void buildArticleDetailPages() {
 		List<Article> articles = articleService.getArticlesForPrint();
 
-		String head = getHeadHtml();
+		String head = getHeadHtml("article_detail");
 		String foot = Util.getFileContents("site_template/foot.html"); // foot.html 가져오기
 
 		System.out.println("= article 상세페이지 생성 =");
@@ -67,14 +91,16 @@ public class BuildService {
 
 		}
 		System.out.println("= article 상세페이지 생성 종료 =");
+
 	}
 
-	private String getHeadHtml() {
+	// head.html 가져오기
+	private String getHeadHtml(String pageName) {
 		List<Board> boards = articleService.getBoards();
 
 		String head = Util.getFileContents("site_template/head.html"); // head.html 가져오기
 		StringBuilder boardMenuContentHtml = new StringBuilder();
-		
+
 		for (Board board : boards) {
 			boardMenuContentHtml.append("<li>");
 
@@ -82,16 +108,18 @@ public class BuildService {
 
 			boardMenuContentHtml.append("<a href=\"" + link + "\" class=\"block\">");
 
-			String iClass = "fas fa-clipboard-list"; // defult 아이콘
+			boardMenuContentHtml.append(getTitleBarContentByPageName("article_list_" + board.code));
 
-			if (board.code.contains("notice")) { // 공지사항 게시판 아이콘
-				iClass = "fas fa-exclamation";
-			} else if (board.code.contains("free")) { // 자유 게시판 아이콘
-				iClass = "fas fa-users";
-			}
-
-			boardMenuContentHtml.append("<i class=\"" + iClass + "\"></i>");
-			boardMenuContentHtml.append(" <span>" + board.name + "</span>");
+			/*
+			 * String iClass = "fas fa-clipboard-list"; // defult 아이콘
+			 * 
+			 * if (board.code.contains("notice")) { // 공지사항 게시판 아이콘 iClass =
+			 * "fas fa-exclamation"; } else if (board.code.contains("free")) { // 자유 게시판 아이콘
+			 * iClass = "fas fa-users"; }
+			 * 
+			 * boardMenuContentHtml.append("<i class=\"" + iClass + "\"></i>");
+			 * boardMenuContentHtml.append(" <span>" + board.name + "</span>");
+			 */
 			boardMenuContentHtml.append("</a>");
 
 			boardMenuContentHtml.append("</li>");
@@ -99,7 +127,30 @@ public class BuildService {
 		}
 
 		head = head.replace("[게시판 이름 블록]", boardMenuContentHtml.toString());
+
+		String titleBarContentHtml = getTitleBarContentByPageName(pageName);
+		// 입력받은 pageName에 맞는 타이틀바 컨텐츠를 리턴
+
+		head = head.replace("[타이틀바 컨텐츠]", titleBarContentHtml);
+
 		return head;
+	}
+
+	private String getTitleBarContentByPageName(String pageName) {
+		if (pageName.equals("index")) {
+			return "<i class=\"fas fa-home\"></i> <span>HOME</span>";
+		}
+		else if (pageName.equals("article_detail")) {
+			return "<i class=\"fas fa-file-invoice\"></i> <span>ARTICLE DETAIL</span>";
+		}
+		else if (pageName.startsWith("article_list_notice")) {
+			return "<i class=\"fas fa-exclamation\"></i> <span>NOTICE LIST</span>";
+		} else if (pageName.startsWith("article_list_free")) {
+			return "<i class=\"fas fa-users\"></i> <span>FREE LIST</span>";
+		} else if (pageName.startsWith("article_list_")) {
+			return "<i class=\"fas fa-clipboard-list\"></i> <span>ARTICLE LIST</span>";
+		}
+		return "";
 	}
 
 }
