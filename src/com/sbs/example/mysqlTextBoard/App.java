@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import com.sbs.example.mysqlTextBoard.container.Container;
 import com.sbs.example.mysqlTextBoard.controller.ArticleController;
+import com.sbs.example.mysqlTextBoard.controller.BuildController;
 import com.sbs.example.mysqlTextBoard.controller.Controller;
 import com.sbs.example.mysqlTextBoard.controller.MemberController;
 import com.sbs.example.mysqlTextBoard.mysqlutil.MysqlUtil;
@@ -13,11 +14,13 @@ public class App {
 	Scanner sc;
 	ArticleController articleController;
 	MemberController memberController;
+	BuildController buildController;
 
 	public App() {
 		sc = Container.scanner;
 		articleController = Container.articleController;
 		memberController = Container.memberController;
+		buildController = Container.buildController;
 
 	}
 
@@ -58,6 +61,9 @@ public class App {
 			return articleController;
 		} else if (cmd.startsWith("member ")) {
 			return memberController;
+		}
+		else if (cmd.startsWith("build ")) {
+			return buildController;
 		}
 		return null;
 	}
