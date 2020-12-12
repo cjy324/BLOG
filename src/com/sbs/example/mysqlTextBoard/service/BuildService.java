@@ -19,6 +19,9 @@ public class BuildService {
 
 		Util.rmdir("site"); // 기존 site 폴더 삭제
 		Util.mkdir("site"); // 신규 site 폴더 생성
+		
+		//site_template에 있는 app.css(원본)를 복사해 site폴더 생성시 그 안에 복사본 붙여넣기
+		Util.copy("site_template/app.css", "site/app.css");
 
 		List<Article> articles = articleService.getArticlesForPrint();
 

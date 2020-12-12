@@ -5,9 +5,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 public class Util {
 
+	//신규 폴더 생성
 	public static void mkdir(String path) {
 		
 		File dir = new File(path);
@@ -17,7 +22,8 @@ public class Util {
 		}
 		
 	}
-
+	
+	//파일 생성
 	public static void writeFile(String path, String body) {  //body = sb.toString
 		File file = new File(path);
 
@@ -31,6 +37,7 @@ public class Util {
 		
 	}
 
+	//기존 폴더 삭제
 	public static boolean rmdir(String path) {
 		return rmdir(new File(path));
 	}
@@ -67,6 +74,29 @@ public class Util {
 		}
 
 		return rs;
+	}
+
+	// 파일 복붙
+	public static boolean copy(String sourcePath, String destPath) {
+		Path source = Paths.get(sourcePath);
+        Path target = Paths.get(destPath);
+
+        if (!Files.exists(target.getParent())) {
+            try {
+				Files.createDirectories(target.getParent());
+			} catch (IOException e) {
+				e.printStackTrace();
+				return false;
+			}
+        }
+
+        try {
+			Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e) {
+			return true;
+		}
+        
+        return true;
 	}
 
 }
