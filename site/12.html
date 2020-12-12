@@ -5,8 +5,284 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>게시물 상세페이지</title>
+<!-- 폰트어썸 불러오기 -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<style>
+/* 폰트 */
+@font-face {
+	font-family: 'LotteMartDream';
+	font-style: normal;
+	font-weight: 400;
+	src:
+		url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamMedium.woff2')
+		format('woff2'),
+		url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamMedium.woff')
+		format('woff');
+}
+
+@font-face {
+	font-family: 'LotteMartDream';
+	font-style: normal;
+	font-weight: 700;
+	src:
+		url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamBold.woff2')
+		format('woff2'),
+		url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamBold.woff')
+		format('woff');
+}
+
+@font-face {
+	font-family: 'LotteMartDream';
+	font-style: normal;
+	font-weight: 300;
+	src:
+		url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff2')
+		format('woff2'),
+		url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff')
+		format('woff');
+}
+
+html {
+	font-family: 'LotteMartDream', sans-serif;
+}
+
+/* 노말라이즈 */
+body, ul, li, h1, h2, h3 {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+/* 라이브러리 */
+.flex {
+	display: flex;
+}
+
+.flex-jc-c {
+	justify-content: center;
+}
+
+.flex-ai-c {
+	align-items: center;
+}
+
+.flex-wrap {
+	flex-wrap: wrap;
+}
+
+.flex-column {
+	flex-direction: column;
+}
+
+.flex-grow-1 {
+	flex-grow: 1;
+}
+
+.con {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.min-height-100vh {
+	min-height: 100vh;
+}
+
+.bg-pink {
+	background-color: pink;
+}
+
+.bd-green {
+	border: 2px solid green;
+}
+
+.bd-red {
+	border: 2px solid red;
+}
+
+.bd-purple {
+	border: 2px solid purple;
+}
+
+.bg-red {
+	background-color: red;
+}
+
+.bg-blue {
+	background-color: blue;
+}
+
+.height-100p {
+	height: 100%;
+}
+
+.block {
+	display: block;
+}
+
+/* 커스텀 */
+.con-min-width {
+	min-width: 1200px;
+}
+
+.con {
+	width: 1200px;
+}
+
+/* 로고 시작 */
+.logo {
+	font-size: 4rem;
+}
+
+.logo>span {
+	margin-left: 10px;
+}
+
+.logo>span>span {
+	color: red;
+}
+
+.logo--mini {
+	font-size: 2rem;
+}
+/* 로고 끝 */
+
+/* 로고바 시작 */
+.logo-bar {
+	background-color: black;
+	color: white;
+	height: 150px;
+}
+/* 로고바 끝 */
+
+/* 메뉴바 시작 */
+.menu-bar {
+	background-color: black;
+	color: white;
+}
+
+.menu-bar__menu-1>ul>li {
+	width: 25%;
+	position: relative;
+}
+
+.menu-bar__menu-1 ul>li>a {
+	text-align: center;
+	padding: 20px 0;
+}
+
+.menu-bar__menu-1 ul>li:hover>a {
+	background-color: white;
+	color: black;
+}
+
+.menu-bar__menu-1>ul>li>a {
+	border-radius: 10px 10px 0 0;
+}
+
+.menu-bar__menu-1>ul ul {
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: -5px;
+	width: 100%;
+	background-color: black;
+	border: 5px solid black;
+	border-top-width: 0;
+	border-radius: 0 0 16px 16px;
+}
+
+.menu-bar__menu-1>ul>li:hover>ul {
+	display: block;
+}
+
+.menu-bar__menu-1>ul ul>li:last-child>a {
+	border-radius: 0 0 10px 10px;
+}
+/* 메뉴바 끝 */
+
+/* 타이틀바 시작 */
+.title-bar {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+/* 타이틀바 끝 */
+
+/* 게시물 리스트 */
+.article-list div>div {
+	text-align: center;
+	width: 25%;
+	padding: 10px 0;
+}
+
+.article-list div>div:first-child {
+	text-align: center;
+	width: 10%;
+	padding: 10px 0;
+}
+
+.article-list div>div:nth-child(3) {
+	text-align: center;
+	width: 10%;
+	padding: 10px 0;
+}
+
+.article-list div>div:nth-child(4) {
+	text-align: center;
+	width: 55%;
+	padding: 10px 0;
+}
+
+.article-list>main>div {
+	border-top: 1px solid black;
+}
+
+.hover-underline:hover {
+	text-decoration: underline;
+}
+
+.article-list-header>div>div {
+	border-right: 1px solid;
+	border-right-color: black;
+}
+
+.article-list-bottom-cell>div {
+	padding: 10px;
+}
+
+/* 하단바 시작 */
+.bottom-bar {
+	margin-top: 30px;
+	background-color: black;
+	color: white;
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+.bottom-bar__site-info {
+	margin-left: 20px;
+}
+/* 하단바 끝 */
+</style>
 </head>
-		
+
 <body>
-<h1>게시물 상세페이지</h1><div>번호 : 12<br>작성일 : 2020-12-12 10:49:02<br>수정일 : 2020-12-12 10:49:02<br>제목 : 테스트 제목12<br>작성자 : 테스트 멤버<br>내용 : 테스트 내용12<br><a href="11.html">이전글</a><br></div></body>
+	<div class="body-content min-height-100vh flex flex-column">
+		<!-- 로고바 시작 -->
+		<header class="logo-bar con-min-width">
+			<div class="con height-100p flex flex-jc-c">
+				<a href="#" class="logo flex flex-ai-c"> <i
+					class="fab fa-jenkins"></i> <span> Develo<span>p</span>ers
+				</span>
+				</a>
+			</div>
+		</header>
+		<!-- 로고바 끝 -->
+
+		<h1>게시물 상세페이지</h1><div>번호 : 12<br>작성일 : 2020-12-12 10:49:02<br>수정일 : 2020-12-12 10:49:02<br>제목 : 테스트 제목12<br>작성자 : 테스트 멤버<br>내용 : 테스트 내용12<br><a href="11.html">이전글</a><br></div></body>
 </html>

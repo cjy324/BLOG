@@ -18,7 +18,6 @@ public class BuildService {
 		System.out.println("= site 폴더 생성 =");
 
 		Util.rmdir("site"); // 기존 site 폴더 삭제
-		
 		Util.mkdir("site"); // 신규 site 폴더 생성
 
 		List<Article> articles = articleService.getArticlesForPrint();
@@ -27,22 +26,12 @@ public class BuildService {
 		String foot = Util.getFileContents("site_template/foot.html"); // foot.html 가져오기
 
 		int articleIndex = 0;
-
+		
+		System.out.println("= article 상세페이지 생성 =");
 		for (Article article : articles) {
 			StringBuilder html = new StringBuilder();
 
 			// 게시물 1개당 1개의 html 작성
-			/*
-			 * html.append("<!doctype html>"); html.append("<html lang=\"en\">");
-			 * 
-			 * html.append("<head>"); html.append("<meta charset=\"UTF-8\" />"); html.
-			 * append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
-			 * ); html.append("<title>게시물 상세페이지 - " + article.title + "</title>");
-			 * html.append("</head>");
-			 * 
-			 * 
-			 * html.append("<body>"); html.append("<h1>게시물 상세페이지</h1>");
-			 */
 
 			// head.html을 따로 생성해 위쪽에 붙임
 			html.append(head);
@@ -61,12 +50,7 @@ public class BuildService {
 				html.append("<a href=\"" + (article.id + 1) + ".html" + "\">다음글</a><br>");
 			}
 			html.append("</div>");
-
-			/*
-			 * html.append("</body>");
-			 * 
-			 * html.append("</html>");
-			 */
+			
 			// head.html과 마찬가지로 foot.html을 따로 생성해 아래쪽에 붙임
 			html.append(foot);
 
@@ -77,7 +61,9 @@ public class BuildService {
 
 			System.out.println(path + " 생성");
 			articleIndex++;
+			
 		}
+		System.out.println("= article 상세페이지 생성 종료 =");
 	}
 
 }
