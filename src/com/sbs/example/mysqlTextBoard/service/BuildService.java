@@ -15,30 +15,38 @@ public class BuildService {
 	}
 
 	public void builSite() {
-		System.out.println("= site/article 폴더 생성 =");
-		Util.mkdir("site/article");
+		System.out.println("= site 폴더 생성 =");
+
+		Util.rmdir("site"); // 기존 site 폴더 삭제
+		
+		Util.mkdir("site"); // 신규 site 폴더 생성
 
 		List<Article> articles = articleService.getArticlesForPrint();
+
+		String head = Util.getFileContents("site_template/head.html"); // head.html 가져오기
+		String foot = Util.getFileContents("site_template/foot.html"); // foot.html 가져오기
 
 		int articleIndex = 0;
 
 		for (Article article : articles) {
 			StringBuilder html = new StringBuilder();
-			
-			//게시물 1개당 1개의 html 작성
-			html.append("<!doctype html>");
-			html.append("<html lang=\"en\">");
 
-			html.append("<head>");
-			html.append("<meta charset=\"UTF-8\" />");
-			html.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
-			html.append("<title>게시물 상세페이지 - " + article.title + "</title>");
-			html.append("</head>");
+			// 게시물 1개당 1개의 html 작성
+			/*
+			 * html.append("<!doctype html>"); html.append("<html lang=\"en\">");
+			 * 
+			 * html.append("<head>"); html.append("<meta charset=\"UTF-8\" />"); html.
+			 * append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
+			 * ); html.append("<title>게시물 상세페이지 - " + article.title + "</title>");
+			 * html.append("</head>");
+			 * 
+			 * 
+			 * html.append("<body>"); html.append("<h1>게시물 상세페이지</h1>");
+			 */
 
-			
-			html.append("<body>");
-			html.append("<h1>게시물 상세페이지</h1>");
-			
+			// head.html을 따로 생성해 위쪽에 붙임
+			html.append(head);
+
 			html.append("<div>");
 			html.append("번호 : " + article.id + "<br>");
 			html.append("작성일 : " + article.regDate + "<br>");
@@ -46,27 +54,29 @@ public class BuildService {
 			html.append("제목 : " + article.title + "<br>");
 			html.append("작성자 : " + article.extra_memberName + "<br>");
 			html.append("내용 : " + article.body + "<br>");
-			if(articleIndex > 0) {
-				html.append("<a href=\""+ (article.id-1) + ".html" +"\">이전글</a><br>");
+			if (articleIndex > 0) {
+				html.append("<a href=\"" + (article.id - 1) + ".html" + "\">이전글</a><br>");
 			}
-			if(articleIndex < articles.size()-1) {
-				html.append("<a href=\""+ (article.id+1) + ".html" +"\">다음글</a><br>");
+			if (articleIndex < articles.size() - 1) {
+				html.append("<a href=\"" + (article.id + 1) + ".html" + "\">다음글</a><br>");
 			}
-			
-			
 			html.append("</div>");
-			
-			html.append("</body>");
 
-			html.append("</html>");
+			/*
+			 * html.append("</body>");
+			 * 
+			 * html.append("</html>");
+			 */
+			// head.html과 마찬가지로 foot.html을 따로 생성해 아래쪽에 붙임
+			html.append(foot);
 
 			String fileName = article.id + ".html";
-			String path = "site/article/" + fileName;
-			
+			String path = "site/" + fileName;
+
 			Util.writeFile(path, html.toString());
-			
+
 			System.out.println(path + " 생성");
-			articleIndex++;  
+			articleIndex++;
 		}
 	}
 
