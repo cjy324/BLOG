@@ -27,20 +27,18 @@ public class BuildService {
 		buildIndexPage(); // 함수로 정리
 		buildArticleListPages();
 		buildArticleDetailPages();
-		
+
 	}
 
 	// 각 게시판 별 게시물리스트 페이지 생성
 	private void buildArticleListPages() {
 
 		System.out.println("= article 리스트 페이지 생성 =");
-		
-		
+
 		String foot = Util.getFileContents("site_template/foot.html");
 
 		List<Board> boards = articleService.getBoards();
 
-		
 		for (Board board : boards) {
 			String head = getHeadHtml("article_list_" + board.code);
 			String fileName = board.code + "-list-1.html";
@@ -48,19 +46,20 @@ public class BuildService {
 			String html = "";
 
 			List<Article> articles = articleService.getBoardArticlesByCodeForPrint(board.code);
-			
+
 			String template = Util.getFileContents("site_template/list.html");
 
 			for (Article article : articles) {
-	
+
 				html += "<div>";
 				html += "<div class=\"article-list__cell-id\">" + article.id + "</div>";
 				html += "<div class=\"article-list__cell-reg-date\">" + article.regDate + "</div>";
 				html += "<div class=\"article-list__cell-writer\">" + article.extra_memberName + "</a></div>";
-				html += "<div class=\"article-list__cell-title\"><a href=\"" + article.id + ".html\" class=\"hover-underline\">" + article.title + "</a></div>";
+				html += "<div class=\"article-list__cell-title\"><a href=\"" + article.id
+						+ ".html\" class=\"hover-underline\">" + article.title + "</a></div>";
 				html += "</div>";
 			}
-			
+
 			html = template.replace("[게시물 리스트 블록]", html);
 
 			html = head + html + foot;
@@ -89,84 +88,90 @@ public class BuildService {
 		Util.writeFile(path, html.toString());
 	}
 
-	// 게시물 상세페이지 생성
+	// 게시판 별 게시물 상세페이지 생성
 	private void buildArticleDetailPages() {
-		List<Article> articles = articleService.getArticlesForPrint();
+		List<Board> boards = articleService.getBoards();
 
-		String head = getHeadHtml("article_detail");
-		String foot = Util.getFileContents("site_template/foot.html"); // foot.html 가져오기
-		
-		String template = Util.getFileContents("site_template/detail.html");
+		for (Board board : boards) {
+			List<Article> articles = articleService.getBoardArticlesByCodeForPrint(board.code);
+			int articlesSize = articles.size();
+			int beforeArticleIndex = 0;
+			int x = beforeArticleIndex;
+			int beforeArticleId = articles.get(x).id;
 
-		System.out.println("= article 상세페이지 생성 =");
-		int articleIndex = 0;
-		for (Article article : articles) {
-			Board board = articleService.getBoardById(article.boardId);
-			StringBuilder html = new StringBuilder();
+			String head = getHeadHtml("article_detail");
+			String foot = Util.getFileContents("site_template/foot.html");
 
-			// 게시물 1개당 1개의 html 작성
+			String template = Util.getFileContents("site_template/detail.html");
 
-			// head.html을 따로 생성해 위쪽에 붙임
-			
-			html.append(head);
-			
-			String html2 = "";
-			
-			html2 += "<div class=\"article-detail-cell__id\">";
-			html2 += "<div>";
-			html2 += "<span>번호 : </span><span>" + article.id + "</span>";
-			html2 += "</div>";
-			html2 += "</div>";
-			html2 += "<div class=\"article-detail-cell__title\">";
-			html2 += "<div>";
-			html2 += "<span>제목 : </span><span>" + article.title + "</span>";
-			html2 += "</div>";
-			html2 += "</div>";
-			html2 += "<div class=\"article-detail-cell__title\">";
-			html2 += "<div>";
-			html2 += "<span>작성자 : </span><span>" + article.extra_memberName + "</span>";
-			html2 += "</div>";
-			html2 += "</div>";
-			html2 += "<div class=\"article-detail-cell__title\">";
-			html2 += "<div>";
-			html2 += "<span>작성일 : </span><span>" + article.regDate + "</span>";
-			html2 += "</div>";
-			html2 += "</div><br>";
-			html2 += "<div class=\"article-detail-cell__body height-70p \">";
-			html2 += "<div>";
-			html2 += "<span>" + article.body + "</span>";
-			html2 += "</div>";
-			html2 += "</div><br><br>";
+			System.out.println("= article 상세페이지 생성 =");
 
-			html2 += "</div></section><section class=\"section-3 con-min-width\"><div class=\"con\"><div class=\"article-list-bottom-cell flex flex-jc-c\">";
+			for (Article article : articles) {
 
-			if (articleIndex > 0) {
-				html2 += "<div class=\"./\"><a href=\"" + (article.id - 1) + ".html" + "\" class=\"hover-underline\">&lt 이전글</a></div>";
+				StringBuilder html = new StringBuilder();
+
+				html.append(head);
+
+				String html2 = "";
+
+				html2 += "<div class=\"article-detail-cell__id\">";
+				html2 += "<div>";
+				html2 += "<span>번호 : </span><span>" + article.id + "</span>";
+				html2 += "</div>";
+				html2 += "</div>";
+				html2 += "<div class=\"article-detail-cell__title\">";
+				html2 += "<div>";
+				html2 += "<span>제목 : </span><span>" + article.title + "</span>";
+				html2 += "</div>";
+				html2 += "</div>";
+				html2 += "<div class=\"article-detail-cell__title\">";
+				html2 += "<div>";
+				html2 += "<span>작성자 : </span><span>" + article.extra_memberName + "</span>";
+				html2 += "</div>";
+				html2 += "</div>";
+				html2 += "<div class=\"article-detail-cell__title\">";
+				html2 += "<div>";
+				html2 += "<span>작성일 : </span><span>" + article.regDate + "</span>";
+				html2 += "</div>";
+				html2 += "</div><br>";
+				html2 += "<div class=\"article-detail-cell__body height-70p \">";
+				html2 += "<div>";
+				html2 += "<span>" + article.body + "</span>";
+				html2 += "</div>";
+				html2 += "</div><br><br>";
+
+				html2 += "</div></section><section class=\"section-3 con-min-width\"><div class=\"con\"><div class=\"article-list-bottom-cell flex flex-jc-c\">";
+
+				if (article.id > beforeArticleId) {
+					html2 += "<div class=\"./\"><a href=\"" + articles.get(x - 1).id + ".html"
+							+ "\" class=\"hover-underline\">&lt 이전글</a></div>";
+				}
+
+				html2 += "<div class=\"./\"><i class=\"fas fa-th-list\"></i><a href=\"" + board.code + "-list-1.html"
+						+ "\" class=\"hover-underline\"> 목록 </a></div>";
+				if (x < articlesSize - 1) {
+					html2 += "<div class=\"./\"><a href=\"" + articles.get(x + 1).id + ".html"
+							+ "\"class=\"hover-underline\">다음글 &gt</a></div>";
+				}
+
+				html2 = template.replace("[상세페이지 블록]", html2);
+
+				html.append(html2);
+				html.append(foot);
+
+				String fileName = article.id + ".html";
+				String path = "site/" + fileName;
+
+				Util.writeFile(path, html.toString());
+
+				System.out.println(path + " 생성");
+				x++;
+				beforeArticleId = articles.get(x - 1).id;
+
 			}
-			
-			html2 += "<div class=\"./\"><i class=\"fas fa-th-list\"></i><a href=\"" + board.code + "-list-1.html" + "\" class=\"hover-underline\"> 목록 </a></div>";
-			if (articleIndex < articles.size() - 1) {
-				html2 += "<div class=\"./\"><a href=\"" + (article.id + 1) + ".html" + "\"class=\"hover-underline\">다음글 &gt</a></div>";
-			}
-		
-			
-			html2 = template.replace("[상세페이지 블록]", html2);
-			
-			
-			html.append(html2);
-			html.append(foot);
-
-			String fileName = article.id + ".html";
-			String path = "site/" + fileName;
-
-			Util.writeFile(path, html.toString());
-
-			System.out.println(path + " 생성");
-			articleIndex++;
+			System.out.println("= article 상세페이지 생성 종료 =");
 
 		}
-		System.out.println("= article 상세페이지 생성 종료 =");
-
 	}
 
 	// head.html 가져오기
@@ -185,16 +190,6 @@ public class BuildService {
 
 			boardMenuContentHtml.append(getTitleBarContentByPageName("article_list_" + board.code));
 
-			/*
-			 * String iClass = "fas fa-clipboard-list"; // defult 아이콘
-			 * 
-			 * if (board.code.contains("notice")) { // 공지사항 게시판 아이콘 iClass =
-			 * "fas fa-exclamation"; } else if (board.code.contains("free")) { // 자유 게시판 아이콘
-			 * iClass = "fas fa-users"; }
-			 * 
-			 * boardMenuContentHtml.append("<i class=\"" + iClass + "\"></i>");
-			 * boardMenuContentHtml.append(" <span>" + board.name + "</span>");
-			 */
 			boardMenuContentHtml.append("</a>");
 
 			boardMenuContentHtml.append("</li>");
