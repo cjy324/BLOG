@@ -95,6 +95,9 @@ public class BuildService {
 		for (Board board : boards) {
 			List<Article> articles = articleService.getBoardArticlesByCodeForPrint(board.code);
 			int articlesSize = articles.size();
+			if(articlesSize <= 0) {
+				break;
+			}
 			int beforeArticleIndex = 0;
 			int x = beforeArticleIndex;
 			int beforeArticleId = articles.get(x).id;
