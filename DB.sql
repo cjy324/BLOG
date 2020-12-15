@@ -16,6 +16,11 @@ SET loginId = 'asd',
 loginPw = 'asd',
 `name` = '테스트 관리자';
 
+INSERT INTO `member`
+SET loginId = 'asdf',
+loginPw = 'asdf',
+`name` = '아무개';
+
 SELECT * FROM `member`;
 
 CREATE TABLE `board`(
@@ -29,6 +34,10 @@ SELECT * FROM `board`;
 INSERT INTO `board`
 SET `name` = '공지사항',
 `code` = 'notice';
+
+INSERT INTO `board`
+SET `name` = '자유',
+`code` = 'free';
 
 SELECT * FROM `board`;
 
@@ -68,6 +77,24 @@ SET `regDate` = NOW(),
 `boardId` = 1,
 `memberId` = 1;
 
+#게시물 랜덤 생성
+INSERT INTO `article`
+SET `regDate` = NOW(),
+`updateDate` = NOW(),
+`title` = CONCAT('제목_',RAND()),
+`body` = CONCAT('내용_',RAND()),
+`boardId` = FLOOR(RAND()*2) + 1,
+`memberId` = FLOOR(RAND()*2) + 1;
+
+#게시물 랜덤 생성
+INSERT INTO `article`
+SET `regDate` = NOW(),
+`updateDate` = NOW(),
+`title` = CONCAT('제목_',RAND()),
+`body` = CONCAT('내용_',RAND()),
+`boardId` = FLOOR(RAND()*2) + 1,
+`memberId` = FLOOR(RAND()*2) + 1;
+
 SELECT * FROM `article`;
 
 CREATE TABLE `reply`(
@@ -95,3 +122,4 @@ CREATE TABLE `view`(
 );
 
 SELECT * FROM `view`;
+

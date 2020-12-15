@@ -1,5 +1,6 @@
 package com.sbs.example.mysqlTextBoard.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.sbs.example.mysqlTextBoard.container.Container;
@@ -35,39 +36,155 @@ public class BuildService {
 
 		System.out.println("= article 리스트 페이지 생성 =");
 
-		String foot = Util.getFileContents("site_template/foot.html");
-
 		List<Board> boards = articleService.getBoards();
-
+		int itemsInAPage  = 3;
+		int pageBoxMenuSize = 10;
+		
 		for (Board board : boards) {
-			String head = getHeadHtml("article_list_" + board.code);
-			String fileName = board.code + "-list-1.html";
-
-			String html = "";
 
 			List<Article> articles = articleService.getBoardArticlesByCodeForPrint(board.code);
+			Collections.reverse(articles);
 
-			String template = Util.getFileContents("site_template/list.html");
+			// 3개씩 페이징
+			
+			int articlesCount = articles.size();
+			
+			int totalPages = (int) Math.ceil((double) articlesCount / itemsInAPage);
 
-			for (Article article : articles) {
-
-				html += "<div>";
-				html += "<div class=\"article-list__cell-id\">" + article.id + "</div>";
-				html += "<div class=\"article-list__cell-reg-date\">" + article.regDate + "</div>";
-				html += "<div class=\"article-list__cell-writer\">" + article.extra_memberName + "</a></div>";
-				html += "<div class=\"article-list__cell-title\"><a href=\"" + article.id
-						+ ".html\" class=\"hover-underline\">" + article.title + "</a></div>";
-				html += "</div>";
+			// 페이지를 1개씩 생성
+			for (int i = 1; i <= totalPages; i++) {
+				buildArticleListPage(board, itemsInAPage, pageBoxMenuSize, articles, i);
 			}
 
-			html = template.replace("[게시물 리스트 블록]", html);
-
-			html = head + html + foot;
-
-			Util.writeFile("site/" + fileName, html);
 		}
 
 		System.out.println("= article 리스트 페이지 생성 종료 =");
+	}
+
+	private void buildArticleListPage(Board board, int itemsInAPage, int pageBoxSize, List<Article> articles, int page) {
+
+		StringBuilder sb = new StringBuilder();
+
+		
+		// 헤더 시작
+		sb.append(getHeadHtml("article_list_" + board.code));
+		
+		// 바디 시작
+		String bodyTemplate = Util.getFileContents("site_template/list.html");
+
+		StringBuilder mainContent = new StringBuilder();
+	
+		
+		int articlesCount = articles.size();
+		int startPoint = (page - 1) * itemsInAPage; 
+		int endPoint = startPoint + itemsInAPage - 1; 
+
+		if (endPoint >= articlesCount) {
+			endPoint = articlesCount - 1;
+		}
+
+		for (int i = startPoint; i <= endPoint; i++) {
+
+			Article article = articles.get(i);
+
+			String link = article.id + ".html";
+
+			mainContent.append("<div>");
+			mainContent.append("<div class=\"article-list__cell-id\">" + article.id + "</div>");
+			mainContent.append("<div class=\"article-list__cell-reg-date\">" + article.regDate + "</div>");
+			mainContent.append("<div class=\"article-list__cell-writer\">" + article.extra_memberName + "</div>");
+			mainContent.append("<div class=\"article-list__cell-title\">");
+
+			mainContent.append("<a href=\"" + link + "\" class=\"hover-underline\">" + article.title + "</a>");
+
+			mainContent.append("</div>");
+			mainContent.append("</div>");
+		}
+		
+		
+		StringBuilder pageMenuContent = new StringBuilder();
+		
+		//토탈페이지 계산
+		int totalPage = (int) Math.ceil((double) articlesCount / itemsInAPage);
+		
+		// 현재 페이지 계산
+		if (page < 1) {
+			page = 1;
+		}
+
+		if (page > totalPage) {
+			page = totalPage;
+		}
+
+
+		// 현재 페이지 박스 시작, 끝 계산
+		int previousPageBoxesCount = (page - 1) / pageBoxSize;
+		int pageBoxStartPage = pageBoxSize * previousPageBoxesCount + 1;
+		int pageBoxEndPage = pageBoxStartPage + pageBoxSize - 1;
+
+		if (pageBoxEndPage > totalPage) {
+			pageBoxEndPage = totalPage;
+		}
+		
+		// 이전버튼 페이지 계산
+		int pageBoxStartBeforePage = pageBoxStartPage - 1;
+		if (pageBoxStartBeforePage < 1) {
+			pageBoxStartBeforePage = 1;
+		}
+
+		// 다음버튼 페이지 계산
+		int pageBoxEndAfterPage = pageBoxEndPage + 1;
+
+		if (pageBoxEndAfterPage > totalPage) {
+			pageBoxEndAfterPage = totalPage;
+		}
+
+		// 이전버튼 노출여부 계산
+		boolean pageBoxStartBeforeBtnNeedToShow = pageBoxStartBeforePage != pageBoxStartPage;
+		// 다음버튼 노출여부 계산
+		boolean pageBoxEndAfterBtnNeedToShow = pageBoxEndAfterPage != pageBoxEndPage;
+
+		if (pageBoxStartBeforeBtnNeedToShow) {
+			pageMenuContent.append("<li><a href=\"" + getArticleListFileName(board, pageBoxStartBeforePage)
+					+ "\" class=\"flex flex-ai-c\">&lt; 이전</a></li>");
+		}
+
+		for (int i = pageBoxStartPage; i <= pageBoxEndPage; i++) {
+			String selectedClass = "";
+
+			if (i == page) {
+				selectedClass = "article-page-menu__link--selected";
+			}
+
+			pageMenuContent.append("<li><a href=\"" + getArticleListFileName(board, i) + "\" class=\"flex flex-ai-c "
+					+ selectedClass + "\">" + i + "</a></li>");
+		}
+
+		if (pageBoxEndAfterBtnNeedToShow) {
+			pageMenuContent.append("<li><a href=\"" + getArticleListFileName(board, pageBoxEndAfterPage)
+					+ "\" class=\"flex flex-ai-c\">다음 &gt;</a></li>");
+		}
+		
+		
+		String body = bodyTemplate.replace("[게시물 리스트 블록]", mainContent.toString());
+		body = body.replace("[게시물 리스트 페이지메뉴 블록]", pageMenuContent.toString());
+
+		sb.append(body);
+
+		// 푸터 시작
+		sb.append(Util.getFileContents("site_template/foot.html"));
+
+		// 파일 생성 시작
+		String fileName = getArticleListFileName(board, page);
+		String filePath = "site/" + fileName;
+
+		Util.writeFile(filePath, sb.toString());
+		System.out.println(filePath + " 생성");
+
+	}
+
+	private String getArticleListFileName(Board board, int page) {
+		return board.code + "-list-" + page + ".html";
 	}
 
 	private void buildIndexPage() {
@@ -94,8 +211,9 @@ public class BuildService {
 
 		for (Board board : boards) {
 			List<Article> articles = articleService.getBoardArticlesByCodeForPrint(board.code);
+			
 			int articlesSize = articles.size();
-			if(articlesSize <= 0) {
+			if (articlesSize <= 0) {
 				break;
 			}
 			int beforeArticleIndex = 0;
