@@ -35,41 +35,124 @@ public class BuildService {
 
 		System.out.println("= article 리스트 페이지 생성 =");
 
-		String foot = Util.getFileContents("site_template/foot.html");
-
 		List<Board> boards = articleService.getBoards();
 
 		for (Board board : boards) {
-			String head = getHeadHtml("article_list_" + board.code);
-			String fileName = board.code + "-list-1.html";
-
-			StringBuilder html = new StringBuilder();
 
 			List<Article> articles = articleService.getBoardArticlesByCodeForPrint(board.code);
 
-			String template = Util.getFileContents("site_template/list.html");
+			int articlesInAPage = 5; // 한 페이지에 들어갈 article 수 설정
+			int pageMenuBoxSize = 5; // 한 메인페이지 화면에 나올 하단 페이지 메뉴 버튼 수 ex) 1 2 3 4 5 6 7 8 9 10
+			int totalArticlesCount = articles.size(); // 전체 article의 수 카운팅
+			int totalPages = (int) Math.ceil((double) totalArticlesCount / articlesInAPage); // 총 필요 페이지 수 카운팅
 
-			html.append(head);
-			
-			StringBuilder body = new StringBuilder();
-			for (Article article : articles) {
-				
-				body.append("<div>");
-				body.append("<div class=\"article-list__cell-id\">" + article.id + "</div>");
-				body.append("<div class=\"article-list__cell-reg-date\">" + article.regDate + "</div>");
-				body.append("<div class=\"article-list__cell-writer\">" + article.extra_memberName + "</a></div>");
-				body.append("<div class=\"article-list__cell-title\"><a href=\"" + article.id
-						+ ".html\" class=\"hover-underline\">" + article.title + "</a></div>");
-				body.append("</div>");
+			// 각각의 페이지를 한개씩 반복적으로 생성
+			// 총 필요 페이지 수까지
+			for (int page = 1; page <= totalPages; page++) {
+				buildArticleListPage(board, articles, articlesInAPage, pageMenuBoxSize, totalPages, page);
 			}
-
-			html.append(template.replace("[게시물 리스트 블록]", body));
-			html.append(foot);
-
-			Util.writeFile("site/" + fileName, html.toString());
 		}
 
 		System.out.println("= article 리스트 페이지 생성 종료 =");
+	}
+
+	private void buildArticleListPage(Board board, List<Article> articles, int articlesInAPage, int pageMenuBoxSize,
+			int totalPages, int page) {
+
+		System.out.println("= " + board.name + " 리스트 페이지 생성 =");
+
+		String head = getHeadHtml("article_list_" + board.code);
+		String foot = Util.getFileContents("site_template/foot.html");
+
+		StringBuilder html = new StringBuilder();
+
+		String template = Util.getFileContents("site_template/list.html");
+
+		html.append(head);
+
+		// 1~10 11~20 21~30 ......
+		int startPoint = (page - 1) * articlesInAPage; // page=1일때 index=0(즉,id = 1) 2 10(11) 3 20(21)
+		int endPoint = startPoint + articlesInAPage - 1; // page=1일때 index0~9 -> id1~10
+
+		if (endPoint >= articles.size() - 1) {
+			endPoint = articles.size() - 1;
+		}
+
+		StringBuilder mainBody = new StringBuilder();
+		for (int i = startPoint; i <= endPoint; i++) {
+			Article article = articles.get(i);
+
+			mainBody.append("<div>");
+			mainBody.append("<div class=\"article-list__cell-id\">" + article.id + "</div>");
+			mainBody.append("<div class=\"article-list__cell-reg-date\">" + article.regDate + "</div>");
+			mainBody.append("<div class=\"article-list__cell-writer\">" + article.extra_memberName + "</a></div>");
+			mainBody.append("<div class=\"article-list__cell-title\"><a href=\"" + article.id
+					+ ".html\" class=\"hover-underline\">" + article.title + "</a></div>");
+			mainBody.append("</div>");
+		}
+
+		// 하단 페이지 이동 버튼 메뉴 만들기
+		// 1. pageMenuBox내 시작 번호, 끝 번호 설정
+
+		int previousPageNumCount = (page - 1) / pageMenuBoxSize; // 현재 페이지가 2이면 previousPageNumCount = 1/5
+		int boxStartNum = pageMenuBoxSize * previousPageNumCount + 1; // 총 페이지 수 30이면 1~5 6~10 11~15
+		int boxEndNum = pageMenuBoxSize + boxStartNum - 1;
+
+		if (boxEndNum > totalPages) {
+			boxEndNum = totalPages;
+		}
+
+		// 2. '이전','다음' 버튼 페이지 계산
+		int boxStartNumBeforePage = boxStartNum - 1;
+		if (boxStartNumBeforePage < 1) {
+			boxStartNumBeforePage = 1;
+		}
+		int boxEndNumAfterPage = boxEndNum + 1;
+		if (boxEndNumAfterPage > totalPages) {
+			boxEndNumAfterPage = totalPages;
+		}
+
+		// 3. '이전','다음' 버튼 필요 유무 판별
+		boolean boxStartNumBeforePageBtnNeedToShow = boxStartNumBeforePage != boxStartNum;
+		boolean boxEndNumAfterPageBtnNeedToShow = boxEndNumAfterPage != boxEndNum;
+
+		StringBuilder pageMenuBody = new StringBuilder();
+
+		link(board, page);
+
+		if (boxStartNumBeforePageBtnNeedToShow) {
+			pageMenuBody.append("<li><a href=\"" + link(board, boxStartNumBeforePage)
+					+ "\" class=\"flex flex-ai-c\"> &lt; 이전</a></li>");
+		}
+
+		for (int i = boxStartNum; i <= boxEndNum; i++) {
+			String selectedPageNum = "";
+			if (i == page) {
+				selectedPageNum = "article-page-menu__link--selected";
+			}
+			pageMenuBody.append("<li><a href=\"" + link(board, i) + "\" class=\"flex flex-ai-c " + selectedPageNum
+					+ "\">" + i + "</a></li>");
+		}
+		if (boxEndNumAfterPageBtnNeedToShow) {
+			pageMenuBody.append("<li><a href=\"" + link(board, boxEndNumAfterPage)
+					+ "\" class=\"flex flex-ai-c\">다음 &gt;</a></li>");
+		}
+
+		String bodyTemplate = template.replace("[게시물 리스트 블록]", mainBody); // list 템플릿에 mainBody 끼워넣고
+		html.append(bodyTemplate.replace("[게시물 리스트 페이지메뉴 블록]", pageMenuBody)); // bodyTemplate에 다시 pageMenuBody 끼워넣기
+		html.append(foot);
+
+		String fileName = board.code + "-list-" + page + ".html";
+
+		Util.writeFile("site/" + fileName, html.toString());
+
+		System.out.println("= " + board.name + " 리스트 " + page + "페이지 생성 완료 =");
+
+	}
+
+	private String link(Board board, int page) {
+		return board.code + "-list-" + page + ".html";
+
 	}
 
 	// 인덱스 페이지 생성
