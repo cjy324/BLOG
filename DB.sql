@@ -77,23 +77,6 @@ SET `regDate` = NOW(),
 `boardId` = 1,
 `memberId` = 1;
 
-#게시물 랜덤 생성
-INSERT INTO `article`
-SET `regDate` = NOW(),
-`updateDate` = NOW(),
-`title` = CONCAT('제목_',RAND()),
-`body` = CONCAT('내용_',RAND()),
-`boardId` = FLOOR(RAND()*2) + 1,
-`memberId` = FLOOR(RAND()*2) + 1;
-
-#게시물 랜덤 생성
-INSERT INTO `article`
-SET `regDate` = NOW(),
-`updateDate` = NOW(),
-`title` = CONCAT('제목_',RAND()),
-`body` = CONCAT('내용_',RAND()),
-`boardId` = FLOOR(RAND()*2) + 1,
-`memberId` = FLOOR(RAND()*2) + 1;
 
 SELECT * FROM `article`;
 
@@ -123,3 +106,46 @@ CREATE TABLE `view`(
 
 SELECT * FROM `view`;
 
+#게시물 랜덤 생성
+INSERT INTO `article`
+SET `regDate` = NOW(),
+`updateDate` = NOW(),
+`title` = CONCAT('제목_',RAND()),
+`body` = CONCAT('내용_',RAND()),
+`boardId` = FLOOR(RAND()*2) + 1,
+`memberId` = FLOOR(RAND()*2) + 1;
+
+#게시물 랜덤 생성
+INSERT INTO `article`
+SET `regDate` = NOW(),
+`updateDate` = NOW(),
+`title` = CONCAT('제목_',RAND()),
+`body` = CONCAT('내용_',RAND()),
+`boardId` = FLOOR(RAND()*2) + 1,
+`memberId` = FLOOR(RAND()*2) + 1;
+
+# 1번글 내용에 마크다운 넣기
+UPDATE `article` 
+SET `title` = '마크다운 적용 확인용 공지',
+`body` = '# 마크다운 적용 확인용 내용 \n ## 마크다운 적용 확인용 내용 \n  - 마크다운 적용 확인용 내용'
+WHERE `id` = '1'; 
+
+# 2번글 내용에 자바소스코드 넣기
+UPDATE article 
+SET `title` = '하이라이트 적용 확인용 공지2',
+`body` = '# 자바기본문법\r\n```java\r\nint a = 10;\r\nint b = 20;\r\nint c = a + b;\r\n```'
+WHERE id = '2'; 
+
+SELECT * FROM `article`;
+
+# 운영 시작
+TRUNCATE `article`;
+TRUNCATE `member`;
+
+SELECT * FROM `member`;
+
+INSERT INTO `board`
+SET `name` = 'JAVA',
+`code` = 'java';
+
+SELECT * FROM `article`;
