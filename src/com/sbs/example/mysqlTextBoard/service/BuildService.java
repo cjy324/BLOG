@@ -57,6 +57,7 @@ public class BuildService {
 		System.out.println("= article 리스트 페이지 생성 종료 =");
 	}
 
+	// 게시판 페이지별 게시물 리스트 생성
 	private void buildArticleListPage(Board board, List<Article> articles, int articlesInAPage, int pageMenuBoxSize,
 			int totalPages, int page) {
 
@@ -182,8 +183,9 @@ public class BuildService {
 		for (Board board : boards) {
 			List<Article> articles = articleService.getBoardArticlesByCodeForPrint(board.code);
 			int articlesSize = articles.size();
+			
 			if (articlesSize <= 0) {
-				break;
+				continue;
 			}
 			int beforeArticleIndex = 0;
 			int x = beforeArticleIndex;
@@ -302,11 +304,13 @@ public class BuildService {
 		} else if (pageName.equals("article_detail")) {
 			return "<i class=\"fas fa-file-invoice\"></i> <span>ARTICLE DETAIL</span>";
 		} else if (pageName.startsWith("article_list_notice")) {
-			return "<i class=\"fas fa-exclamation\"></i> <span>NOTICE LIST</span>";
+			return "<i class=\"fas fa-exclamation\"></i> <span>NOTICE BOARD</span>";
 		} else if (pageName.startsWith("article_list_free")) {
-			return "<i class=\"fas fa-users\"></i> <span>FREE LIST</span>";
+			return "<i class=\"fas fa-users\"></i> <span>FREE BOARD</span>";
+		} else if (pageName.startsWith("article_list_java")) {
+			return "<i class=\"fab fa-java\"></i> <span>JAVA BOARD</span>";
 		} else if (pageName.startsWith("article_list_")) {
-			return "<i class=\"fas fa-clipboard-list\"></i> <span>ARTICLE LIST</span>";
+			return "<i class=\"fas fa-clipboard-list\"></i> <span>NONAME BOARD</span>";
 		}
 		return "";
 	}

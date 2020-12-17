@@ -66,6 +66,10 @@ a {
   min-height:100vh;
 }
 
+.min-height-70vh {
+  min-height:70vh;
+}
+
 .bg-pink {
   background-color:pink;
 }

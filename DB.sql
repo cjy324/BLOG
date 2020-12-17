@@ -46,7 +46,7 @@ CREATE TABLE `article`(
     regDate DATETIME NOT NULL,
     updateDate DATETIME NOT NULL,
     title CHAR(100) NOT NULL,
-    `body` CHAR(100) NOT NULL,
+    `body` TEXT NOT NULL,
     boardId INT(10) NOT NULL,
     memberId INT(10) NOT NULL
 );
@@ -83,7 +83,7 @@ SELECT * FROM `article`;
 CREATE TABLE `reply`(
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,    
-    replyBody CHAR(100) NOT NULL,
+    replyBody TEXT NOT NULL,
     replyArticleId INT(10) NOT NULL,
     replyMemberId INT(10) NOT NULL
 );
@@ -135,17 +135,5 @@ UPDATE article
 SET `title` = '하이라이트 적용 확인용 공지2',
 `body` = '# 자바기본문법\r\n```java\r\nint a = 10;\r\nint b = 20;\r\nint c = a + b;\r\n```'
 WHERE id = '2'; 
-
-SELECT * FROM `article`;
-
-# 운영 시작
-TRUNCATE `article`;
-TRUNCATE `member`;
-
-SELECT * FROM `member`;
-
-INSERT INTO `board`
-SET `name` = 'JAVA',
-`code` = 'java';
 
 SELECT * FROM `article`;
