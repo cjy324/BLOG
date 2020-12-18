@@ -231,6 +231,26 @@ public class BuildService {
 				body.append("<span>" + article.body + "</span>");
 				body.append("</div>");
 				body.append("</div><br><br>");
+				//댓글 유틸 disqus 적용
+				body.append("<nav><div id=\"disqus_thread\"></div>\r\n"
+						+ "<script>\r\n"
+						+ "    /**\r\n"
+						+ "    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.\r\n"
+						+ "    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */\r\n"
+						+ "    /*\r\n"
+						+ "    var disqus_config = function () {\r\n"
+						+ "    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable\r\n"
+						+ "    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable\r\n"
+						+ "    };\r\n"
+						+ "    */\r\n"
+						+ "    (function() { // DON'T EDIT BELOW THIS LINE\r\n"
+						+ "    var d = document, s = d.createElement('script');\r\n"
+						+ "    s.src = 'https://devj-blog.disqus.com/embed.js';\r\n"
+						+ "    s.setAttribute('data-timestamp', +new Date());\r\n"
+						+ "    (d.head || d.body).appendChild(s);\r\n"
+						+ "    })();\r\n"
+						+ "</script>\r\n"
+						+ "<noscript>Please enable JavaScript to view the <a href=\"https://disqus.com/?ref_noscript\">comments powered by Disqus.</a></noscript></nav>");
 
 				body.append(
 						"</div></section><section class=\"section-3 con-min-width\"><div class=\"con\"><div class=\"article-list-bottom-cell flex flex-jc-c\">");
