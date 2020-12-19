@@ -1,4 +1,4 @@
-/* 폰트 */
+/* 폰트 1*/
 @font-face {
   font-family: 'LotteMartDream';
   font-style: normal;
@@ -17,8 +17,12 @@
   font-weight: 300;
   src: url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff2') format('woff2'), url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff') format('woff');
 }
-html, .tui-editor-contents {
-	font-family: 'LotteMartDream', sans-serif !important;
+/* 폰트 2 */
+@import url('https://fonts.googleapis.com/css2?family=Arvo&display=swap');
+
+html {
+  font-family: 'LotteMartDream', sans-serif;
+  
 }
 
 /* 노말라이즈 */
@@ -66,8 +70,8 @@ a {
   min-height:100vh;
 }
 
-.min-height-70vh {
-  min-height:70vh;
+.min-height-50vh {
+  min-height:50vh;
 }
 
 .bg-pink {
@@ -75,15 +79,15 @@ a {
 }
 
 .bd-green {
-  border:2px solid green;
+  border:3px solid green;
 }
 
 .bd-red {
-  border:2px solid red;
+  border:3px solid red;
 }
 
 .bd-purple {
-  border:2px solid purple;
+  border:3px solid purple;
 }
 
 .bg-red {
@@ -124,16 +128,28 @@ a {
   width:1200px;
 }
 
+.side-bar-header{
+  position:relative;
+}
+
+.side-bar-header_con{
+  position:relative;
+}
+
+
 /* 로고 시작 */
 .logo {
+  font-family: 'Arvo', serif;
   font-size:4rem;
+  font-weight:bold;
 }
 
 .logo > span {
-  margin-left:10px;
+ 
 }
 
 .logo > span > span {
+  margin-right:5%;
   color:red;
 }
 
@@ -141,6 +157,7 @@ a {
   font-size:2rem;
 }
 /* 로고 끝 */
+
 
 /* 로고바 시작 */
 .logo-bar {
@@ -150,10 +167,13 @@ a {
 }
 /* 로고바 끝 */
 
+
+
 /* 메뉴바 시작 */
 .menu-bar {
   background-color:black;
   color:white;
+  font-weight:bold;
 }
 
 .menu-bar__menu-1 > ul > li {
@@ -185,7 +205,7 @@ a {
   border:5px solid black;
   border-top-width:0;
   border-radius:0 0 16px 16px;
-  z-index: 10;
+  z-index:10;
 }
 
 .menu-bar__menu-1 > ul > li:hover > ul {
@@ -197,27 +217,35 @@ a {
 }
 /* 메뉴바 끝 */
 
+
+
 /* 타이틀바 시작 */
 .title-bar {
   margin-top:30px;
   margin-bottom:30px;
 }
+/* 타이틀바 끝 */
 
+
+/* 메인-index 페이지 시작 */
 .section-home{
   font-size:1.2rem;
   font-weight:bold;
   padding:20px;
 }
-/* 타이틀바 끝 */
+/* 메인-index 페이지 끝 */
+
+
 
 /* 게시물 상세페이지 시작 */
 .section-2{
-  font-size:1.2rem;
+  font-size:1.1rem;
 }
 
 .article-detail-cell__body{
-  border-top:4px solid black;
-  padding:20px;
+  border-top:7px solid black;
+  border-bottom:7px solid black;
+  padding:30px;
 }
 .article-list-bottom-cell > div{
   padding:15px;
@@ -225,13 +253,22 @@ a {
   padding-bottom:5px;
 }
 
-.section-3{
+.article-detail-cell__title{
+  font-size:2rem;
+  padding:15px 0;
+}
+.article-detail-cell__body{
+  font-size:1.3rem;
+}
+/* 게시물 상세페이지 끝 */
+/* 게시물 상세페이지 하단 메뉴 시작 */
+.article-list-bottom-cell{
   font-size:1.2rem;
   font-weight:bold;
 }
+/* 게시물 상세페이지 하단 메뉴 끝 */
 
 
-/* 게시물 상세페이지 끝 */
 
 /* 하단바 시작 */
 .bottom-bar {
@@ -243,12 +280,13 @@ a {
 }
 
 .bottom-bar__site-info {
-  margin-left:20px;
+  margin-left:3%;
 }
 /* 하단바 끝 */
 
 
-/* 게시물 리스트 시작*/
+
+/* 게시물 리스트 페이지 시작*/
 :root {
   --article-list__cell-id__width:100px;
   --article-list__cell-reg-date__width:220px;
@@ -286,6 +324,11 @@ a {
   padding-bottom:10px;
 }
 
+.article-list__cell-body > div> .article-list__cell-title{
+  text-align:left;
+  padding-left:30px;
+}
+
 
 .article-list__cell-id {
   width:var(--article-list__cell-id__width);
@@ -307,8 +350,8 @@ a {
   border-top:1px solid black;
 }
 
-/* 게시물 리스트 끝 */
-/* 게시물 리스트 페이지 메뉴 시작 */
+/* 게시물 리스트 페이지 끝 */
+/* 게시물 리스트 하단 메뉴 시작 */
 .article-page-menu {
   margin-top:20px;
   font-size:1.2rem;
@@ -338,5 +381,98 @@ a {
 .article-page-menu > ul > li:hover > a {
   color:red;
 }
-/* 게시물 리스트 페이지 메뉴 끝 */
+/* 게시물 리스트 하단 메뉴 끝 */
 
+
+
+/* 사이드바 메뉴 시작 */
+
+.side-bar{
+  background-color:black;
+  position:fixed;
+  width:170px;
+  height:100%;
+  left:-133px;
+  /*사이드바 고정 left:0;*/
+  
+  transition:left .7s;
+  color:white;
+}
+.side-bar:hover{
+  left:0;
+}
+
+.side-bar > .side-bar__status-icon > div{
+  text-align:right;
+  padding:10px;
+  font-size:1.5rem;
+  
+}
+.side-bar > .side-bar__status-icon > div:last-child{
+  display:none;
+}
+.side-bar:hover > .side-bar__status-icon > div:first-child{
+  display:none;
+}
+.side-bar:hover > .side-bar__status-icon > div:last-child{
+  display:block;
+}
+.side-bar__menu ul{
+  
+}
+
+.side-bar__menu ul ul{
+  background-color:black;
+  display:none;
+  position:absolute;
+}
+.side-bar__menu ul > li{
+  position:relative;
+}
+
+
+.side-bar__menu > ul > li::after{
+  content:"";
+  text-align:center;
+  height:2px;
+  width:75%;
+  bottom:0%;
+  background-color:white;
+  position:absolute;
+
+}
+.side-bar__menu ul > li > a{
+  display:block;
+  padding:15px 20px;
+  white-space:nowrap;
+}
+.side-bar__menu ul> li> ul > li:first-child > a{
+  border-radius:0 10px 0 0;
+}
+.side-bar__menu ul> li> ul > li:last-child > a{
+  border-radius:0 0 10px 0;
+}
+
+.side-bar__menu ul > li > a:not(:only-child):after{
+  content:"[+]";
+  margin-left:5px;
+}
+.side-bar__menu ul > li:hover > a:not(:only-child):after{
+  content:"[-]";
+}
+.side-bar__menu ul > li:hover > a{
+  background-color:white;
+  color:black;
+}
+
+.side-bar__menu ul > li:hover > ul{
+  display:block;
+}
+.side-bar__menu ul > li > ul{
+  left:100%;
+  top:-5px;
+  border:5px solid black;
+  border-left:0px;
+  border-radius:0 15px 15px 0;
+}
+/* 사이드바 메뉴 끝 */
