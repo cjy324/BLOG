@@ -221,6 +221,7 @@ public class BuildService {
 
 			String head = getHeadHtml("article_detail");
 			String sideBar = getSideBarHtml();
+			String topButton = Util.getFileContents("site_template/top-button.html");
 			String foot = Util.getFileContents("site_template/foot.html");
 
 			String template = Util.getFileContents("site_template/detail.html");
@@ -302,6 +303,7 @@ public class BuildService {
 				String bodyTemplate = template.replace("[상세페이지 블록]", body); // list 템플릿에 mainBody 끼워넣고
 				html.append(bodyTemplate.replace("[상세페이지 하단 메뉴 블록]", pageMenuBody)); // bodyTemplate에 다시 pageMenuBody 끼워넣기
 				html.append(sideBar);
+				html.append(topButton);
 				html.append(foot);
 
 				String fileName = article.id + ".html";
@@ -351,7 +353,7 @@ public class BuildService {
 	// 페이지이름에 따라 메인부분 타이틀바 아이콘 가져오기
 	private String getTitleBarContentByPageName(String pageName) {
 		if (pageName.equals("index")) {
-			return "<i class=\"fas fa-home\"></i> <span>HOME</span>";
+			return "";
 		} else if (pageName.equals("article_detail")) {
 			return "<i class=\"fas fa-file-invoice\"></i> <span>ARTICLE DETAIL</span>";
 		} else if (pageName.startsWith("article_list_notice")) {

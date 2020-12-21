@@ -16,7 +16,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 구글 검색엔진 등록-소유권 확인 -->
 <meta name="google-site-verification" content="37R4KcEaJU5LfiKL7GI1hu1_spJgWOazN6xy48OHhD4" />
-<title>Developers</title>
+
+<!-- Open Graph Tag -->
+<meta property="og:url" content="https://blog.devj.me/"/>
+<meta property="og:type" content="blog"/>
+<meta property="og:title" content="DEV_J BLOG"/>
+<meta property="og:description" content="DEV_J BLOG 설명"/>
+<meta property="og:image" content="표시되는 이미지"/>
+
+<!-- 탭 타이틀 -->
+<title>DEV_J BLOG</title>
 
 <!-- 폰트어썸 불러오기 -->
 <link rel="stylesheet"
@@ -48,10 +57,9 @@
 <!-- 사이트 박스 시작 -->
 <div class="body-content min-height-100vh flex flex-column">
   <!-- 로고바 시작 -->
-  <header class="logo-bar con-min-width">
+  <header class="logo-bar con-min-width" id="header">
     <div class="con height-100p flex flex-jc-c">
-      <a href="index.html" class="logo flex flex-ai-c">
-        
+      <a href="index.html" class="logo flex flex-ai-c"> 
         <span>
           Dev_<span>J</span>Blog
         </span>
@@ -115,11 +123,11 @@
   <!-- 메인 컨텐츠 박스 시작 -->
   <main class="flex-grow-1">
    <!-- 메인-타이틀바 시작 -->
-   <div class="title-bar con-min-width">
-      <h1 class="con">
-		<i class="fas fa-file-invoice"></i> <span>ARTICLE DETAIL</span>
-      </h1>
-    </div>
+	<div class="title-bar con-min-width">
+		<h1 class="con">
+			<i class="fas fa-file-invoice"></i> <span>ARTICLE DETAIL</span>
+		</h1>
+	</div>
    <!-- 메인-타이틀바 종료 --><!-- 하이라이트 라이브러리 추가, 토스트 UI 에디터에서 사용됨 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.1/highlight.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.1/styles/default.min.css">
@@ -143,7 +151,59 @@
    <section class="section-2 con-min-width min-height-50vh">
       <div class="con height-100p">
         <div class="article-detail-cell height-100p">
-          <div class="article-detail-cell__board-name"><div><span>게시판 : </span><span>JAVA 게시판</span></div></div><div class="article-detail-cell__id"><div><span>게시물 번호 : </span><span>2</span></div></div><div class="article-detail-cell__member-id"><div><span>작성자 : </span><span>Dev_J</span></div></div><div class="article-detail-cell__reg-date"><div><span>작성일 : </span><span>2020-12-21 13:36:41</span></div></div><div class="article-detail-cell__update-date"><div><span>수정일 : </span><span>2020-12-21 13:36:41</span></div><br></div><div class="article-detail-cell__title"><div><span>제목 : </span><span>1강. STS 개발툴 간단 소개</span></div></div><div class="article-detail-cell__body height-70p "><div><span>자바는 객체지향 프로그래밍 언어이다.</span></div></div><br><br><nav><div id="disqus_thread"></div>
+          <div class="article-detail-cell__board-name"><div><span>게시판 : </span><span>JAVA 게시판</span></div></div><div class="article-detail-cell__id"><div><span>게시물 번호 : </span><span>2</span></div></div><div class="article-detail-cell__member-id"><div><span>작성자 : </span><span>Dev_J</span></div></div><div class="article-detail-cell__reg-date"><div><span>작성일 : </span><span>2020-12-17 18:07:18</span></div></div><div class="article-detail-cell__update-date"><div><span>수정일 : </span><span>2020-12-19 17:19:22</span></div><br></div><div class="article-detail-cell__title"><div><span>제목 : </span><span>1강. STS 개발툴 간단 소개</span></div></div><div class="article-detail-cell__body height-70p "><div><span># < Spring Tool Suite >
+: 스프링 툴 스위트(STS, Spring Tool Suite)란 이클립스 기반 스프링 애플리케이션을 개발 하기 위한 개발 환경(툴)이다.
+
+### Project
+
+- 프로그램을 만들기 위한 파일들을 모아놓은 폴더
+
+### src
+
+- 패키지들을 모아놓는 폴더
+
+### package
+
+- 각각의 기능을 수행하는 클래스들을 모아놓은 폴더
+
+### class
+
+- 각각의 기능을 수행하는 소스코드 묶음
+
+
+
+# < 기본 단축어 정리 >
+
+* 새 프로젝트 만들기 단축키: alt+shift+N
+* **자동 완성 기능: ctrl+space**
+* **저장: ctrl+S**
+* **자동 줄맞춤: ctrl+shift+F**
+* **블록 주석:  ctrl+shift+/**
+* **주석 풀기: ctrl+shift+\\**
+* **코드 실행: ctrl+F11**
+* **import java util: ctrl+shift+O**
+* 문장 맨 앞으로: Home
+* 문장 맨 뒤로: End
+* 빨간줄 발생시 커서 위치시키고 ctrl+1
+* **동일 변수명 한번에 바꾸기 단축키: alt+shift+r**
+* Home : 줄에서 맨 앞으로 이동
+* End : 줄에서 맨 뒤으로 이동
+* Ctrl + Home : 맨 위으로 이동
+* Ctrl + End : 맨 아래으로 이동
+* Ctrl + Z : 이전 히스토리로 한 단계 이동
+* Ctrl + Y : 이후 히스토리로 한 단계 이동
+
+
+# < 그 외 소소한 Tip's >
+- 파일명은 무조건 대문자, 띄어쓰기는 불가, 문자별 첫문자는 대문자
+
+- 프로그램의 시작 폴더는 "Main" 하나 만들고 시작
+
+- 왼쪽의 녹색 점(Break point)이 생성되면 다시 더블 클릭해서 삭제 가능(참고로 break point를 찍고 디버깅을 실시하면 그 포인트에서 진행이 걸리게(?) 되는데 소스코드의 문제점 등을 파악할 때 유용하다)
+
+- System.out 은 출력 개념, System.in은 입력 개념
+
+</span></div></div><br><br><nav><div id="disqus_thread"></div>
 <script>
     (function() { // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
@@ -227,8 +287,6 @@
     </div>     
   </nav>
   <!-- 맨 위 버튼 끝 -->
-
-
   <!-- 푸터 시작 -->
   <footer class="bottom-bar con-min-width">
     <div class="con flex flex-ai-c">

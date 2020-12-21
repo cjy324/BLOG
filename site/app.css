@@ -259,21 +259,21 @@ a {
 
 .img1{
   height:300px;
-  animation:fadein 1s;
-}
-
-.img2{
-  height:300px;
-  top:310px;
-  left:160px;
   animation:fadein 3s;
 }
 
+.img2{
+  height:260px;
+  top:310px;
+  left:160px;
+  animation:fadein 4s;
+}
+
 .img3{
-  height:300px;
+  height:280px;
   top:120px;
   left:450px;
-  animation:fadein 2s;
+  animation:fadein 6s;
 }
 
   @keyframes fadein {

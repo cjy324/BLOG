@@ -16,7 +16,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 구글 검색엔진 등록-소유권 확인 -->
 <meta name="google-site-verification" content="37R4KcEaJU5LfiKL7GI1hu1_spJgWOazN6xy48OHhD4" />
-<title>Developers</title>
+
+<!-- Open Graph Tag -->
+<meta property="og:url" content="https://blog.devj.me/"/>
+<meta property="og:type" content="blog"/>
+<meta property="og:title" content="DEV_J BLOG"/>
+<meta property="og:description" content="DEV_J BLOG 설명"/>
+<meta property="og:image" content="표시되는 이미지"/>
+
+<!-- 탭 타이틀 -->
+<title>DEV_J BLOG</title>
 
 <!-- 폰트어썸 불러오기 -->
 <link rel="stylesheet"
@@ -48,10 +57,9 @@
 <!-- 사이트 박스 시작 -->
 <div class="body-content min-height-100vh flex flex-column">
   <!-- 로고바 시작 -->
-  <header class="logo-bar con-min-width">
+  <header class="logo-bar con-min-width" id="header">
     <div class="con height-100p flex flex-jc-c">
-      <a href="index.html" class="logo flex flex-ai-c">
-        
+      <a href="index.html" class="logo flex flex-ai-c"> 
         <span>
           Dev_<span>J</span>Blog
         </span>
@@ -115,11 +123,11 @@
   <!-- 메인 컨텐츠 박스 시작 -->
   <main class="flex-grow-1">
    <!-- 메인-타이틀바 시작 -->
-   <div class="title-bar con-min-width">
-      <h1 class="con">
-		<i class="fas fa-file-invoice"></i> <span>ARTICLE DETAIL</span>
-      </h1>
-    </div>
+	<div class="title-bar con-min-width">
+		<h1 class="con">
+			<i class="fas fa-file-invoice"></i> <span>ARTICLE DETAIL</span>
+		</h1>
+	</div>
    <!-- 메인-타이틀바 종료 --><!-- 하이라이트 라이브러리 추가, 토스트 UI 에디터에서 사용됨 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.1/highlight.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.1/styles/default.min.css">
@@ -143,7 +151,51 @@
    <section class="section-2 con-min-width min-height-50vh">
       <div class="con height-100p">
         <div class="article-detail-cell height-100p">
-          <div class="article-detail-cell__board-name"><div><span>게시판 : </span><span>JAVA 게시판</span></div></div><div class="article-detail-cell__id"><div><span>게시물 번호 : </span><span>3</span></div></div><div class="article-detail-cell__member-id"><div><span>작성자 : </span><span>Dev_J</span></div></div><div class="article-detail-cell__reg-date"><div><span>작성일 : </span><span>2020-12-21 13:37:14</span></div></div><div class="article-detail-cell__update-date"><div><span>수정일 : </span><span>2020-12-21 13:37:14</span></div><br></div><div class="article-detail-cell__title"><div><span>제목 : </span><span>2강. Scanner객체를 통한 입력</span></div></div><div class="article-detail-cell__body height-70p "><div><span>내가 원하는 명령어 입력하고 이 명령어를 컴퓨터에게 올바르게 인식시키기 위해 JAVA에선 Scanner 유틸을 사용한다.</span></div></div><br><br><nav><div id="disqus_thread"></div>
+          <div class="article-detail-cell__board-name"><div><span>게시판 : </span><span>JAVA 게시판</span></div></div><div class="article-detail-cell__id"><div><span>게시물 번호 : </span><span>3</span></div></div><div class="article-detail-cell__member-id"><div><span>작성자 : </span><span>Dev_J</span></div></div><div class="article-detail-cell__reg-date"><div><span>작성일 : </span><span>2020-12-17 18:38:39</span></div></div><div class="article-detail-cell__update-date"><div><span>수정일 : </span><span>2020-12-19 17:19:23</span></div><br></div><div class="article-detail-cell__title"><div><span>제목 : </span><span>2강. Scanner객체를 통한 입력</span></div></div><div class="article-detail-cell__body height-70p "><div><span>내가 원하는 명령어 입력하고 이 명령어를 컴퓨터에게 올바르게 인식시키기 위해 JAVA에선 **Scanner 유틸**을 사용한다.
+<br>
+
+별도의 입력없이
+**Scanner scanner = new Scanner(System.in);** 라고 작성하면 **Scanner** 부분에 밑줄이 생긴다.
+
+이때 **Scanner에 커서를 올려두고 'ctrl+shift+O'를 누르면,**
+
+**상단에 import java.util.Scanner; 라고 자동으로 유틸을 불러올 수 있다.**
+
+(자바에는 사용하기 편리하게 몇가지 유용한 유틸들이 라이브러리에 이미 저장되어 있다.)
+<br>
+
+이후에 예를 들어
+
+String command = scanner.nextLine(); 라는 객체를 만들고 실행을 하면
+
+콘솔창에서 명령어를 입력할 수 있게 된다.
+<br>
+
+또한 Scanner 객체를 생성한 후 하단에는 scanner.close();이라고 작성해 주는 것이 좋다.
+
+(scanner.close();을 꼭 작성하지 않아도 실행하는 데 문제는 없지만 그래도 클린 코드를 위해 작성하도록 하자)
+
+* * *
+
+
+**예시**
+
+``` java
+import java.util.Scanner;  //Scanner 유틸을 불러온 것
+
+public class Main {
+
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		
+		String command = scanner.nextLine();
+		
+		scanner.close();   //마지막에는 scanner를 종료시켜주는 것이 좋다
+
+	}
+
+}
+```</span></div></div><br><br><nav><div id="disqus_thread"></div>
 <script>
     (function() { // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
@@ -227,8 +279,6 @@
     </div>     
   </nav>
   <!-- 맨 위 버튼 끝 -->
-
-
   <!-- 푸터 시작 -->
   <footer class="bottom-bar con-min-width">
     <div class="con flex flex-ai-c">

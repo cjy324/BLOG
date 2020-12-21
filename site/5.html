@@ -16,7 +16,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 구글 검색엔진 등록-소유권 확인 -->
 <meta name="google-site-verification" content="37R4KcEaJU5LfiKL7GI1hu1_spJgWOazN6xy48OHhD4" />
-<title>Developers</title>
+
+<!-- Open Graph Tag -->
+<meta property="og:url" content="https://blog.devj.me/"/>
+<meta property="og:type" content="blog"/>
+<meta property="og:title" content="DEV_J BLOG"/>
+<meta property="og:description" content="DEV_J BLOG 설명"/>
+<meta property="og:image" content="표시되는 이미지"/>
+
+<!-- 탭 타이틀 -->
+<title>DEV_J BLOG</title>
 
 <!-- 폰트어썸 불러오기 -->
 <link rel="stylesheet"
@@ -48,10 +57,9 @@
 <!-- 사이트 박스 시작 -->
 <div class="body-content min-height-100vh flex flex-column">
   <!-- 로고바 시작 -->
-  <header class="logo-bar con-min-width">
+  <header class="logo-bar con-min-width" id="header">
     <div class="con height-100p flex flex-jc-c">
-      <a href="index.html" class="logo flex flex-ai-c">
-        
+      <a href="index.html" class="logo flex flex-ai-c"> 
         <span>
           Dev_<span>J</span>Blog
         </span>
@@ -115,11 +123,11 @@
   <!-- 메인 컨텐츠 박스 시작 -->
   <main class="flex-grow-1">
    <!-- 메인-타이틀바 시작 -->
-   <div class="title-bar con-min-width">
-      <h1 class="con">
-		<i class="fas fa-file-invoice"></i> <span>ARTICLE DETAIL</span>
-      </h1>
-    </div>
+	<div class="title-bar con-min-width">
+		<h1 class="con">
+			<i class="fas fa-file-invoice"></i> <span>ARTICLE DETAIL</span>
+		</h1>
+	</div>
    <!-- 메인-타이틀바 종료 --><!-- 하이라이트 라이브러리 추가, 토스트 UI 에디터에서 사용됨 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.1/highlight.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.1/styles/default.min.css">
@@ -143,7 +151,13 @@
    <section class="section-2 con-min-width min-height-50vh">
       <div class="con height-100p">
         <div class="article-detail-cell height-100p">
-          <div class="article-detail-cell__board-name"><div><span>게시판 : </span><span>JAVA 게시판</span></div></div><div class="article-detail-cell__id"><div><span>게시물 번호 : </span><span>5</span></div></div><div class="article-detail-cell__member-id"><div><span>작성자 : </span><span>Dev_J</span></div></div><div class="article-detail-cell__reg-date"><div><span>작성일 : </span><span>2020-12-21 13:39:54</span></div></div><div class="article-detail-cell__update-date"><div><span>수정일 : </span><span>2020-12-21 13:39:54</span></div><br></div><div class="article-detail-cell__title"><div><span>제목 : </span><span>4강. 기본 자료형(데이터 타입)</span></div></div><div class="article-detail-cell__body height-70p "><div><span>JAVA에서 변수는 매우 중요한 역할을 하므로 이 표를 통해 각 변수의 특징에 대해 알아두는 것이 좋다.</span></div></div><br><br><nav><div id="disqus_thread"></div>
+          <div class="article-detail-cell__board-name"><div><span>게시판 : </span><span>JAVA 게시판</span></div></div><div class="article-detail-cell__id"><div><span>게시물 번호 : </span><span>5</span></div></div><div class="article-detail-cell__member-id"><div><span>작성자 : </span><span>Dev_J</span></div></div><div class="article-detail-cell__reg-date"><div><span>작성일 : </span><span>2020-12-20 19:39:22</span></div></div><div class="article-detail-cell__update-date"><div><span>수정일 : </span><span>2020-12-20 19:39:31</span></div><br></div><div class="article-detail-cell__title"><div><span>제목 : </span><span>4강. 기본 자료형(데이터 타입)</span></div></div><div class="article-detail-cell__body height-70p "><div><span>JAVA에서의 기본 자료형(데이터 타입) 정리한 표이다.
+JAVA에서 변수는 매우 중요한 역할을 하므로 이 표를 통해 각 변수의 특징에 대해 알아두는 것이 좋다. 
+<br>
+
+#### <기본 자료형>
+
+<table style="border-collapse: collapse; width: 100%; height: 586px;" border="1" data-ke-style="style8"><tbody><tr style="height: 69px;"><td style="text-align: center; height: 69px;" width="85"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';"><b>유형</b></span></p></td><td style="text-align: center; height: 69px;" width="142"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';"><b>종류</b></span></p></td><td style="text-align: center; height: 69px;" width="274"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';"><b>표현 가능 범위</b></span></p></td><td style="text-align: center; height: 69px;" width="101"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';"><b>메모리 크기</b></span></p></td></tr><tr style="height: 69px;"><td style="text-align: center; height: 300px;" rowspan="4" width="85"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';"><b>정수형</b></span></p></td><td style="text-align: center; height: 69px;" width="142"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';">byte</span></p></td><td style="text-align: center; height: 69px;" width="274"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';">-128 ~ 127</span></p></td><td style="text-align: center; height: 69px;" width="101"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';">1 byte</span></p></td></tr><tr style="height: 69px;"><td style="text-align: center; height: 69px;" width="142"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';">short</span></p></td><td style="text-align: center; height: 69px;" width="274"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';">-32,768 ~ 32,767</span></p></td><td style="text-align: center; height: 69px;" width="101"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';">2 byte</span></p></td></tr><tr style="height: 69px;"><td style="text-align: center; height: 69px;" width="142"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';">Int</span></p></td><td style="text-align: center; height: 69px;" width="274"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';">-2,147,483,648 ~ 2,147,483,647</span></p></td><td style="text-align: center; height: 69px;" width="101"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';">4 byte</span></p></td></tr><tr style="height: 93px;"><td style="text-align: center; height: 93px;" width="142"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';">long</span></p></td><td style="text-align: center; height: 93px;" width="274"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';">- 9,223,372,036,854,775,808 ~ 9,223,372,036,854,775,807</span></p></td><td style="text-align: center; height: 93px;" width="101"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';">8 byte</span></p></td></tr><tr style="height: 69px;"><td style="text-align: center; height: 79px;" rowspan="2" width="85"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';"><b>실수형</b></span></p></td><td style="text-align: center; height: 69px;" width="142"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';">float</span></p></td><td style="text-align: center; height: 69px;" width="274"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';">1.4E-45 ~ 3.4028235E38</span></p></td><td style="text-align: center; height: 69px;" width="101"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';">4 byte</span></p></td></tr><tr style="height: 10px;"><td style="text-align: center; height: 10px;" width="142"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';">double<br>(float보다 2배 크기)</span></p></td><td style="text-align: center; height: 10px;" width="274"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';">4.9E-324 ~ 1.7976931348623157E308</span></p></td><td style="text-align: center; height: 10px;" width="101"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';">8 byte</span></p></td></tr><tr style="height: 69px;"><td style="text-align: center; height: 69px;" width="85"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';"><b>문자형</b></span></p></td><td style="text-align: center; height: 69px;" width="142"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';">char</span></p></td><td style="text-align: center; height: 69px;" width="274"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';">모든 유니코드 문자</span></p></td><td style="text-align: center; height: 69px;" width="101"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';">2 byte</span></p></td></tr><tr style="height: 69px;"><td style="text-align: center; height: 69px;" width="85"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';"><b>논리형</b></span></p></td><td style="text-align: center; height: 69px;" width="142"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';">boolean</span></p></td><td style="text-align: center; height: 69px;" width="274"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';">true, false</span></p></td><td style="text-align: center; height: 69px;" width="101"><p><span style="font-family: 'Noto Sans Demilight', 'Noto Sans KR';">1 byte</span></p></td></tr></tbody></table></span></div></div><br><br><nav><div id="disqus_thread"></div>
 <script>
     (function() { // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
@@ -227,8 +241,6 @@
     </div>     
   </nav>
   <!-- 맨 위 버튼 끝 -->
-
-
   <!-- 푸터 시작 -->
   <footer class="bottom-bar con-min-width">
     <div class="con flex flex-ai-c">

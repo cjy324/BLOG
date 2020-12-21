@@ -16,7 +16,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 구글 검색엔진 등록-소유권 확인 -->
 <meta name="google-site-verification" content="37R4KcEaJU5LfiKL7GI1hu1_spJgWOazN6xy48OHhD4" />
-<title>Developers</title>
+
+<!-- Open Graph Tag -->
+<meta property="og:url" content="https://blog.devj.me/"/>
+<meta property="og:type" content="blog"/>
+<meta property="og:title" content="DEV_J BLOG"/>
+<meta property="og:description" content="DEV_J BLOG 설명"/>
+<meta property="og:image" content="표시되는 이미지"/>
+
+<!-- 탭 타이틀 -->
+<title>DEV_J BLOG</title>
 
 <!-- 폰트어썸 불러오기 -->
 <link rel="stylesheet"
@@ -48,10 +57,9 @@
 <!-- 사이트 박스 시작 -->
 <div class="body-content min-height-100vh flex flex-column">
   <!-- 로고바 시작 -->
-  <header class="logo-bar con-min-width">
+  <header class="logo-bar con-min-width" id="header">
     <div class="con height-100p flex flex-jc-c">
-      <a href="index.html" class="logo flex flex-ai-c">
-        
+      <a href="index.html" class="logo flex flex-ai-c"> 
         <span>
           Dev_<span>J</span>Blog
         </span>
@@ -115,11 +123,11 @@
   <!-- 메인 컨텐츠 박스 시작 -->
   <main class="flex-grow-1">
    <!-- 메인-타이틀바 시작 -->
-   <div class="title-bar con-min-width">
-      <h1 class="con">
-		<i class="fas fa-file-invoice"></i> <span>ARTICLE DETAIL</span>
-      </h1>
-    </div>
+	<div class="title-bar con-min-width">
+		<h1 class="con">
+			<i class="fas fa-file-invoice"></i> <span>ARTICLE DETAIL</span>
+		</h1>
+	</div>
    <!-- 메인-타이틀바 종료 --><!-- 하이라이트 라이브러리 추가, 토스트 UI 에디터에서 사용됨 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.1/highlight.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.1/styles/default.min.css">
@@ -143,7 +151,85 @@
    <section class="section-2 con-min-width min-height-50vh">
       <div class="con height-100p">
         <div class="article-detail-cell height-100p">
-          <div class="article-detail-cell__board-name"><div><span>게시판 : </span><span>JAVA 게시판</span></div></div><div class="article-detail-cell__id"><div><span>게시물 번호 : </span><span>4</span></div></div><div class="article-detail-cell__member-id"><div><span>작성자 : </span><span>Dev_J</span></div></div><div class="article-detail-cell__reg-date"><div><span>작성일 : </span><span>2020-12-21 13:39:53</span></div></div><div class="article-detail-cell__update-date"><div><span>수정일 : </span><span>2020-12-21 13:39:55</span></div><br></div><div class="article-detail-cell__title"><div><span>제목 : </span><span>3강. println(), printf()를 통한 출력</span></div></div><div class="article-detail-cell__body height-70p "><div><span>JAVA에서 출력은 System.out.println() 과 System.out.printf() 을 활용해 수행할 수 있다</span></div></div><br><br><nav><div id="disqus_thread"></div>
+          <div class="article-detail-cell__board-name"><div><span>게시판 : </span><span>JAVA 게시판</span></div></div><div class="article-detail-cell__id"><div><span>게시물 번호 : </span><span>4</span></div></div><div class="article-detail-cell__member-id"><div><span>작성자 : </span><span>Dev_J</span></div></div><div class="article-detail-cell__reg-date"><div><span>작성일 : </span><span>2020-12-20 19:27:12</span></div></div><div class="article-detail-cell__update-date"><div><span>수정일 : </span><span>2020-12-20 19:27:12</span></div><br></div><div class="article-detail-cell__title"><div><span>제목 : </span><span>3강. println(), printf()를 통한 출력</span></div></div><div class="article-detail-cell__body height-70p "><div><span>입력을 했다면 다음은 **출력**이다.
+
+JAVA에서 출력은 **System.out.println()** 과 **System.out.printf()** 을 활용해 수행할 수 있다.
+
+이 둘은 비슷하지만 그 사용법과 결과물에서 조금 차이가 있다.
+<br>
+아래 예시를 통해 그 차이를 살펴보자.
+
+### 1. System.out.println()
+```java
+//1.문장 출력
+System.out.println("명령어");
+//출력 결과: 명령어
+				
+//2.변수 출력
+int a = 50;
+System.out.println(a);
+//출력 결과: 50
+				
+//3.문장 + 변수 출력
+System.out.println("a = " + a + "이다.");
+//출력 결과: a = 50이다.
+
+//4.연속으로 사용하면 아래방향으로 출력이 진행된다.
+System.out.println("명령어1");
+System.out.println("명령어2");
+System.out.println("명령어3");
+/*출력 결과: 명령어1
+            명령어2
+            명령어3    */
+```
+<br><br>
+
+### 2. System.out.printf()
+```java
+//1.문장 출력
+System.out.printf("명령어");
+//출력 결과: 명령어
+				
+//2.변수 출력
+int a = 50;
+System.out.printf("%d",a);
+//출력 결과: 50
+
+/*
+여기서 println()과 다른점은 위와 같이 변수만 입력해서는 출력이 진행되지 않는다는 점이다. "%d"와 같이 각 변수 타입에 맞는 명령어를 입력해주어야 그 자리에 원하는 변수 값을 치환시켜 출력할 수 있다.
+
+-변수 타입과 치환명령어 (예시)
+
+int => %d
+float => %f
+String => %s
+...
+이 외에도 다양한 치환명령어가 존재한다.
+*/
+
+				
+//3.문장 + 변수 출력
+System.out.printf("a = " + a + "이다.");
+//출력 결과: a = 50이다.
+
+//4.연속으로 사용하면 println()와 다르게 가로방향으로 출력이 진행된다.
+System.out.printf("명령어1");
+System.out.printf("명령어2");
+System.out.printf("명령어3");
+//출력 결과: 명령어1명령어2명령어3
+
+/*
+만약 printf()로 println()와 같이 아래방향으로 출력을 진행시키고 싶다면 명령어 뒤에 "\n"을 입력해주면 된다.
+
+System.out.printf("명령어1\n");
+System.out.printf("명령어2\n");
+System.out.printf("명령어3\n");
+/*출력 결과: 명령어1
+            명령어2
+            명령어3    */
+
+*/
+```</span></div></div><br><br><nav><div id="disqus_thread"></div>
 <script>
     (function() { // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
@@ -227,8 +313,6 @@
     </div>     
   </nav>
   <!-- 맨 위 버튼 끝 -->
-
-
   <!-- 푸터 시작 -->
   <footer class="bottom-bar con-min-width">
     <div class="con flex flex-ai-c">
