@@ -21,11 +21,15 @@
 <meta property="og:url" content="https://blog.devj.me/"/>
 <meta property="og:type" content="blog"/>
 <meta property="og:title" content="DEV_J BLOG"/>
-<meta property="og:description" content="DEV_J BLOG 설명"/>
-<meta property="og:image" content="표시되는 이미지"/>
+<meta property="og:description" content="DEV_J의 BLOG"/>
+<meta property="og:image" content="images/Dev_J_logo/logo.png"/>
 
-<!-- 탭 타이틀 -->
+<!-- 사이트 타이틀 -->
 <title>DEV_J BLOG</title>
+
+<!-- 파비콘 -->
+<link rel="shortcut icon" href="images/favicon/favicon.ico" type="image/x-icon">
+<link rel="icon" href="images/favicon/favicon.ico" type="image/x-icon">
 
 <!-- 폰트어썸 불러오기 -->
 <link rel="stylesheet"
@@ -60,8 +64,9 @@
   <header class="logo-bar con-min-width" id="header">
     <div class="con height-100p flex flex-jc-c">
       <a href="index.html" class="logo flex flex-ai-c"> 
+        <img class="logo__img" src="images/Dev_J_logo/facebook_cover_photo_1.png" alt="">
         <span>
-          Dev_<span>J</span>Blog
+          BLOG
         </span>
       </a>
     </div>
@@ -223,6 +228,7 @@ public class Main {
   <!-- 메인 컨텐츠 박스 끝 -->  <!-- 사이드바 시작 -->
   <header class="side-bar flex flex-column">
    <div class="side-bar__status-icon">
+    <div>Menu<i class="fas fa-stream"></i></div>
     <div>▶</div>
     <div>▼</div>
    </div>
@@ -272,7 +278,7 @@ public class Main {
     </ul>
    </nav>
   </header>
-  <!-- 사이드바 끝 -->  <!-- 맨 위 버튼 시작 -->
+  <!-- 사이드바 끝 -->    <!-- 맨 위 버튼 시작 -->
   <nav class="top-button flex flex-jc-c flex-ai-c">
     <div class="">
       <a href="#header">▲ TOP</a> 
@@ -283,12 +289,8 @@ public class Main {
   <footer class="bottom-bar con-min-width">
     <div class="con flex flex-ai-c">
       <a href="#" class="logo logo--mini flex flex-ai-c">
-       
-        <span>
-          Dev_<span>J</span>Blog
-        </span>
+        <img class="logo--mini__img" src="images/Dev_J_logo/facebook_cover_photo_1.png" alt="">
       </a>
-
       <div class="bottom-bar__site-info">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum eos ipsum necessitatibus doloremque quos voluptate debitis earum aut a consequuntur explicabo deleniti qui eius facere, harum error eveniet vel laudantium.
       </div>

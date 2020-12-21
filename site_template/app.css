@@ -20,8 +20,8 @@
 /* 폰트 2 */
 @import url('https://fonts.googleapis.com/css2?family=Arvo&display=swap');
 
-html {
-  font-family: 'LotteMartDream', sans-serif;
+html, .tui-editor-contents {
+  font-family: 'LotteMartDream', sans-serif !important;
   
 }
 
@@ -153,9 +153,19 @@ a {
   color:red;
 }
 
+.logo__img{
+  width:200px;
+  margin-right:10px;
+}
+
 .logo--mini {
   font-size:2rem;
 }
+
+.logo--mini__img{
+  width:150px;
+}
+
 /* 로고 끝 */
 
 
@@ -310,8 +320,8 @@ a {
   font-size:2rem;
   padding:15px 0;
 }
-.article-detail-cell__body{
-  font-size:1.3rem;
+.article-detail-cell__body .tui-editor-contents{
+  font-size:1.1rem;
 }
 /* 게시물 상세페이지 끝 */
 /* 게시물 상세페이지 하단 메뉴 시작 */
@@ -447,8 +457,8 @@ a {
   height:100%;
   left:-133px;
   /*사이드바 고정 left:0;*/
-  
-  transition:left .7s;
+
+  transition:left 1s;
   color:white;
 }
 .side-bar:hover{
@@ -461,13 +471,20 @@ a {
   font-size:1.5rem;
   
 }
-.side-bar > .side-bar__status-icon > div:last-child{
-  display:none;
+.side-bar > .side-bar__status-icon > div:first-child{
+  padding-top:30px;
 }
-.side-bar:hover > .side-bar__status-icon > div:first-child{
+.side-bar > .side-bar__status-icon > div:first-child >i{
+  padding-left:40px;
+}
+
+.side-bar > .side-bar__status-icon > div:nth-child(2){
   display:none;
 }
 .side-bar:hover > .side-bar__status-icon > div:last-child{
+  display:none;
+}
+.side-bar:hover > .side-bar__status-icon > div:nth-child(2){
   display:block;
 }
 .side-bar__menu ul{
