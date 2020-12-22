@@ -144,10 +144,6 @@ a {
   font-weight:bold;
 }
 
-.logo > span {
- 
-}
-
 .logo > span > span {
   margin-right:5%;
   color:red;
@@ -163,7 +159,7 @@ a {
 }
 
 .logo--mini__img{
-  width:150px;
+  height:45px;
 }
 
 /* 로고 끝 */
@@ -269,21 +265,21 @@ a {
 
 .img1{
   height:300px;
-  animation:fadein 3s;
+  animation:fadein 2s;
 }
 
 .img2{
-  height:260px;
-  top:310px;
-  left:160px;
+  height:280px;
+  top:320px;
+  left:180px;
   animation:fadein 4s;
 }
 
 .img3{
-  height:280px;
+  height:300px;
   top:120px;
-  left:450px;
-  animation:fadein 6s;
+  left:430px;
+  animation:fadein 5s;
 }
 
   @keyframes fadein {
@@ -338,12 +334,12 @@ a {
   margin-top:30px;
   background-color:black;
   color:white;
-  padding-top:30px;
-  padding-bottom:30px;
+  padding-top:10px;
+  padding-bottom:10px;
 }
 
 .bottom-bar__site-info {
-  margin-left:3%;
+  margin-left:1%;
 }
 /* 하단바 끝 */
 
@@ -451,7 +447,7 @@ a {
 /* 사이드바 메뉴 시작 */
 
 .side-bar{
-  background-color:black;
+  background-color:#222222;
   position:fixed;
   width:170px;
   height:100%;
@@ -463,6 +459,7 @@ a {
 }
 .side-bar:hover{
   left:0;
+  background-color:#111111;
 }
 
 .side-bar > .side-bar__status-icon > div{
@@ -492,7 +489,7 @@ a {
 }
 
 .side-bar__menu ul ul{
-  background-color:black;
+  background-color:#111111;
   display:none;
   position:absolute;
 }
@@ -541,7 +538,7 @@ a {
 .side-bar__menu ul > li > ul{
   left:100%;
   top:-5px;
-  border:5px solid black;
+  border:5px solid #111111;
   border-left:0px;
   border-radius:0 15px 15px 0;
 }
@@ -584,7 +581,7 @@ a {
   display:inline-block;
   width:100%;
   height:85%;
-  background-color:black;
+  background-color:#222222;
   color:white;
   border-radius:10px;
   border:3px solid;
@@ -598,3 +595,27 @@ a {
 }
 
 /* 맨 위 버튼 끝 */
+
+
+/* 토스트에디터-유튜브 플러그인 시작 */
+.toast-ui-youtube-plugin-wrap{
+  max-width:500px;
+  margin-left:auto;
+  margin-right:auto;
+  position:relative;
+}
+
+.toast-ui-youtube-plugin-wrap::before{
+  content:"";
+  display:block;
+  padding-top:calc(100% / 16 * 9);
+}
+
+.toast-ui-youtube-plugin-wrap > iframe{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+}
+/* 토스트에디터-유튜브 플러그인 끝 */
