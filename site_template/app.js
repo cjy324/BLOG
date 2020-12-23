@@ -46,3 +46,30 @@ function ArticleDetail__Body__init() {
 ArticleDetail__Body__init();
 
 /* toastui-viewr 함수 끝 */
+
+
+
+
+/* top-button 옵션 시작 */
+$(function() {  
+  // 보이기 | 숨기기
+  $(window).scroll(function() { 
+    if ($(this).scrollTop() < 200) { 
+    //200 넘으면 버튼이 보임 
+     $('.top-button').fadeOut(); 
+  } else { 
+    $('.top-button').fadeIn();
+  } 
+  }); 
+  // 버튼 클릭시 0 까지 animation 이동합니다. 
+  $(".top-button").click(function() {
+    $('html, body').animate({ 
+      scrollTop : 0 }, 200); // 속도 200 
+    return false; 
+  }); 
+
+});
+
+/* top-button 옵션 끝 */
+
+

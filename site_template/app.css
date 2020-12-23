@@ -49,6 +49,10 @@ a {
   align-items:center;
 }
 
+.flex-ai-fe {
+  align-items:flex-end;
+}
+
 .flex-wrap {
   flex-wrap:wrap;
 }
@@ -233,6 +237,23 @@ a {
 /* 타이틀바 끝 */
 
 
+
+/* 하단바 시작 */
+.bottom-bar {
+  margin-top:30px;
+  background-color:black;
+  color:white;
+  padding-top:10px;
+  padding-bottom:10px;
+}
+
+.bottom-bar__site-info {
+  margin-left:1%;
+}
+/* 하단바 끝 */
+
+
+
 /* 메인-index 페이지 시작 */
 .section-home{
   font-size:1.2rem;
@@ -328,21 +349,41 @@ a {
 /* 게시물 상세페이지 하단 메뉴 끝 */
 
 
+/* 맨 위 버튼 시작 */
+.top-button{
+  display:none;
+  position:fixed;
+  bottom:40px;
+  right:20px;
+  width:70px;
+  height:30px;
+  text-align:center;
+  
+}
+.top-button > div{
+  width:100%;
+  height:100%; 
+  font-size:1.1rem;
+  border-radius:10px;
+}
 
-/* 하단바 시작 */
-.bottom-bar {
-  margin-top:30px;
-  background-color:black;
+.top-button > div > a{
+  display:inline-block;
+  width:100%;
+  height:85%;
+  background-color:#222222;
   color:white;
-  padding-top:10px;
-  padding-bottom:10px;
+  border-radius:10px;
+  border:3px solid;
+  padding-top:7px;
 }
 
-.bottom-bar__site-info {
-  margin-left:1%;
-}
-/* 하단바 끝 */
+.top-button > div:hover > a{
+  background-color:white;
+  color:black;
 
+}
+/* 맨 위 버튼 끝 */
 
 
 /* 게시물 리스트 페이지 시작*/
@@ -560,42 +601,6 @@ a {
 /* 사이드바 메뉴 끝 */
 
 
-/* 맨 위 버튼 시작 */
-.top-button{
-  position:fixed;
-  bottom:80px;
-  right:20px;
-  width:70px;
-  height:30px;
-  text-align:center;
-  
-}
-.top-button > div{
-  width:100%;
-  height:100%; 
-  font-size:1.1rem;
-  border-radius:10px;
-}
-
-.top-button > div > a{
-  display:inline-block;
-  width:100%;
-  height:85%;
-  background-color:#222222;
-  color:white;
-  border-radius:10px;
-  border:3px solid;
-  padding-top:7px;
-}
-
-.top-button > div:hover > a{
-  background-color:white;
-  color:black;
-
-}
-
-/* 맨 위 버튼 끝 */
-
 
 /* 토스트에디터-유튜브 플러그인 시작 */
 .toast-ui-youtube-plugin-wrap{
@@ -619,3 +624,4 @@ a {
   height:100%;
 }
 /* 토스트에디터-유튜브 플러그인 끝 */
+

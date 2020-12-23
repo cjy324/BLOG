@@ -1,5 +1,6 @@
 package com.sbs.example.mysqlTextBoard.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.sbs.example.mysqlTextBoard.container.Container;
@@ -42,6 +43,8 @@ public class BuildService {
 
 			List<Article> articles = articleService.getBoardArticlesByCodeForPrint(board.code);
 
+			Collections.reverse(articles); //최신순 리스팅
+			
 			int articlesInAPage = 10; // 한 페이지에 들어갈 article 수 설정
 			int pageMenuBoxSize = 5; // 한 메인페이지 화면에 나올 하단 페이지 메뉴 버튼 수 ex) 1 2 3 4 5 6 7 8 9 10
 			int totalArticlesCount = articles.size(); // 전체 article의 수 카운팅

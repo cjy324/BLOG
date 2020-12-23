@@ -3,6 +3,7 @@
 #기존 사이트 게시글 및 사용자 초기화 
 TRUNCATE `article`;
 TRUNCATE `member`;
+TRUNCATE `board`;
 
 # 관리자 생성
 SELECT * FROM `member`;
@@ -11,6 +12,10 @@ SET loginId = 'admin',
 loginPw = 'admin1!',
 `name` = 'Dev_J';
 
+# 공지사항 게시판 생성
+INSERT INTO `board`
+SET `name` = '공지사항',
+`code` = 'notice';
 
 # JAVA 관련 게시판 생성
 INSERT INTO `board`
