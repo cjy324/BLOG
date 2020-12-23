@@ -119,35 +119,66 @@
    <!-- 메인-타이틀바 시작 -->
 	<div class="title-bar con-min-width">
 		<h1 class="con">
-			<i class="fab fa-java"></i> <span>JAVA</span>
+			<i class="fas fa-file-invoice"></i> <span>ARTICLE DETAIL</span>
 		</h1>
 	</div>
-   <!-- 메인-타이틀바 종료 -->   <!-- 메인-리스트페이지 시작 -->  
-   <section class="section-1 con-min-width ">
-    <div class="con">
-      <div class="article-list">
-        <header>
-          <div class="">
-            <div class="article-list__cell-id">번호</div>
-            <div class="article-list__cell-reg-date">날짜</div>
-            <div class="article-list__cell-writer">작성자</div>
-            <div class="article-list__cell-title">제목</div>
-          </div>
-        </header>
-        <main class="article-list__cell-body">
-          <div><div class="article-list__cell-id">2</div><div class="article-list__cell-reg-date">2020-12-17 18:07:18</div><div class="article-list__cell-writer">Dev_J</a></div><div class="article-list__cell-title"><a href="2.html" class="hover-underline">1강. STS 개발툴 간단 소개</a></div></div><div><div class="article-list__cell-id">3</div><div class="article-list__cell-reg-date">2020-12-17 18:38:39</div><div class="article-list__cell-writer">Dev_J</a></div><div class="article-list__cell-title"><a href="3.html" class="hover-underline">2강. Scanner객체를 통한 입력</a></div></div><div><div class="article-list__cell-id">4</div><div class="article-list__cell-reg-date">2020-12-20 19:27:12</div><div class="article-list__cell-writer">Dev_J</a></div><div class="article-list__cell-title"><a href="4.html" class="hover-underline">3강. println(), printf()를 통한 출력</a></div></div><div><div class="article-list__cell-id">5</div><div class="article-list__cell-reg-date">2020-12-20 19:39:22</div><div class="article-list__cell-writer">Dev_J</a></div><div class="article-list__cell-title"><a href="5.html" class="hover-underline">4강. 기본 자료형(데이터 타입)</a></div></div><div><div class="article-list__cell-id">7</div><div class="article-list__cell-reg-date">2020-12-22 19:09:39</div><div class="article-list__cell-writer">Dev_J</a></div><div class="article-list__cell-title"><a href="7.html" class="hover-underline">5강. 비교연산자</a></div></div>
-        </main>
-      </div>
-    </div>
-  </section>
-   <!-- 메인-리스트페이지 끝 -->  
-   <!-- 메인-리스트 하단 메뉴 시작 --> 
-   <div class="article-page-menu">
-          <ul class="flex flex-jc-c">
-            <li><a href="java-list-1.html" class="flex flex-ai-c article-page-menu__link--selected">1</a></li>
-          </ul>
+   <!-- 메인-타이틀바 종료 --><!-- 하이라이트 라이브러리 추가, 토스트 UI 에디터에서 사용됨 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.1/highlight.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.1/styles/default.min.css">
+
+<!-- 토스트 UI 에디터, 자바스크립트 코어 -->
+<script
+	src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+
+<!-- 코드 미러 라이브러리 추가, 토스트 UI 에디터에서 사용됨 -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.css" />
+<!-- 토스트 UI 에디터, CSS 코어 -->
+<link rel="stylesheet"
+	href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+
+<!-- 토스트 UI 에디터, 신택스 하이라이트 플러그인 추가 -->
+<script src="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight.min.js"></script>
+
+<!-- Progress-bar -->
+<script type="text/javascript" src="https://rawcdn.githack.com/mburakerman/prognroll/0feda211643153bce2c69de32ea1b39cdc64ffbe/src/prognroll.js"></script> 
+<script type="text/javascript"> $(function() { $("body").prognroll( {height:15, color:"#666666"} ); $(".content").prognroll({ custom:true }); }); </script>
+
+   <!-- 메인-상세페이지 시작 -->
+   <section class="section-2 con-min-width min-height-50vh">
+      <div class="con height-100p">
+        <div class="article-detail-cell height-100p">
+          <div class="article-detail-cell__board-name"><div><span>게시판 : </span><span>공지사항 게시판</span></div></div><div class="article-detail-cell__id"><div><span>게시물 번호 : </span><span>6</span></div></div><div class="article-detail-cell__member-id"><div><span>작성자 : </span><span>Dev_J</span></div></div><div class="article-detail-cell__reg-date"><div><span>작성일 : </span><span>2020-12-22 18:27:10</span></div></div><div class="article-detail-cell__update-date"><div><span>수정일 : </span><span>2020-12-22 18:27:10</span></div><br></div><div class="article-detail-cell__title"><div><span>제목 : </span><span>YouTube 영상 테스트입니다.</span></div></div><div class="article-detail-cell__body height-70p "><div><span>
+# 영상 테스트
+
+```youtube
+IUI2O8g2Rs4
+```
+
+출처:몰입코딩</span></div></div><br><br><nav><div id="disqus_thread"></div>
+<script>
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://devj-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></nav>
         </div>
-   <!-- 메인-리스트 하단 메뉴 끝 --> 
+      </div>
+    </section>
+   <!-- 메인-상세페이지 끝 -->
+   <!-- 메인-상세 하단 메뉴 시작 -->
+   <section class="section-3 con-min-width">
+      <div class="con">
+        <div class="article-list-bottom-cell flex flex-jc-c">
+          <div class="./"><a href="1.html" class="hover-underline">&lt 이전글</a></div><div class="./"><i class="fas fa-th-list"></i><a href="notice-list-1.html" class="hover-underline"> 목록 </a></div>
+        </div>
+      </div>
+    </section>
+   <!-- 메인-상세 하단 메뉴 끝 -->
+    
   </main>
   <!-- 메인 컨텐츠 박스 끝 -->  <!-- 사이드바 시작 -->
   <header class="side-bar flex flex-column">
@@ -202,7 +233,13 @@
     </ul>
    </nav>
   </header>
-  <!-- 사이드바 끝 -->  
+  <!-- 사이드바 끝 -->    <!-- 맨 위 버튼 시작 -->
+  <nav class="top-button flex flex-jc-c flex-ai-c">
+    <div class="">
+      <a href="#header">▲ TOP</a> 
+    </div>     
+  </nav>
+  <!-- 맨 위 버튼 끝 -->
   <!-- 푸터 시작 -->
   <footer class="bottom-bar con-min-width">
     <div class="con flex flex-ai-c">
