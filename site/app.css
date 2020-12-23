@@ -248,6 +248,8 @@ a {
 }
 
 .bottom-bar__site-info {
+  font-family: 'Arvo', serif;
+  font-size:0.8rem;
   margin-left:1%;
 }
 /* 하단바 끝 */
@@ -256,7 +258,7 @@ a {
 
 /* 메인-index 페이지 시작 */
 .section-home{
-  font-size:1.2rem;
+  font-family: 'Arvo', serif;
   font-weight:bold;
   padding:20px;
 
@@ -276,12 +278,12 @@ a {
 .section-home nav{
   top:220px;
   right:0px;
-  font-size:3rem;
+  font-size:2.5rem;
   text-align:center;
 }
 
 .section-home nav > span:last-child{
-  font-size:1.5rem;
+  font-size:1.4rem;
 }
 
 .img1{
