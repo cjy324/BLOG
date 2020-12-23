@@ -1,6 +1,6 @@
 /*
 SQLyog Community v13.1.5  (64 bit)
-MySQL - 10.4.6-MariaDB : Database - textBoard
+MySQL - 10.4.17-MariaDB : Database - textboard
 *********************************************************************
 */
 
@@ -12,9 +12,9 @@ MySQL - 10.4.6-MariaDB : Database - textBoard
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`textBoard` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`textboard` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
-USE `textBoard`;
+USE `textboard`;
 
 /*Table structure for table `article` */
 
@@ -24,8 +24,8 @@ CREATE TABLE `article` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `regDate` datetime NOT NULL,
   `updateDate` datetime NOT NULL,
-  `title` char(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `body` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `title` char(100) NOT NULL,
+  `body` text NOT NULL,
   `boardId` int(10) NOT NULL,
   `memberId` int(10) NOT NULL,
   PRIMARY KEY (`id`)
@@ -48,8 +48,8 @@ DROP TABLE IF EXISTS `board`;
 
 CREATE TABLE `board` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` char(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `code` char(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `name` char(100) NOT NULL,
+  `code` char(100) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
@@ -65,11 +65,11 @@ DROP TABLE IF EXISTS `member`;
 
 CREATE TABLE `member` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `loginId` char(100) COLLATE utf8_unicode_ci NOT NULL,
-  `loginPw` char(100) COLLATE utf8_unicode_ci NOT NULL,
-  `name` char(100) COLLATE utf8_unicode_ci NOT NULL,
+  `loginId` char(100) NOT NULL,
+  `loginPw` char(100) NOT NULL,
+  `name` char(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `member` */
 
@@ -86,7 +86,7 @@ CREATE TABLE `recommand` (
   `recommandArticleId` int(10) NOT NULL,
   `recommandMemberId` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `recommand` */
 
@@ -97,7 +97,7 @@ DROP TABLE IF EXISTS `reply`;
 CREATE TABLE `reply` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `regDate` datetime NOT NULL,
-  `replyBody` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `replyBody` text DEFAULT NULL,
   `replyArticleId` int(10) NOT NULL,
   `replyMemberId` int(10) NOT NULL,
   PRIMARY KEY (`id`)
@@ -113,7 +113,7 @@ CREATE TABLE `view` (
   `viewCount` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `viewArticleId` int(10) NOT NULL,
   PRIMARY KEY (`viewCount`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `view` */
 
