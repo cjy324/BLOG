@@ -24,36 +24,270 @@
 <!-- 메타태그정보 //-->
 <!-- META -->
 <link rel="canonical" href="https://blog.devj.me" />
-<meta name="subject" content="Dev_J의 BLOG"/>
+<meta name="subject" content="3강. println(), printf()를 통한 출력"/>
 <meta name="title" content="Dev_J BLOG" />
 <meta name="keywords" content="JAVA, HTML, CSS, JavaScript, MySQL" />
 <meta name="copyright" content="Dev_J BLOG" />
-<meta name="pubdate" content="2020-12-27T21:02:36" />
-<meta name="lastmod" content="2020-12-27T21:02:36" />
+<meta name="pubdate" content="2020-12-27T21:27:49" />
+<meta name="lastmod" content="2020-12-27T21:27:49" />
 <!-- OPENGRAPH -->
 <meta property="og:site_name" content="Dev_J BLOG" />
 <meta property="og:type" content="blog" />
-<meta property="og:title" content="Dev_J의 BLOG" />
-<meta property="og:description" content="Dev_J의 BLOG입니다." />
+<meta property="og:title" content="3강. println(), printf()를 통한 출력" />
+<meta property="og:description" content="입력을 했다면 다음은 출력이다
+
+JAVA에서 출력은 Systemoutprintln 과 Systemoutprintf 을 활용해 수행할 수 있다
+
+이 둘은 비슷하지만 그 사용법과 결과물에서 조금 차이가 있다
+br
+아래 예시를 통해 그 차이를 살펴보자
+
+ 1 Systemoutprintln
+java
+1문장 출력
+Systemoutprintln명령어
+출력 결과 명령어
+				
+2변수 출력
+int a  50
+Systemoutprintlna
+출력 결과 50
+				
+3문장  변수 출력
+Systemoutprintlna    a  이다
+출력 결과 a  50이다
+
+4연속으로 사용하면 아래방향으로 출력이 진행된다
+Systemoutprintln명령어1
+Systemoutprintln명령어2
+Systemoutprintln명령어3
+출력 결과 명령어1
+            명령어2
+            명령어3    
+
+brbr
+
+ 2 Systemoutprintf
+java
+1문장 출력
+Systemoutprintf명령어
+출력 결과 명령어
+				
+2변수 출력
+int a  50
+Systemoutprintfda
+출력 결과 50
+
+
+여기서 println과 다른점은 위와 같이 변수만 입력해서는 출력이 진행되지 않는다는 점이다 d와 같이 각 변수 타입에 맞는 명령어를 입력해주어야 그 자리에 원하는 변수 값을 치환시켜 출력할 수 있다
+
+변수 타입과 치환명령어 예시
+
+int  d
+float  f
+String  s
+
+이 외에도 다양한 치환명령어가 존재한다
+
+
+				
+3문장  변수 출력
+Systemoutprintfa    a  이다
+출력 결과 a  50이다
+
+4연속으로 사용하면 println와 다르게 가로방향으로 출력이 진행된다
+Systemoutprintf명령어1
+Systemoutprintf명령어2
+Systemoutprintf명령어3
+출력 결과 명령어1명령어2명령어3
+
+
+만약 printf로 println와 같이 아래방향으로 출력을 진행시키고 싶다면 명령어 뒤에 n을 입력해주면 된다
+
+Systemoutprintf명령어1n
+Systemoutprintf명령어2n
+Systemoutprintf명령어3n
+출력 결과 명령어1
+            명령어2
+            명령어3    
+
+
+" />
 <meta property="og:locale" content="ko_KR" />
 <meta property="og:image" content="images/Dev_J_logo/logo.png" />
 <meta property="og:image:alt" content="blog.devj.me" />
 <meta property="og:image:width" content="486" />
 <meta property="og:image:height" content="254" />
-<meta property="og:updated_time" content="2020-12-27T21:02:36"/>
-<meta property="og:pubdate" content="2020-12-27T21:02:36" />
+<meta property="og:updated_time" content="2020-12-27T21:27:49"/>
+<meta property="og:pubdate" content="2020-12-27T21:27:49" />
 <meta property="og:url" content="https://blog.devj.me" />
 <!-- TWITTER -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Dev_J의 BLOG" />
+<meta name="twitter:title" content="3강. println(), printf()를 통한 출력" />
 <meta name="twitter:site" content="@Dev_J BLOG" />
 <meta name="twitter:creator" content="@Dev_J BLOG" />
 <meta name="twitter:image" content="images/Dev_J_logo/logo.png">
-<meta name="twitter:description" content="Dev_J의 BLOG입니다." />
+<meta name="twitter:description" content="입력을 했다면 다음은 출력이다
+
+JAVA에서 출력은 Systemoutprintln 과 Systemoutprintf 을 활용해 수행할 수 있다
+
+이 둘은 비슷하지만 그 사용법과 결과물에서 조금 차이가 있다
+br
+아래 예시를 통해 그 차이를 살펴보자
+
+ 1 Systemoutprintln
+java
+1문장 출력
+Systemoutprintln명령어
+출력 결과 명령어
+				
+2변수 출력
+int a  50
+Systemoutprintlna
+출력 결과 50
+				
+3문장  변수 출력
+Systemoutprintlna    a  이다
+출력 결과 a  50이다
+
+4연속으로 사용하면 아래방향으로 출력이 진행된다
+Systemoutprintln명령어1
+Systemoutprintln명령어2
+Systemoutprintln명령어3
+출력 결과 명령어1
+            명령어2
+            명령어3    
+
+brbr
+
+ 2 Systemoutprintf
+java
+1문장 출력
+Systemoutprintf명령어
+출력 결과 명령어
+				
+2변수 출력
+int a  50
+Systemoutprintfda
+출력 결과 50
+
+
+여기서 println과 다른점은 위와 같이 변수만 입력해서는 출력이 진행되지 않는다는 점이다 d와 같이 각 변수 타입에 맞는 명령어를 입력해주어야 그 자리에 원하는 변수 값을 치환시켜 출력할 수 있다
+
+변수 타입과 치환명령어 예시
+
+int  d
+float  f
+String  s
+
+이 외에도 다양한 치환명령어가 존재한다
+
+
+				
+3문장  변수 출력
+Systemoutprintfa    a  이다
+출력 결과 a  50이다
+
+4연속으로 사용하면 println와 다르게 가로방향으로 출력이 진행된다
+Systemoutprintf명령어1
+Systemoutprintf명령어2
+Systemoutprintf명령어3
+출력 결과 명령어1명령어2명령어3
+
+
+만약 printf로 println와 같이 아래방향으로 출력을 진행시키고 싶다면 명령어 뒤에 n을 입력해주면 된다
+
+Systemoutprintf명령어1n
+Systemoutprintf명령어2n
+Systemoutprintf명령어3n
+출력 결과 명령어1
+            명령어2
+            명령어3    
+
+
+" />
 <!-- GOOGLE+ -->
 <meta itemprop="headline" content="Dev_J BLOG" />
 <meta itemprop="name" content="Dev_J BLOG" />
-<meta itemprop="description" content="Dev_J의 BLOG입니다." />
+<meta itemprop="description" content="입력을 했다면 다음은 출력이다
+
+JAVA에서 출력은 Systemoutprintln 과 Systemoutprintf 을 활용해 수행할 수 있다
+
+이 둘은 비슷하지만 그 사용법과 결과물에서 조금 차이가 있다
+br
+아래 예시를 통해 그 차이를 살펴보자
+
+ 1 Systemoutprintln
+java
+1문장 출력
+Systemoutprintln명령어
+출력 결과 명령어
+				
+2변수 출력
+int a  50
+Systemoutprintlna
+출력 결과 50
+				
+3문장  변수 출력
+Systemoutprintlna    a  이다
+출력 결과 a  50이다
+
+4연속으로 사용하면 아래방향으로 출력이 진행된다
+Systemoutprintln명령어1
+Systemoutprintln명령어2
+Systemoutprintln명령어3
+출력 결과 명령어1
+            명령어2
+            명령어3    
+
+brbr
+
+ 2 Systemoutprintf
+java
+1문장 출력
+Systemoutprintf명령어
+출력 결과 명령어
+				
+2변수 출력
+int a  50
+Systemoutprintfda
+출력 결과 50
+
+
+여기서 println과 다른점은 위와 같이 변수만 입력해서는 출력이 진행되지 않는다는 점이다 d와 같이 각 변수 타입에 맞는 명령어를 입력해주어야 그 자리에 원하는 변수 값을 치환시켜 출력할 수 있다
+
+변수 타입과 치환명령어 예시
+
+int  d
+float  f
+String  s
+
+이 외에도 다양한 치환명령어가 존재한다
+
+
+				
+3문장  변수 출력
+Systemoutprintfa    a  이다
+출력 결과 a  50이다
+
+4연속으로 사용하면 println와 다르게 가로방향으로 출력이 진행된다
+Systemoutprintf명령어1
+Systemoutprintf명령어2
+Systemoutprintf명령어3
+출력 결과 명령어1명령어2명령어3
+
+
+만약 printf로 println와 같이 아래방향으로 출력을 진행시키고 싶다면 명령어 뒤에 n을 입력해주면 된다
+
+Systemoutprintf명령어1n
+Systemoutprintf명령어2n
+Systemoutprintf명령어3n
+출력 결과 명령어1
+            명령어2
+            명령어3    
+
+
+" />
 <meta itemprop="image" content="images/Dev_J_logo/logo.png" />
 
 <!-- 사이트 타이틀 -->
