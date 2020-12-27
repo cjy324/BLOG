@@ -222,7 +222,7 @@ public class BuildService {
 			int x = beforeArticleIndex;
 			int beforeArticleId = articles.get(x).id;
 
-			String head = getHeadHtml("article_detail");
+		//	String head = getHeadHtml("article_detail");
 			String sideBar = getSideBarHtml();
 			String topButton = Util.getFileContents("site_template/top-button.html");
 			String foot = Util.getFileContents("site_template/foot.html");
@@ -232,7 +232,9 @@ public class BuildService {
 			System.out.println("= article 상세페이지 생성 =");
 
 			for (Article article : articles) {
-
+				
+				String head = getHeadHtml("article_detail", article);
+				
 				StringBuilder html = new StringBuilder();
 
 				html.append(head);
@@ -323,9 +325,14 @@ public class BuildService {
 
 		}
 	}
-
+	
+	// head.html 가져오기 오버라이드
+	private String getHeadHtml(String pageName) {  
+		return getHeadHtml(pageName, null);
+	}
+	
 	// head.html 가져오기
-	private String getHeadHtml(String pageName) {
+	private String getHeadHtml(String pageName, Object object) {
 		List<Board> boards = articleService.getBoards();
 
 		String head = Util.getFileContents("site_template/head.html"); // head.html 가져오기
@@ -349,8 +356,40 @@ public class BuildService {
 		// 입력받은 pageName에 맞는 타이틀바 컨텐츠를 리턴
 
 		head = head.replace("[타이틀바 컨텐츠]", titleBarContentHtml);
-
+		
+		String pageTitle = getPageTitle(pageName, object);
+		// 입력받은 pageName에 맞는 페이지의 타이틀을 리턴
+		
+		head = head.replace("[페이지 타이틀]", pageTitle);
+		
 		return head;
+	}
+
+	// 입력받은 pageName에 맞는 페이지의 타이틀을 리턴
+	private String getPageTitle(String pageName, Object object) {
+		StringBuilder pageTitle = new StringBuilder();
+		
+		String forPrintPageName = pageName;
+		
+		if(forPrintPageName.equals("index")) {
+			forPrintPageName = "home";
+		}
+		
+		forPrintPageName = forPrintPageName.toUpperCase(); //대상 문자열을 모두 대문자로 변환
+		forPrintPageName = forPrintPageName.replace("_", " "); //pageName에 있는 _를 공백으로 변환
+		
+		pageTitle.append("Dev_J BLOG | ");
+		pageTitle.append(forPrintPageName);
+		
+		//object가 Article이라는 객체로 형변환이 가능한지를 판단
+		if(object instanceof Article) {
+			Article article = (Article) object;
+			
+			pageTitle.insert(0, article.title + " | ");
+			//형변환이 가능하면 0번 위치에? article.title + "|" 삽입
+		}
+		
+		return pageTitle.toString();
 	}
 
 	// 페이지이름에 따라 메인부분 타이틀바 아이콘 가져오기
