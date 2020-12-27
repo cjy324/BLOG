@@ -9,6 +9,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Util {
 
@@ -97,6 +99,30 @@ public class Util {
 		}
         
         return true;
+	}
+	
+	//폴더 복붙
+	public static void copyDir(String sourceDirectoryLocation, String destinationDirectoryLocation) {
+		rmdir(destinationDirectoryLocation);
+
+		try {
+			Files.walk(Paths.get(sourceDirectoryLocation)).forEach(source -> {
+				Path destination = Paths.get(destinationDirectoryLocation,
+						source.toString().substring(sourceDirectoryLocation.length()));
+				try {
+					Files.copy(source, destination);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			});
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static String getNowDateStr() {
+		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+	
 	}
 
 }

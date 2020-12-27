@@ -25,7 +25,10 @@ public class BuildService {
 		// site_template에 있는 app.css(원본)를 복사해 site폴더 생성시 그 안에 복사본 붙여넣기
 		Util.copy("site_template/app.css", "site/app.css");
 		Util.copy("site_template/app.js", "site/app.js");
-
+		
+		// site_template에 있는 images(원본)폴더를 복사해 site폴더 생성시 그 안에 복사본 붙여넣기
+		Util.copyDir("site_template/images", "site/images");
+		
 		buildIndexPage(); // 인덱스 페이지 생성
 		buildArticleListPages(); // 각 게시판 별 게시물리스트 페이지 생성
 		buildArticleDetailPages(); // 게시판 별 게시물 상세페이지 생성
@@ -327,7 +330,7 @@ public class BuildService {
 	}
 	
 	// head.html 가져오기 오버라이드
-	private String getHeadHtml(String pageName) {  
+	private String getHeadHtml(String pageName) {   // 만약, getHeadHtml()에 pageName만 있으면 getHeadHtml(pageName, null)로 리턴
 		return getHeadHtml(pageName, null);
 	}
 	
@@ -361,6 +364,24 @@ public class BuildService {
 		// 입력받은 pageName에 맞는 페이지의 타이틀을 리턴
 		
 		head = head.replace("[페이지 타이틀]", pageTitle);
+	
+		//Meta Tag & Open Graph 작업
+		String siteTitle = "Dev_J BLOG";
+		String siteSubject = "Dev_J의 BLOG";
+		String siteKeywords = "JAVA, HTML, CSS, JavaScript, MySQL";
+		String siteDescription = "Dev_J의 BLOG입니다.";
+		String siteDomain = "blog.devj.me"; 
+		String siteMainUrl = "https://" + siteDomain;
+		String currentDate = Util.getNowDateStr().replace(" ", "T");
+		
+		head = head.replace("[사이트 타이틀]", siteTitle);
+		head = head.replace("[사이트 주제]", siteSubject);
+		head = head.replace("[사이트 키워드]", siteKeywords);
+		head = head.replace("[사이트 설명]", siteDescription);
+		head = head.replace("[사이트 도메인]", siteDomain);
+		head = head.replace("[사이트 URL]", siteMainUrl);
+		head = head.replace("[날짜]", currentDate);
+		
 		
 		return head;
 	}
