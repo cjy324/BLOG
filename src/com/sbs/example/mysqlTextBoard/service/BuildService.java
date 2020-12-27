@@ -374,6 +374,17 @@ public class BuildService {
 		String siteMainUrl = "https://" + siteDomain;
 		String currentDate = Util.getNowDateStr().replace(" ", "T");
 		
+		
+		//게시물 상세페이지마다 내용 나오게 하기
+		if ( object instanceof Article ) {
+			Article article = (Article) object;
+			siteSubject = article.title;
+			siteDescription = article.body;
+			siteDescription = siteDescription.replaceAll("[^\uAC00-\uD7A3xfe0-9a-zA-Z\\s]", "");
+			//[^\uAC00-\uD7A3xfe0-9a-zA-Z\\s] => 모든 특수문자 제거
+		}
+		
+		
 		head = head.replace("[사이트 타이틀]", siteTitle);
 		head = head.replace("[사이트 주제]", siteSubject);
 		head = head.replace("[사이트 키워드]", siteKeywords);
