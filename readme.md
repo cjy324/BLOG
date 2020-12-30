@@ -4,4 +4,4 @@
    - c:\xampp\mysql\bin\mysqldump.exe -u sbsst -p textBoard > C:\work\sts-4.8.0.RELEASE-workspace\mysql-text-board\site\blog-status.sql
    
  - Disqus api - listThreads
-   - https://disqus.com/api/3.0/forums/listThreads.json
+   - https://disqus.com/api/3.0/forums/listThreads.json?api_key=mr5Mv3I4DJ893SADMVmxOu7iUzXrkL3GvNnWxJ4dBy5ZBHvd32lKlEw0qYI5x76F&forum=devj-blog&thread:ident=1.html"

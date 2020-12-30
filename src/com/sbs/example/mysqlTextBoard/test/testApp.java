@@ -40,25 +40,32 @@ public class testApp {
 
 	private void testApp2() {
 		String url = "https://disqus.com/api/3.0/forums/listThreads.json";
+		
+		for(int i = 1; i < 11; i++ ) {
 		Map<String, Object> rs = Util.callApiResponseToMap(url,
-				"api_key=mr5Mv3I4DJ893SADMVmxOu7iUzXrkL3GvNnWxJ4dBy5ZBHvd32lKlEw0qYI5x76F", "forum=blog",
-				"thread:ident=10.html");
+				"api_key=mr5Mv3I4DJ893SADMVmxOu7iUzXrkL3GvNnWxJ4dBy5ZBHvd32lKlEw0qYI5x76F", "forum=devj-blog",
+				"thread:ident="+ i +".html");
 
 		List<Map<String, Object>> response = (List<Map<String, Object>>) rs.get("response");
 
 		Map<String, Object> thread = response.get(0);
 
-		System.out.println((int) thread.get("likes"));
+		System.out.println("likes " + (int) thread.get("likes"));
+		System.out.println("comments " + (int) thread.get("posts"));
+		}
 	}
 
 	private void testApp3() {
 		String url = "https://disqus.com/api/3.0/forums/listThreads.json";
-
-		DisqusApiDataListThread rs = (DisqusApiDataListThread) Util.callApiResponseTo(DisqusApiDataListThread.class,
-				url, "api_key=mr5Mv3I4DJ893SADMVmxOu7iUzXrkL3GvNnWxJ4dBy5ZBHvd32lKlEw0qYI5x76F", "forum=blog",
-				"thread:ident=10.html");
-
-		System.out.println(rs.response.get(0).likes);
+		
+		for(int i = 1; i < 11; i++ ) {
+			DisqusApiDataListThread rs = (DisqusApiDataListThread) Util.callApiResponseTo(DisqusApiDataListThread.class,
+					url, "api_key=mr5Mv3I4DJ893SADMVmxOu7iUzXrkL3GvNnWxJ4dBy5ZBHvd32lKlEw0qYI5x76F", "forum=devj-blog",
+					"thread:ident=" + i + ".html");
+			System.out.println("likes " + rs.response.get(0).likes);
+			System.out.println("comments " + rs.response.get(0).posts);
+		}
+		
 	}
 
 	// Jackson 라이브러리 추가 및 테스트

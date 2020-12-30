@@ -1,7 +1,9 @@
 package com.sbs.example.mysqlTextBoard.service;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.sbs.example.mysqlTextBoard.container.Container;
 import com.sbs.example.mysqlTextBoard.dto.Article;
@@ -10,28 +12,56 @@ import com.sbs.example.mysqlTextBoard.util.Util;
 
 public class BuildService {
 	ArticleService articleService;
+	DiscusApiService discusApiService;
 
 	public BuildService() {
 		articleService = Container.articleService;
-
+		discusApiService = Container.discusApiService;
 	}
 
 	public void builSite() {
 		System.out.println("= site 폴더 생성 =");
 
-	//	Util.rmdir("site"); // 기존 site 폴더 삭제
+		// Util.rmdir("site"); // 기존 site 폴더 삭제
 		Util.mkdir("site"); // 신규 site 폴더 생성
 
 		// site_template에 있는 app.css(원본)를 복사해 site폴더 생성시 그 안에 복사본 붙여넣기
 		Util.copy("site_template/app.css", "site/app.css");
 		Util.copy("site_template/app.js", "site/app.js");
-		
+
 		// site_template에 있는 images(원본)폴더를 복사해 site폴더 생성시 그 안에 복사본 붙여넣기
 		Util.copyDir("site_template/images", "site/images");
-		
+
+		// 사이트 생성 전 Discus Data 가져오기
+		loadDiscusData();
+
 		buildIndexPage(); // 인덱스 페이지 생성
 		buildArticleListPages(); // 각 게시판 별 게시물리스트 페이지 생성
 		buildArticleDetailPages(); // 게시판 별 게시물 상세페이지 생성
+
+	}
+
+	// Discus Data 가져오기
+	private void loadDiscusData() {
+		List<Article> articles = articleService.getArticlesForPrint();
+
+		for (Article article : articles) {
+			Map<String, Object> discusArticleData = discusApiService.getArticleData(article);
+			
+			if (discusArticleData != null) {
+				int likesCount = (int) discusArticleData.get("likesCount");
+				int commentsCount = (int) discusArticleData.get("commentsCount");
+				
+				Map<String, Object> modifyArgs = new HashMap<>();
+				modifyArgs.put("id", article.id);
+				modifyArgs.put("likesCount", likesCount);
+				modifyArgs.put("commentsCount", commentsCount);
+
+				articleService.articleModify(modifyArgs);
+				
+			}
+
+		}
 
 	}
 
@@ -46,8 +76,8 @@ public class BuildService {
 
 			List<Article> articles = articleService.getBoardArticlesByCodeForPrint(board.code);
 
-			Collections.reverse(articles); //최신순 리스팅
-			
+			Collections.reverse(articles); // 최신순 리스팅
+
 			int articlesInAPage = 10; // 한 페이지에 들어갈 article 수 설정
 			int pageMenuBoxSize = 5; // 한 메인페이지 화면에 나올 하단 페이지 메뉴 버튼 수 ex) 1 2 3 4 5 6 7 8 9 10
 			int totalArticlesCount = articles.size(); // 전체 article의 수 카운팅
@@ -193,7 +223,7 @@ public class BuildService {
 		StringBuilder boardMenuLinkHtml = new StringBuilder();
 
 		for (Board board : boards) {
-			
+
 			boardMenuLinkHtml.append("<li>");
 
 			String link = board.code + "-list-1.html";
@@ -217,7 +247,7 @@ public class BuildService {
 		for (Board board : boards) {
 			List<Article> articles = articleService.getBoardArticlesByCodeForPrint(board.code);
 			int articlesSize = articles.size();
-			
+
 			if (articlesSize <= 0) {
 				continue;
 			}
@@ -225,7 +255,7 @@ public class BuildService {
 			int x = beforeArticleIndex;
 			int beforeArticleId = articles.get(x).id;
 
-		//	String head = getHeadHtml("article_detail");
+			// String head = getHeadHtml("article_detail");
 			String sideBar = getSideBarHtml();
 			String topButton = Util.getFileContents("site_template/top-button.html");
 			String foot = Util.getFileContents("site_template/foot.html");
@@ -235,18 +265,18 @@ public class BuildService {
 			System.out.println("= article 상세페이지 생성 =");
 
 			for (Article article : articles) {
-				
+
 				String head = getHeadHtml("article_detail", article);
-				
+
 				StringBuilder html = new StringBuilder();
 
 				html.append(head);
 
 				StringBuilder body = new StringBuilder();
-				
+
 				body.append("<div class=\"article-detail-cell__board-name\">");
 				body.append("<div>");
-				body.append("<span>게시판 : </span><span>"+ board.name +" 게시판</span>");
+				body.append("<span>게시판 : </span><span>" + board.name + " 게시판</span>");
 				body.append("</div>");
 				body.append("</div>");
 				body.append("<div class=\"article-detail-cell__id\">");
@@ -267,6 +297,16 @@ public class BuildService {
 				body.append("<div class=\"article-detail-cell__update-date\">");
 				body.append("<div>");
 				body.append("<span>수정일 : </span><span>" + article.updateDate + "</span>");
+				body.append("</div>");
+				body.append("</div>");
+				body.append("<div class=\"article-detail-cell__update-date\">");
+				body.append("<div>");
+				body.append("<span>추천수 : </span><span>" + article.likesCount + "</span>");
+				body.append("</div>");
+				body.append("</div>");
+				body.append("<div class=\"article-detail-cell__update-date\">");
+				body.append("<div>");
+				body.append("<span>댓글수 : </span><span>" + article.commentsCount + "</span>");
 				body.append("</div><br>");
 				body.append("</div>");
 				body.append("<div class=\"article-detail-cell__title\">");
@@ -279,38 +319,37 @@ public class BuildService {
 				body.append("<span>" + article.body + "</span>");
 				body.append("</div>");
 				body.append("</div><br><br>");
-				
+
 				// discus에게 정확한 페이지 경로 알려주기
-				String domainUrl = "blog.devj.me";
+				String domainUrl = Container.appConfig.getSiteDomain();
 				String pageUrl = article.id + ".html";
-				
-				
+
 				// 상세페이지 하단 메뉴
-				
+
 				StringBuilder pageMenuBody = new StringBuilder();
-				
+
 				if (article.id > beforeArticleId) {
 					pageMenuBody.append("<div class=\"./\"><a href=\"" + articles.get(x - 1).id + ".html"
 							+ "\" class=\"hover-underline\">&lt 이전글</a></div>");
 				}
 
-				pageMenuBody.append("<div class=\"./\"><i class=\"fas fa-th-list\"></i><a href=\"" + board.code + "-list-1.html"
-						+ "\" class=\"hover-underline\"> 목록 </a></div>");
+				pageMenuBody.append("<div class=\"./\"><i class=\"fas fa-th-list\"></i><a href=\"" + board.code
+						+ "-list-1.html" + "\" class=\"hover-underline\"> 목록 </a></div>");
 				if (x < articlesSize - 1) {
 					pageMenuBody.append("<div class=\"./\"><a href=\"" + articles.get(x + 1).id + ".html"
 							+ "\"class=\"hover-underline\">다음글 &gt</a></div>");
 				}
-				
 
 				String bodyTemplate = template.replace("[상세페이지 블록]", body); // list 템플릿에 mainBody 끼워넣고
 				bodyTemplate = bodyTemplate.replace("[사이트 도메인]", domainUrl);
 				bodyTemplate = bodyTemplate.replace("[사이트 이름.html]", pageUrl);
-				html.append(bodyTemplate.replace("[상세페이지 하단 메뉴 블록]", pageMenuBody)); // bodyTemplate에 다시 pageMenuBody 끼워넣기
+				html.append(bodyTemplate.replace("[상세페이지 하단 메뉴 블록]", pageMenuBody)); // bodyTemplate에 다시 pageMenuBody
+																						// 끼워넣기
 				html.append(sideBar);
 				html.append(topButton);
 				html.append(foot);
 
-				String fileName = article.id + ".html";
+				String fileName = getArticleFileName(article);
 				String path = "site/" + fileName;
 
 				Util.writeFile(path, html.toString());
@@ -324,19 +363,23 @@ public class BuildService {
 
 		}
 	}
-	
+
+	public String getArticleFileName(Article article) {
+		return article.id + ".html";
+	}
+
 	// head.html 가져오기 오버라이드
-	private String getHeadHtml(String pageName) {   // 만약, getHeadHtml()에 pageName만 있으면 getHeadHtml(pageName, null)로 리턴
+	private String getHeadHtml(String pageName) { // 만약, getHeadHtml()에 pageName만 있으면 getHeadHtml(pageName, null)로 리턴
 		return getHeadHtml(pageName, null);
 	}
-	
+
 	// head.html 가져오기
 	private String getHeadHtml(String pageName, Object object) {
 		List<Board> boards = articleService.getBoards();
 
 		String head = Util.getFileContents("site_template/head.html"); // head.html 가져오기
 		StringBuilder boardMenuContentHtml = new StringBuilder();
-		
+
 		for (Board board : boards) {
 			boardMenuContentHtml.append("<li>");
 
@@ -355,32 +398,30 @@ public class BuildService {
 		// 입력받은 pageName에 맞는 타이틀바 컨텐츠를 리턴
 
 		head = head.replace("[타이틀바 컨텐츠]", titleBarContentHtml);
-		
+
 		String pageTitle = getPageTitle(pageName, object);
 		// 입력받은 pageName에 맞는 페이지의 타이틀을 리턴
-		
+
 		head = head.replace("[페이지 타이틀]", pageTitle);
-	
-		//Meta Tag & Open Graph 작업
+
+		// Meta Tag & Open Graph 작업
 		String siteTitle = "Dev_J BLOG";
 		String siteSubject = "Dev_J의 BLOG";
 		String siteKeywords = "JAVA, HTML, CSS, JavaScript, MySQL";
 		String siteDescription = "Dev_J의 BLOG입니다.";
-		String siteDomain = "blog.devj.me"; 
+		String siteDomain = Container.appConfig.getSiteDomain();
 		String siteMainUrl = "https://" + siteDomain;
 		String currentDate = Util.getNowDateStr().replace(" ", "T");
-		
-		
-		//게시물 상세페이지마다 내용 나오게 하기
-		if ( object instanceof Article ) {
+
+		// 게시물 상세페이지마다 내용 나오게 하기
+		if (object instanceof Article) {
 			Article article = (Article) object;
 			siteSubject = article.title;
 			siteDescription = article.body;
 			siteDescription = siteDescription.replaceAll("[^\uAC00-\uD7A3xfe0-9a-zA-Z\\s]", "");
-			//[^\uAC00-\uD7A3xfe0-9a-zA-Z\\s] => 모든 특수문자 제거
+			// [^\uAC00-\uD7A3xfe0-9a-zA-Z\\s] => 모든 특수문자 제거
 		}
-		
-		
+
 		head = head.replace("[사이트 타이틀]", siteTitle);
 		head = head.replace("[사이트 주제]", siteSubject);
 		head = head.replace("[사이트 키워드]", siteKeywords);
@@ -388,35 +429,34 @@ public class BuildService {
 		head = head.replace("[사이트 도메인]", siteDomain);
 		head = head.replace("[사이트 URL]", siteMainUrl);
 		head = head.replace("[날짜]", currentDate);
-		
-		
+
 		return head;
 	}
 
 	// 입력받은 pageName에 맞는 페이지의 타이틀을 리턴
 	private String getPageTitle(String pageName, Object object) {
 		StringBuilder pageTitle = new StringBuilder();
-		
+
 		String forPrintPageName = pageName;
-		
-		if(forPrintPageName.equals("index")) {
+
+		if (forPrintPageName.equals("index")) {
 			forPrintPageName = "home";
 		}
-		
-		forPrintPageName = forPrintPageName.toUpperCase(); //대상 문자열을 모두 대문자로 변환
-		forPrintPageName = forPrintPageName.replace("_", " "); //pageName에 있는 _를 공백으로 변환
-		
+
+		forPrintPageName = forPrintPageName.toUpperCase(); // 대상 문자열을 모두 대문자로 변환
+		forPrintPageName = forPrintPageName.replace("_", " "); // pageName에 있는 _를 공백으로 변환
+
 		pageTitle.append("Dev_J BLOG | ");
 		pageTitle.append(forPrintPageName);
-		
-		//object가 Article이라는 객체로 형변환이 가능한지를 판단
-		if(object instanceof Article) {
+
+		// object가 Article이라는 객체로 형변환이 가능한지를 판단
+		if (object instanceof Article) {
 			Article article = (Article) object;
-			
+
 			pageTitle.insert(0, article.title + " | ");
-			//형변환이 가능하면 0번 위치에? article.title + "|" 삽입
+			// 형변환이 가능하면 0번 위치에? article.title + "|" 삽입
 		}
-		
+
 		return pageTitle.toString();
 	}
 

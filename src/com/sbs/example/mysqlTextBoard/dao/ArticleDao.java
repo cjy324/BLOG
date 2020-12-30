@@ -12,7 +12,6 @@ import com.sbs.example.mysqlTextBoard.dto.View;
 import com.sbs.example.mysqlTextBoard.mysqlutil.MysqlUtil;
 import com.sbs.example.mysqlTextBoard.mysqlutil.SecSql;
 
-
 public class ArticleDao {
 
 	public ArticleDao() {
@@ -73,11 +72,11 @@ public class ArticleDao {
 
 		for (Map<String, Object> articlesMap : articlesMapList) {
 			Article article = new Article(articlesMap);
-			
+
 			articles.add(article);
-			
+
 		}
-	//	Collections.reverse(articles);
+		// Collections.reverse(articles);
 		return articles;
 	}
 
@@ -100,13 +99,30 @@ public class ArticleDao {
 		return new Article(articleMap);
 	}
 
-	public void articleModify(int id, String title, String body) {
+	public void articleModify(Map<String, Object> modifyArgs) {
 		SecSql sql = new SecSql();
+
+		int id = (int) modifyArgs.get("id");
+		String title = modifyArgs.get("title") != null ? (String) modifyArgs.get("title") : null;
+		String body = modifyArgs.get("body") != null ? (String) modifyArgs.get("body") : null;
+		int likesCount = modifyArgs.get("likesCount") != null ? (int) modifyArgs.get("likesCount") : -1;
+		int commentsCount = modifyArgs.get("commentsCount") != null ? (int) modifyArgs.get("commentsCount") : -1;
 
 		sql.append("UPDATE article");
 		sql.append("SET updateDate = NOW(),");
-		sql.append("title = ?,", title);
-		sql.append("body = ?", body);
+		if (title != null) {
+			sql.append("title = ?,", title);
+		}
+		if (body != null) {
+			sql.append("body = ?,", body);
+		}
+		if (likesCount != -1) {
+			sql.append("likesCount = ?,", likesCount);
+		}
+		if (commentsCount != -1) {
+			sql.append("commentsCount = ?", commentsCount);
+		}
+
 		sql.append("WHERE id = ?", id);
 
 		MysqlUtil.update(sql);
@@ -230,7 +246,7 @@ public class ArticleDao {
 		sql.append("recommandMemberId = ?", recommandMemberId);
 
 		MysqlUtil.delete(sql);
-		
+
 	}
 
 	public List<Recommand> getRecommands(int articleId) {
@@ -253,7 +269,7 @@ public class ArticleDao {
 	}
 
 	public void addView(int articleId) {
-		
+
 		SecSql sql = new SecSql();
 
 		sql.append("INSERT INTO view");
@@ -261,7 +277,7 @@ public class ArticleDao {
 		sql.append("viewArticleId = ?", articleId);
 
 		MysqlUtil.insert(sql);
-		
+
 	}
 
 	public List<View> getViews(int articleId) {
@@ -296,11 +312,11 @@ public class ArticleDao {
 			Board board = new Board(boardsMap);
 
 			boards.add(board);
-	}
+		}
 
 		return boards;
 
-}
+	}
 
 	public Board getBoardByCode(String code) {
 		SecSql sql = new SecSql();
