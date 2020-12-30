@@ -279,17 +279,17 @@ public class BuildService {
 				body.append("<span>" + article.body + "</span>");
 				body.append("</div>");
 				body.append("</div><br><br>");
-				//댓글 유틸 disqus 적용
-				body.append("<nav><div id=\"disqus_thread\"></div>\r\n"
-						+ "<script>\r\n"
-						+ "    (function() { // DON'T EDIT BELOW THIS LINE\r\n"
-						+ "    var d = document, s = d.createElement('script');\r\n"
-						+ "    s.src = 'https://devj-blog.disqus.com/embed.js';\r\n"
-						+ "    s.setAttribute('data-timestamp', +new Date());\r\n"
-						+ "    (d.head || d.body).appendChild(s);\r\n"
-						+ "    })();\r\n"
-						+ "</script>\r\n"
-						+ "<noscript>Please enable JavaScript to view the <a href=\"https://disqus.com/?ref_noscript\">comments powered by Disqus.</a></noscript></nav>");
+				/*
+				 * //댓글 유틸 disqus 적용 body.append("<nav><div id=\"disqus_thread\"></div>\r\n" +
+				 * "<script>\r\n" + "    (function() { // DON'T EDIT BELOW THIS LINE\r\n" +
+				 * "    var d = document, s = d.createElement('script');\r\n" +
+				 * "    s.src = 'https://devj-blog.disqus.com/embed.js';\r\n" +
+				 * "    s.setAttribute('data-timestamp', +new Date());\r\n" +
+				 * "    (d.head || d.body).appendChild(s);\r\n" + "    })();\r\n" +
+				 * "</script>\r\n" +
+				 * "<noscript>Please enable JavaScript to view the <a href=\"https://disqus.com/?ref_noscript\">comments powered by Disqus.</a></noscript></nav>"
+				 * );
+				 */
 				
 				
 				// 상세페이지 하단 메뉴
