@@ -279,17 +279,10 @@ public class BuildService {
 				body.append("<span>" + article.body + "</span>");
 				body.append("</div>");
 				body.append("</div><br><br>");
-				/*
-				 * //댓글 유틸 disqus 적용 body.append("<nav><div id=\"disqus_thread\"></div>\r\n" +
-				 * "<script>\r\n" + "    (function() { // DON'T EDIT BELOW THIS LINE\r\n" +
-				 * "    var d = document, s = d.createElement('script');\r\n" +
-				 * "    s.src = 'https://devj-blog.disqus.com/embed.js';\r\n" +
-				 * "    s.setAttribute('data-timestamp', +new Date());\r\n" +
-				 * "    (d.head || d.body).appendChild(s);\r\n" + "    })();\r\n" +
-				 * "</script>\r\n" +
-				 * "<noscript>Please enable JavaScript to view the <a href=\"https://disqus.com/?ref_noscript\">comments powered by Disqus.</a></noscript></nav>"
-				 * );
-				 */
+				
+				// discus에게 정확한 페이지 경로 알려주기
+				String domainUrl = "blog.devj.me";
+				String pageUrl = article.id + ".html";
 				
 				
 				// 상세페이지 하단 메뉴
@@ -307,8 +300,11 @@ public class BuildService {
 					pageMenuBody.append("<div class=\"./\"><a href=\"" + articles.get(x + 1).id + ".html"
 							+ "\"class=\"hover-underline\">다음글 &gt</a></div>");
 				}
+				
 
 				String bodyTemplate = template.replace("[상세페이지 블록]", body); // list 템플릿에 mainBody 끼워넣고
+				bodyTemplate = bodyTemplate.replace("[사이트 도메인]", domainUrl);
+				bodyTemplate = bodyTemplate.replace("[사이트 이름.html]", pageUrl);
 				html.append(bodyTemplate.replace("[상세페이지 하단 메뉴 블록]", pageMenuBody)); // bodyTemplate에 다시 pageMenuBody 끼워넣기
 				html.append(sideBar);
 				html.append(topButton);

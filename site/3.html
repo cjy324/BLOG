@@ -28,8 +28,8 @@
 <meta name="title" content="Dev_J BLOG" />
 <meta name="keywords" content="JAVA, HTML, CSS, JavaScript, MySQL" />
 <meta name="copyright" content="Dev_J BLOG" />
-<meta name="pubdate" content="2020-12-30T15:40:00" />
-<meta name="lastmod" content="2020-12-30T15:40:00" />
+<meta name="pubdate" content="2020-12-30T16:00:34" />
+<meta name="lastmod" content="2020-12-30T16:00:34" />
 <!-- OPENGRAPH -->
 <meta property="og:site_name" content="Dev_J BLOG" />
 <meta property="og:type" content="blog" />
@@ -84,8 +84,8 @@ public class Main
 <meta property="og:image:alt" content="blog.devj.me" />
 <meta property="og:image:width" content="486" />
 <meta property="og:image:height" content="254" />
-<meta property="og:updated_time" content="2020-12-30T15:40:00"/>
-<meta property="og:pubdate" content="2020-12-30T15:40:00" />
+<meta property="og:updated_time" content="2020-12-30T16:00:34"/>
+<meta property="og:pubdate" content="2020-12-30T16:00:34" />
 <meta property="og:url" content="https://blog.devj.me" />
 <!-- TWITTER -->
 <meta name="twitter:card" content="summary_large_image" />
@@ -358,10 +358,15 @@ public class Main {
 
 }
 ```</span></div></div><br><br>
-         <!-- Disqus api 적용 -->
+         <!-- Disqus api 적용 --><!-- 정확한 페이지 경로 알려주는 기능 추가-->
 		 <nav>
 		 	<div id="disqus_thread"></div>
 			<script>
+				
+			var disqus_config = function () {   
+		        this.page.url = 'https://blog.devj.me/3.html';
+		        this.page.identifier = '3.html';
+		    };
 					(function() { 
 						//DON'T EDIT BELOW THIS LINE
 						var d = document, s = d.createElement('script');

@@ -25,10 +25,15 @@
       <div class="con height-100p">
         <div class="article-detail-cell height-100p">
           [상세페이지 블록]
-         <!-- Disqus api 적용 -->
+         <!-- Disqus api 적용 --><!-- 정확한 페이지 경로 알려주는 기능 추가-->
 		 <nav>
 		 	<div id="disqus_thread"></div>
 			<script>
+				
+			var disqus_config = function () {   
+		        this.page.url = 'https://[사이트 도메인]/[사이트 이름.html]';
+		        this.page.identifier = '[사이트 이름.html]';
+		    };
 					(function() { 
 						//DON'T EDIT BELOW THIS LINE
 						var d = document, s = d.createElement('script');
