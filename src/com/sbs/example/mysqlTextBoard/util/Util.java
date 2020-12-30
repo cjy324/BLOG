@@ -17,35 +17,41 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sbs.example.mysqlTextBoard.apiDto.DisqusApiDataListThread;
 
 public class Util {
 
-	//신규 폴더 생성
+	// 신규 폴더 생성
 	public static void mkdir(String path) {
-		
+
 		File dir = new File(path);
-		
-		if(dir.exists() == false) {
+
+		if (dir.exists() == false) {
 			dir.mkdirs();
 		}
-		
+
 	}
-	
-	//파일 생성
-	public static void writeFile(String path, String body) {  //body = sb.toString
+
+	// 파일 생성
+	public static void writeFile(String path, String body) { // body = sb.toString
 		File file = new File(path);
 
 		try {
-		    BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-		    writer.write(body);
-		    writer.close();
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+			writer.write(body);
+			writer.close();
 		} catch (IOException e) {
-		    e.printStackTrace();
+			e.printStackTrace();
 		}
-		
+
 	}
 
-	//기존 폴더 삭제
+	// 기존 폴더 삭제
 	public static boolean rmdir(String path) {
 		return rmdir(new File(path));
 	}
@@ -87,27 +93,27 @@ public class Util {
 	// 파일 복붙
 	public static boolean copy(String sourcePath, String destPath) {
 		Path source = Paths.get(sourcePath);
-        Path target = Paths.get(destPath);
+		Path target = Paths.get(destPath);
 
-        if (!Files.exists(target.getParent())) {
-            try {
+		if (!Files.exists(target.getParent())) {
+			try {
 				Files.createDirectories(target.getParent());
 			} catch (IOException e) {
 				e.printStackTrace();
 				return false;
 			}
-        }
+		}
 
-        try {
+		try {
 			Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
 			return true;
 		}
-        
-        return true;
+
+		return true;
 	}
-	
-	//폴더 복붙
+
+	// 폴더 복붙
 	public static void copyDir(String sourceDirectoryLocation, String destinationDirectoryLocation) {
 		rmdir(destinationDirectoryLocation);
 
@@ -128,10 +134,9 @@ public class Util {
 
 	public static String getNowDateStr() {
 		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-	
+
 	}
-	
-	
+
 	// url을 자바 내에서 확인하고 싶을때 사용하는 유틸?
 	public static String callApi(String urlStr, String... args) {
 		// URL 구성 시작
@@ -149,7 +154,7 @@ public class Util {
 
 		urlStr += queryString.toString();
 		// URL 구성 끝
-		
+
 		// 연결생성 시작
 		HttpURLConnection con = null;
 
@@ -185,6 +190,35 @@ public class Util {
 		// 연결을 통해서 데이터 가져오기 끝
 
 		return content.toString();
+	}
+
+	public static Map<String, Object> callApiResponseToMap(String url, String... args) {
+
+		String jsonString = callApi(url, args);
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		try {
+			return (Map<String, Object>) mapper.readValue(jsonString, Map.class);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	public static Object callApiResponseTo(Class cls, String url, String... args) {
+		String jsonString = callApi(url, args);
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		try {
+			return mapper.readValue(jsonString, cls);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 
 }
