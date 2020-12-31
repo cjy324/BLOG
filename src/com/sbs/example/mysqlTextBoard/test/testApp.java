@@ -20,10 +20,19 @@ public class testApp {
 	}
 
 	public void run() {
-		 testApp3();
+		 //testApp();
 
 		//testJackson5();
+		
+		testGoogleCredentials();
+	}
 
+	private void testGoogleCredentials() {
+		//환경변수 경로를 가져오기
+		String variablesPath = System.getenv("GOOGLE_APPLICATION_CREDENTIALS");
+		System.out.println(variablesPath);
+		
+		
 	}
 
 	// HTTP REQUEST 후 응답 받아오는 함수 구현
