@@ -45,14 +45,15 @@ public class testApp {
 	    try (AlphaAnalyticsDataClient analyticsData = AlphaAnalyticsDataClient.create()) {
 	      RunReportRequest request = RunReportRequest.newBuilder()
 	          .setEntity(Entity.newBuilder().setPropertyId(ga4PropertyId)) //검색(데이터 가져올) 대상
-	          //참고: http://www.goldenplanet.co.kr/blog/2017/01/24/google-analytics-dimension-metric/
+	          //해설 참고: http://www.goldenplanet.co.kr/blog/2017/01/24/google-analytics-dimension-metric/
+	          //공식 정보: https://developers.google.com/analytics/devguides/reporting/data/v1/api-schema
 	          //Dimension(측정 기준): 웹사이트 방문자들의 특성(속성)
 	          .addDimensions(
 	              Dimension.newBuilder().setName("pagePath")) //pagePath: The web pages visited, listed by URI.
 	          //Metric(측정 항목): Dimension을 측정하는 “숫자”
 	          .addMetrics(Metric.newBuilder().setName("activeUsers")) //activeUsers: The number of distinct users who visited your site or app.
 	          .addDateRanges(
-	              DateRange.newBuilder().setStartDate("2020-12-01").setEndDate("today")).build();
+	              DateRange.newBuilder().setStartDate("2020-10-01").setEndDate("today")).build();
 
 	      // Make the request
 	      RunReportResponse response = analyticsData.runReport(request);
