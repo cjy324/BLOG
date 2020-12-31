@@ -17,4 +17,10 @@ public class AppConfig {
 		
 	}
 
+
+	public String getGa4PropertyId() {
+		//구글 애널리틱스 속성의 ID
+		return "256591365";
+	}
+
 }

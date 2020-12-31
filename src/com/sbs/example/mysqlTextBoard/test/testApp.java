@@ -1,5 +1,6 @@
 package com.sbs.example.mysqlTextBoard.test;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -7,7 +8,16 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.analytics.data.v1alpha.AlphaAnalyticsDataClient;
+import com.google.analytics.data.v1alpha.DateRange;
+import com.google.analytics.data.v1alpha.Dimension;
+import com.google.analytics.data.v1alpha.Entity;
+import com.google.analytics.data.v1alpha.Metric;
+import com.google.analytics.data.v1alpha.Row;
+import com.google.analytics.data.v1alpha.RunReportRequest;
+import com.google.analytics.data.v1alpha.RunReportResponse;
 import com.sbs.example.mysqlTextBoard.apiDto.DisqusApiDataListThread;
+import com.sbs.example.mysqlTextBoard.container.Container;
 import com.sbs.example.mysqlTextBoard.util.Util;
 
 public class testApp {
@@ -25,6 +35,37 @@ public class testApp {
 		//testJackson5();
 		
 		testGoogleCredentials();
+		testUpdateGoogleAnalyticsApi();
+	}
+
+	private void testUpdateGoogleAnalyticsApi() {
+		//GoogleAnalytics 버전4의 PropertyId 가져오기
+		String ga4PropertyId = Container.appConfig.getGa4PropertyId();
+
+	    try (AlphaAnalyticsDataClient analyticsData = AlphaAnalyticsDataClient.create()) {
+	      RunReportRequest request = RunReportRequest.newBuilder()
+	          .setEntity(Entity.newBuilder().setPropertyId(ga4PropertyId)) //검색(데이터 가져올) 대상
+	          //참고: http://www.goldenplanet.co.kr/blog/2017/01/24/google-analytics-dimension-metric/
+	          //Dimension(측정 기준): 웹사이트 방문자들의 특성(속성)
+	          .addDimensions(
+	              Dimension.newBuilder().setName("pagePath")) //pagePath: The web pages visited, listed by URI.
+	          //Metric(측정 항목): Dimension을 측정하는 “숫자”
+	          .addMetrics(Metric.newBuilder().setName("activeUsers")) //activeUsers: The number of distinct users who visited your site or app.
+	          .addDateRanges(
+	              DateRange.newBuilder().setStartDate("2020-12-01").setEndDate("today")).build();
+
+	      // Make the request
+	      RunReportResponse response = analyticsData.runReport(request);
+
+	      System.out.println("Report result:");
+	      for (Row row : response.getRowsList()) {
+	        System.out.printf("%s, %s%n", row.getDimensionValues(0).getValue(),
+	            row.getMetricValues(0).getValue());
+	      }
+	    } catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	private void testGoogleCredentials() {
