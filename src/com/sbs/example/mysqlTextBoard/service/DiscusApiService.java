@@ -10,6 +10,12 @@ import com.sbs.example.mysqlTextBoard.dto.Article;
 import com.sbs.example.mysqlTextBoard.util.Util;
 
 public class DiscusApiService {
+	
+	ArticleService articleService;
+	
+	public DiscusApiService() {
+		articleService = Container.articleService;
+	}
 
 	public Map<String, Object> getArticleData(Article article) {
 		String fileName = Container.buildService.getArticleFileName(article);
@@ -29,6 +35,30 @@ public class DiscusApiService {
 		System.out.println(rs);
 		
 		return rs;
+	}
+
+	public void updateArticleCounts() {
+		List<Article> articles = articleService.getArticlesForPrint();
+
+		for (Article article : articles) {
+			Map<String, Object> discusArticleData = getArticleData(article);
+			
+			if (discusArticleData != null) {
+				int likesCount = (int) discusArticleData.get("likesCount");
+				int commentsCount = (int) discusArticleData.get("commentsCount");
+				
+				Map<String, Object> modifyArgs = new HashMap<>();
+				modifyArgs.put("id", article.id);
+				modifyArgs.put("likesCount", likesCount);
+				modifyArgs.put("commentsCount", commentsCount);
+
+				articleService.articleModify(modifyArgs);
+				
+			}
+
+		}
+
+		
 	}
 
 }

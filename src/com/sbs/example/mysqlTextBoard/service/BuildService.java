@@ -13,10 +13,12 @@ import com.sbs.example.mysqlTextBoard.util.Util;
 public class BuildService {
 	ArticleService articleService;
 	DiscusApiService discusApiService;
+	GoogleAnalyticsApiService googleAnalyticsApiService;
 
 	public BuildService() {
 		articleService = Container.articleService;
 		discusApiService = Container.discusApiService;
+		googleAnalyticsApiService = Container.googleAnalyticsApiService;
 	}
 
 	public void builSite() {
@@ -33,7 +35,9 @@ public class BuildService {
 		Util.copyDir("site_template/images", "site/images");
 
 		// 사이트 생성 전 Discus Data 가져오기
-		loadDiscusData();
+		loadDataFromDiscus();
+		// 사이트 생성 전 GoogleAnalytics4 Data 가져오기
+		loadDataFromGA4();
 
 		buildIndexPage(); // 인덱스 페이지 생성
 		buildArticleListPages(); // 각 게시판 별 게시물리스트 페이지 생성
@@ -41,28 +45,15 @@ public class BuildService {
 
 	}
 
+	// GoogleAnalytics4 Data 가져오기
+	private void loadDataFromGA4() {
+		googleAnalyticsApiService.updatePageHits();
+		
+	}
+
 	// Discus Data 가져오기
-	private void loadDiscusData() {
-		List<Article> articles = articleService.getArticlesForPrint();
-
-		for (Article article : articles) {
-			Map<String, Object> discusArticleData = discusApiService.getArticleData(article);
-			
-			if (discusArticleData != null) {
-				int likesCount = (int) discusArticleData.get("likesCount");
-				int commentsCount = (int) discusArticleData.get("commentsCount");
-				
-				Map<String, Object> modifyArgs = new HashMap<>();
-				modifyArgs.put("id", article.id);
-				modifyArgs.put("likesCount", likesCount);
-				modifyArgs.put("commentsCount", commentsCount);
-
-				articleService.articleModify(modifyArgs);
-				
-			}
-
-		}
-
+	private void loadDataFromDiscus() {
+		discusApiService.updateArticleCounts();
 	}
 
 	// 각 게시판 별 게시물리스트 페이지 생성
@@ -297,6 +288,11 @@ public class BuildService {
 				body.append("<div class=\"article-detail-cell__update-date\">");
 				body.append("<div>");
 				body.append("<span>수정일 : </span><span>" + article.updateDate + "</span>");
+				body.append("</div>");
+				body.append("</div>");
+				body.append("<div class=\"article-detail-cell__update-date\">");
+				body.append("<div>");
+				body.append("<span>조회수 : </span><span>" + article.hitCount + "</span>");
 				body.append("</div>");
 				body.append("</div>");
 				body.append("<div class=\"article-detail-cell__update-date\">");

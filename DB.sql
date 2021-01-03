@@ -158,7 +158,7 @@ SELECT * FROM `ga4DataPagePath`;
 # 1단계, 다 불러오기
 SELECT pagePath
 FROM ga4DataPagePath AS GA4_PP
-WHERE GA4_PP.pagePath LIKE '/%.html%'
+WHERE GA4_PP.pagePath LIKE '/article_detail_%.html%'
 
 # 2단계, pagePath 정제
 SELECT 
@@ -213,7 +213,7 @@ FROM (
     GROUP BY pagePathWoQueryStr
 ) AS GA4_PP;
 
-# 게시물 테이블에 조회수 칼럼 추가
+# article 테이블에 hitCount 칼럼 추가
 ALTER TABLE article ADD COLUMN hitCount INT(10) UNSIGNED NOT NULL;
 
 # 구글 애널리틱스에서 가져온 데이터를 기반으로 모든 게시물의 hit 정보를 갱신
@@ -239,7 +239,7 @@ INNER JOIN (
 ) AS GA4_PP
 ON AR.id = GA4_PP.articleId;
 
-# 2단계, 실제 쿼리
+# 2단계, 실제 적용 쿼리
 UPDATE article AS AR
 INNER JOIN (
     SELECT CAST(REPLACE(REPLACE(GA4_PP.pagePathWoQueryStr, '/article_detail_', ''), '.html', '') AS UNSIGNED) AS articleId,

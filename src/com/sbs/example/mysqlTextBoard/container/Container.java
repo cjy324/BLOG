@@ -42,9 +42,10 @@ public class Container {
 		articleDao = new ArticleDao();
 		ga4DataDao = new Ga4DataDao();
 		
-		discusApiService = new DiscusApiService();
+		
 		memberService = new MemberService();
 		articleService = new ArticleService();
+		discusApiService = new DiscusApiService();
 		googleAnalyticsApiService = new GoogleAnalyticsApiService();
 		buildService = new BuildService();
 		

@@ -31,13 +31,13 @@ public class testApp {
 	}
 
 	public void run() {
-		 //testApp();
+		 //testApp3();
 
 		//testJackson5();
 		
 	//	testGoogleCredentials();
-	//	testUpdateGoogleAnalyticsApi();
-		testUpdatePageHitsByGa4Api();
+		testUpdateGoogleAnalyticsApi();
+	//	testUpdatePageHitsByGa4Api();
 	}
 
 	private void testUpdatePageHitsByGa4Api() {
@@ -103,7 +103,7 @@ public class testApp {
 		for(int i = 1; i < 11; i++ ) {
 		Map<String, Object> rs = Util.callApiResponseToMap(url,
 				"api_key=mr5Mv3I4DJ893SADMVmxOu7iUzXrkL3GvNnWxJ4dBy5ZBHvd32lKlEw0qYI5x76F", "forum=devj-blog",
-				"thread:ident="+ i +".html");
+				"thread:ident=article_detail_"+ i +".html");
 
 		List<Map<String, Object>> response = (List<Map<String, Object>>) rs.get("response");
 
@@ -120,7 +120,7 @@ public class testApp {
 		for(int i = 1; i < 11; i++ ) {
 			DisqusApiDataListThread rs = (DisqusApiDataListThread) Util.callApiResponseTo(DisqusApiDataListThread.class,
 					url, "api_key=mr5Mv3I4DJ893SADMVmxOu7iUzXrkL3GvNnWxJ4dBy5ZBHvd32lKlEw0qYI5x76F", "forum=devj-blog",
-					"thread:ident=" + i + ".html");
+					"thread:ident=article_detail_" + i + ".html");
 			System.out.println("likes " + rs.response.get(0).likes);
 			System.out.println("comments " + rs.response.get(0).posts);
 		}

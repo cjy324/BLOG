@@ -16,12 +16,14 @@ import com.sbs.example.mysqlTextBoard.dao.Ga4DataDao;
 public class GoogleAnalyticsApiService {
 	
 	Ga4DataDao ga4DataDao;
+	ArticleService articleService;
 	
 	public GoogleAnalyticsApiService(){
 		ga4DataDao = Container.ga4DataDao;
+		articleService = Container.articleService;
 	}
 
-	public boolean updatePageHits() {
+	public boolean  updateGa4DataPageHits() {
 		String ga4PropertyId = Container.appConfig.getGa4PropertyId();
 
 	    try (AlphaAnalyticsDataClient analyticsData = AlphaAnalyticsDataClient.create()) {
@@ -63,6 +65,14 @@ public class GoogleAnalyticsApiService {
 		ga4DataDao.deletePageData(pagePath);
 		// 페이지경로에 정보 업데이트(새 정보로 저장)
 		ga4DataDao.savePageData(pagePath, hit);
+		
+	}
+
+	public void updatePageHits() {
+		//ga4DataPagePath 테이블의 hit 정보 업데이트
+		updateGa4DataPageHits();
+		//article 테이블의 hitCount 정보 업데이트
+		articleService.updatePageHits();
 		
 	}
 

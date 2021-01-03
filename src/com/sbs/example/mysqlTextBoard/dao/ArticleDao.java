@@ -353,4 +353,31 @@ public class ArticleDao {
 
 		return articles;
 	}
+
+	public void updatePageHits() {
+		SecSql sql = new SecSql();
+
+		sql.append("UPDATE article AS AR ");
+		sql.append("INNER JOIN ( ");
+		sql.append("SELECT CAST(REPLACE(REPLACE(GA4_PP.pagePathWoQueryStr, '/article_detail_', ''), '.html', '') AS UNSIGNED) AS articleId, ");
+		sql.append("hit ");
+		sql.append("FROM ( ");
+		sql.append("SELECT  ");
+		sql.append("IF( ");
+		sql.append("INSTR(GA4_PP.pagePath, '?') = 0, ");
+		sql.append("GA4_PP.pagePath, ");
+		sql.append("SUBSTR(GA4_PP.pagePath, 1, INSTR(GA4_PP.pagePath, '?') - 1) ");
+		sql.append(") AS pagePathWoQueryStr, ");
+		sql.append("SUM(GA4_PP.hit) AS hit ");
+		sql.append("FROM ga4DataPagePath AS GA4_PP ");
+		sql.append("WHERE GA4_PP.pagePath LIKE '/article_detail_%.html%' ");
+		sql.append("GROUP BY pagePathWoQueryStr ");
+		sql.append(") AS GA4_PP ");
+		sql.append(") AS GA4_PP ");
+		sql.append("ON AR.id = GA4_PP.articleId ");
+		sql.append("SET AR.hitCount = GA4_PP.hit; ");
+		
+		MysqlUtil.update(sql);
+		
+	}
 }

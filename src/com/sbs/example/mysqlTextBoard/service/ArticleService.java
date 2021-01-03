@@ -132,4 +132,9 @@ public class ArticleService {
 		
 	}
 
+	public void updatePageHits() {
+		articleDao.updatePageHits();
+		
+	}
+
 }
