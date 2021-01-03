@@ -7,10 +7,10 @@ public class Main {
 	public static void main(String[] args) {
 		
 		//실제 서비스용 App
-		//new App().run();
+		new App().run();
 		
 		//테스트용 App
-		new testApp().run();
+		//new testApp().run();
 		
 	}
 	

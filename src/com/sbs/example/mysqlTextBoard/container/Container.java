@@ -7,10 +7,12 @@ import com.sbs.example.mysqlTextBoard.controller.ArticleController;
 import com.sbs.example.mysqlTextBoard.controller.BuildController;
 import com.sbs.example.mysqlTextBoard.controller.MemberController;
 import com.sbs.example.mysqlTextBoard.dao.ArticleDao;
+import com.sbs.example.mysqlTextBoard.dao.Ga4DataDao;
 import com.sbs.example.mysqlTextBoard.dao.MemberDao;
 import com.sbs.example.mysqlTextBoard.service.ArticleService;
 import com.sbs.example.mysqlTextBoard.service.BuildService;
 import com.sbs.example.mysqlTextBoard.service.DiscusApiService;
+import com.sbs.example.mysqlTextBoard.service.GoogleAnalyticsApiService;
 import com.sbs.example.mysqlTextBoard.service.MemberService;
 import com.sbs.example.mysqlTextBoard.session.Session;
 
@@ -28,6 +30,8 @@ public class Container {
 	public static BuildController buildController;
 	public static BuildService buildService;
 	public static DiscusApiService discusApiService;
+	public static GoogleAnalyticsApiService googleAnalyticsApiService;
+	public static Ga4DataDao ga4DataDao;
 	
 	static {
 		scanner = new Scanner(System.in);
@@ -36,10 +40,12 @@ public class Container {
 		
 		memberDao = new MemberDao();
 		articleDao = new ArticleDao();
+		ga4DataDao = new Ga4DataDao();
 		
 		discusApiService = new DiscusApiService();
 		memberService = new MemberService();
 		articleService = new ArticleService();
+		googleAnalyticsApiService = new GoogleAnalyticsApiService();
 		buildService = new BuildService();
 		
 		memberController = new MemberController();

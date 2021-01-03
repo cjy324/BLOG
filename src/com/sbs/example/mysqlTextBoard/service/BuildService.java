@@ -125,7 +125,7 @@ public class BuildService {
 			mainBody.append("<div class=\"article-list__cell-id\">" + article.id + "</div>");
 			mainBody.append("<div class=\"article-list__cell-reg-date\">" + article.regDate + "</div>");
 			mainBody.append("<div class=\"article-list__cell-writer\">" + article.extra_memberName + "</a></div>");
-			mainBody.append("<div class=\"article-list__cell-title\"><a href=\"" + article.id
+			mainBody.append("<div class=\"article-list__cell-title\"><a href=\"article_detail_" + article.id
 					+ ".html\" class=\"hover-underline\">" + article.title + "</a></div>");
 			mainBody.append("</div>");
 		}
@@ -322,21 +322,21 @@ public class BuildService {
 
 				// discus에게 정확한 페이지 경로 알려주기
 				String domainUrl = Container.appConfig.getSiteDomain();
-				String pageUrl = article.id + ".html";
+				String pageUrl = getArticleFileName(article);
 
 				// 상세페이지 하단 메뉴
 
 				StringBuilder pageMenuBody = new StringBuilder();
 
 				if (article.id > beforeArticleId) {
-					pageMenuBody.append("<div class=\"./\"><a href=\"" + articles.get(x - 1).id + ".html"
+					pageMenuBody.append("<div class=\"./\"><a href=\"article_detail_" + articles.get(x - 1).id + ".html"
 							+ "\" class=\"hover-underline\">&lt 이전글</a></div>");
 				}
 
 				pageMenuBody.append("<div class=\"./\"><i class=\"fas fa-th-list\"></i><a href=\"" + board.code
 						+ "-list-1.html" + "\" class=\"hover-underline\"> 목록 </a></div>");
 				if (x < articlesSize - 1) {
-					pageMenuBody.append("<div class=\"./\"><a href=\"" + articles.get(x + 1).id + ".html"
+					pageMenuBody.append("<div class=\"./\"><a href=\"article_detail_" + articles.get(x + 1).id + ".html"
 							+ "\"class=\"hover-underline\">다음글 &gt</a></div>");
 				}
 
@@ -365,7 +365,7 @@ public class BuildService {
 	}
 
 	public String getArticleFileName(Article article) {
-		return article.id + ".html";
+		return "article_detail_" + article.id + ".html";
 	}
 
 	// head.html 가져오기 오버라이드
