@@ -37,7 +37,7 @@ public class GoogleAnalyticsApiService {
 	          //Metric(측정 항목): Dimension을 측정하는 “숫자”
 	          .addMetrics(Metric.newBuilder().setName("activeUsers")) //activeUsers: The number of distinct users who visited your site or app.
 	          .addDateRanges(
-	              DateRange.newBuilder().setStartDate("2020-10-01").setEndDate("today")).build();
+	              DateRange.newBuilder().setStartDate("2021-01-01").setEndDate("today")).build();
 
 	      // Make the request
 	      RunReportResponse response = analyticsData.runReport(request);
