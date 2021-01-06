@@ -31,8 +31,6 @@ public class BuildService {
 		Util.copy("site_template/app.css", "site/app.css");
 		Util.copy("site_template/app.js", "site/app.js");
 
-		
-
 		// site_template에 있는 images(원본)폴더를 복사해 site폴더 생성시 그 안에 복사본 붙여넣기
 		Util.copyDir("site_template/images", "site/images");
 
@@ -44,21 +42,21 @@ public class BuildService {
 		buildIndexPage(); // 인덱스 페이지 생성
 		buildArticleListPages(); // 각 게시판 별 게시물리스트 페이지 생성
 		buildArticleDetailPages(); // 게시판 별 게시물 상세페이지 생성
-		buildSearchPage(); //검색 페이지 생성
+		buildSearchPage(); // 검색 페이지 생성
 
 	}
-	
-	//검색 페이지 생성
+
+	// 검색 페이지 생성
 	private void buildSearchPage() {
-		//전체 게시물 불러오기
+		// 전체 게시물 불러오기
 		List<Article> articles = articleService.getArticlesForPrint();
-		
-		//전체 게시물 리스트를 json파일로 만들기
+
+		// 전체 게시물 리스트를 json파일로 만들기
 		String jsonText = Util.getJsonText(articles);
 		Util.writeFile("site/article_list.json", jsonText);
-		
+
 		Util.copy("site_template/search.js", "site/search.js");
-		
+
 		StringBuilder html = new StringBuilder();
 
 		String head = getHeadHtml("search");
@@ -75,13 +73,13 @@ public class BuildService {
 		String path = "site/" + fileName;
 
 		Util.writeFile(path, html.toString());
-		
+
 	}
 
 	// GoogleAnalytics4 Data 가져오기
 	private void loadDataFromGA4() {
 		googleAnalyticsApiService.updatePageHits();
-		
+
 	}
 
 	// Discus Data 가져오기
@@ -221,15 +219,38 @@ public class BuildService {
 
 	// 인덱스 페이지 생성
 	private void buildIndexPage() {
-		StringBuilder html = new StringBuilder();
+
+		System.out.println("= INDEX 페이지 생성 =");
 
 		String head = getHeadHtml("index");
-		String foot = Util.getFileContents("site_template/foot.html");
 		String sideBar = getSideBarHtml();
-		String mainHtml = Util.getFileContents("site_template/index.html");
+		String foot = Util.getFileContents("site_template/foot.html");
+		String template = Util.getFileContents("site_template/index.html");
+
+		StringBuilder html = new StringBuilder();
 
 		html.append(head);
+
+		StringBuilder mainBody = new StringBuilder();
+		List<Article> articles = articleService.getBoardArticlesByCodeForPrint("notice");
+
+		Collections.reverse(articles); 
+		
+		for (int i = 0; i < 5; i++) {
+			if (articles.size() <= i) {
+				continue;
+			}
+			Article article = articles.get(i);
+			mainBody.append("<div>");
+			mainBody.append("<div class=\"home-list__cell-id\">" + article.id + "</div>");
+			mainBody.append("<div class=\"home-list__cell-title\"><a href=\"article_detail_" + article.id
+					+ ".html\" class=\"hover-underline\">" + article.title + "</a></div>");
+			mainBody.append("</div>");
+		}
+		String mainHtml = template.replace("[인덱스 페이지 공지 리스트]", mainBody);
+
 		html.append(mainHtml);
+
 		html.append(sideBar);
 		html.append(foot);
 
@@ -237,6 +258,8 @@ public class BuildService {
 		String path = "site/" + fileName;
 
 		Util.writeFile(path, html.toString());
+
+		System.out.println("= INDEX 페이지 생성 종료 =");
 	}
 
 	// side-bar.html 가져오기
@@ -471,7 +494,7 @@ public class BuildService {
 		if (forPrintPageName.equals("index")) {
 			forPrintPageName = "home";
 		}
-		
+
 		if (forPrintPageName.equals("search")) {
 			forPrintPageName = "search";
 		}

@@ -45,6 +45,10 @@ a {
   justify-content:center;
 }
 
+.flex-jc-fe {
+  justify-content:flex-end;
+}
+
 .flex-ai-c {
   align-items:center;
 }
@@ -113,6 +117,7 @@ a {
 .height-500px{
   height:500px;
 }
+
 
 .block {
   display:block;
@@ -240,7 +245,6 @@ a {
 
 /* 하단바 시작 */
 .bottom-bar {
-  margin-top:30px;
   background-color:black;
   color:white;
   padding-top:10px;
@@ -256,18 +260,24 @@ a {
 
 
 
+/* 메인 컨텐츠 박스 시작 */
+.main-box{
+  min-height:800px;
+  padding-bottom:50px;
+}
+/* 메인 컨텐츠 박스 끝 */
+
+
+
 /* 메인-index 페이지 시작 */
 .section-home{
-  font-family: 'Arvo', serif;
-  font-weight:bold;
   padding:20px;
 
 }
 
 .section-home > div{
   position:relative;
-  height:560px;
-  
+  width:100%; 
 }
 
 .section-home >div > *{
@@ -287,14 +297,14 @@ a {
 }
 
 .img1{
-  height:300px;
+  height:320px;
   animation:fadein 2s;
 }
 
 .img2{
-  height:280px;
-  top:320px;
-  left:180px;
+  height:330px;
+  top:350px;
+  left:280px;
   animation:fadein 4s;
 }
 
@@ -315,7 +325,183 @@ a {
         }
     }
 
+@media ( min-width:1800px ){
+    .img1 {
+        left:250px;
+     }
+  
+    .img2 {
+        left:350px;
+     }
+    .img3 {
+        height:300px;
+        left:700px;
+    }
+}
+
+@media (max-width:1799px) and ( min-width:1600px ) {
+  .img1 {
+        left:100px;
+     }
+  
+  .img2 {
+        left:270px;
+     }
+}
+
+@media (max-width:1599px) and (min-width:1300px ) {
+    .img3 {
+        display:none;
+    }
+}
+
+@media ( max-width:1299px ) and (min-width:750px ) {
+     .img1 {
+        height:250px;
+       top:20px;
+     }
+  
+  .img2 {
+        height:300px;
+        top:320px;
+        left:200px;
+     }
+  
+    .img3 {
+        display:none;
+    }
+}
+
+@media ( max-width:749px ) {
+  .img1 {
+        display:none;
+     }
+  
+  .img2 {
+        display:none;
+     }
+  
+    .img3 {
+        display:none;
+    }
+  
+}
+  
+
 /* 메인-index 페이지 끝 */
+
+
+/* 메인-홈-공지 리스트 페이지 시작 */
+.section-home-list{
+  width:100%;
+  text-align:center;
+  font-size:1.1rem;
+  
+}
+
+.home-list{
+  width:600px;
+  margin-top:100px;
+  margin-right:50px;
+  min-height:300px;
+}
+
+.home-list > span{
+  font-weight:bold;
+  font-size:2rem;
+}
+
+.home-list > header{
+  margin-top:20px;
+}
+
+.home-list > * > div{
+  display:flex;
+  justify-content:center;
+}
+
+.home-list > header > div > div {
+  position:relative;
+}
+
+.home-list > header > div > div:not(:last-child):after {
+  content:"";
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  right:0;
+  width:2px;
+  height:15px;
+  background-color:black;
+}
+
+.home-list > * > div > div {
+  box-sizing:border-box;
+  text-align:center;
+  padding-top:10px;
+  padding-bottom:10px;
+}
+
+.home-list__cell-body > div> .home-list__cell-title{
+  text-align:left;
+  padding-left:30px;
+}
+
+
+.home-list__cell-id {
+  width:20%;
+}
+
+.home-list__cell-title {
+  width:80%;
+}
+
+.home-list > .home-list__cell-body > div {
+  border-top:1px solid black;
+}
+
+@media ( min-width:2100px ){
+.home-list{
+      width:600px;
+      margin-top:100px;
+      margin-right:200px;
+      min-height:300px;
+    }
+}
+
+@media ( max-width:2099px ) and ( min-width:1800px ){
+
+}
+
+@media (max-width:1799px) and ( min-width:1600px ) {
+
+}
+
+@media (max-width:1599px) and (min-width:1300px ) {
+
+}
+
+@media ( max-width:1299px ) and (min-width:750px ) {
+
+}
+
+@media ( max-width:749px ) {
+      .section-home-list{
+      justify-content:flex-start;
+  
+      }
+    
+      .home-list{
+      width:600px;
+      margin-top:100px;
+      margin-left:10px;
+      min-height:300px;
+    }
+}
+
+
+/* 메인-홈-공지 리스트 페이지 끝 */
+
 
 
 
@@ -627,6 +813,9 @@ a {
 }
 /* 토스트에디터-유튜브 플러그인 끝 */
 
+
+
+
 /* Statistics 페이지 시작 */
 .count-box{
   height:550px;
@@ -642,13 +831,6 @@ a {
 /* Statistics 페이지 끝 */
 
 /* 검색 페이지 시작 */
-:root {
-  --article-list__cell-id__width:100px;
-  --article-list__cell-reg-date__width:220px;
-  --article-list__cell-writer__width:150px;
-  --article-list__cell-title__width:calc(100% - var(--article-list__cell-id__width) - var(--article-list__cell-reg-date__width) - var(--article-list__cell-writer__width));
-}
-
 .article-search-list{
   font-size:1.1rem;
 }
