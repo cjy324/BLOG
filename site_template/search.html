@@ -27,7 +27,7 @@
               <div class="article-search-list__cell-reg-date">{{article.regDate}}</div>
               <div class="article-search-list__cell-writer">{{article.writer}}</div>
               <div class="article-search-list__cell-title">
-                <a href="'article_detail'+article.id+'.html'" class="hover-underline">{{article.title}}</a>
+                <a :href="'article_detail_' + article.id + '.html'" class="hover-underline">{{article.title}}</a>
               </div>
             </div>
           </div>
