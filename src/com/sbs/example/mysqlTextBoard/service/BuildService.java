@@ -42,8 +42,32 @@ public class BuildService {
 		buildIndexPage(); // 인덱스 페이지 생성
 		buildArticleListPages(); // 각 게시판 별 게시물리스트 페이지 생성
 		buildArticleDetailPages(); // 게시판 별 게시물 상세페이지 생성
+		buildStatisticsPage(); //statistics 페이지 생성
 		buildSearchPage(); // 검색 페이지 생성
 
+	}
+	
+	//statistics 페이지 생성
+	private void buildStatisticsPage() {
+		Util.copy("site_template/search.js", "site/search.js");
+
+		StringBuilder html = new StringBuilder();
+
+		String head = getHeadHtml("statistics");
+		String foot = Util.getFileContents("site_template/foot.html");
+		String sideBar = getSideBarHtml();
+		String mainHtml = Util.getFileContents("site_template/statistics.html");
+
+		html.append(head);
+		html.append(mainHtml);
+		html.append(sideBar);
+		html.append(foot);
+
+		String fileName = "statistics.html";
+		String path = "site/" + fileName;
+
+		Util.writeFile(path, html.toString());
+		
 	}
 
 	// 검색 페이지 생성
@@ -530,6 +554,8 @@ public class BuildService {
 			return "<i class=\"fab fa-java\"></i> <span>JAVA</span>";
 		} else if (pageName.startsWith("search")) {
 			return "<i class=\"fas fa-search\"></i> <span>SEARCH</span>";
+		} else if (pageName.startsWith("statistics")) {
+			return "<i class=\"fas fa-chart-pie\"></i><span>STATISTICS</span>";
 		}
 		return "";
 	}

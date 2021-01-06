@@ -332,10 +332,12 @@ a {
   
     .img2 {
         left:350px;
+        top:400px;
      }
     .img3 {
         height:300px;
         left:700px;
+        top:200px;
     }
 }
 
