@@ -42,12 +42,12 @@ public class BuildService {
 		buildIndexPage(); // 인덱스 페이지 생성
 		buildArticleListPages(); // 각 게시판 별 게시물리스트 페이지 생성
 		buildArticleDetailPages(); // 게시판 별 게시물 상세페이지 생성
-		buildStatisticsPage(); //statistics 페이지 생성
+		buildStatisticsPage(); // statistics 페이지 생성
 		buildSearchPage(); // 검색 페이지 생성
 
 	}
-	
-	//statistics 페이지 생성
+
+	// statistics 페이지 생성
 	private void buildStatisticsPage() {
 		Util.copy("site_template/search.js", "site/search.js");
 
@@ -67,7 +67,7 @@ public class BuildService {
 		String path = "site/" + fileName;
 
 		Util.writeFile(path, html.toString());
-		
+
 	}
 
 	// 검색 페이지 생성
@@ -258,8 +258,8 @@ public class BuildService {
 		StringBuilder mainBody = new StringBuilder();
 		List<Article> articles = articleService.getBoardArticlesByCodeForPrint("notice");
 
-		Collections.reverse(articles); 
-		
+		Collections.reverse(articles);
+
 		for (int i = 0; i < 5; i++) {
 			if (articles.size() <= i) {
 				continue;
@@ -440,6 +440,7 @@ public class BuildService {
 		}
 	}
 
+	// article 파일명 작성
 	public String getArticleFileName(Article article) {
 		return "article_detail_" + article.id + ".html";
 	}
@@ -552,6 +553,8 @@ public class BuildService {
 			return "<i class=\"fas fa-users\"></i> <span>FREE</span>";
 		} else if (pageName.startsWith("article_list_java")) {
 			return "<i class=\"fab fa-java\"></i> <span>JAVA</span>";
+		} else if (pageName.startsWith("article_list_html")) {
+			return "<i class=\"fab fa-html5\"></i> <span>HTML & CSS & JS</span>";
 		} else if (pageName.startsWith("search")) {
 			return "<i class=\"fas fa-search\"></i> <span>SEARCH</span>";
 		} else if (pageName.startsWith("statistics")) {

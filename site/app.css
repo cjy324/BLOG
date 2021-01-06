@@ -682,7 +682,7 @@ a {
   position:fixed;
   width:170px;
   height:100%;
-  left:-133px;
+  left:-130px;
   /*사이드바 고정 left:0;*/
 
   transition:left 1s;
@@ -753,7 +753,7 @@ a {
 
 .side-bar__menu ul > li > a:not(:only-child):after{
   content:"[+]";
-  margin-left:5px;
+  margin-left:2px;
 }
 .side-bar__menu ul > li:hover > a:not(:only-child):after{
   content:"[-]";

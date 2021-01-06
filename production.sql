@@ -22,6 +22,11 @@ INSERT INTO `board`
 SET `name` = 'JAVA',
 `code` = 'java';
 
+# HTML & CSS & JS 관련 게시판 생성
+INSERT INTO `board`
+SET `name` = 'HTML & CSS & JS',
+`code` = 'html';
+
 SELECT * FROM `article`;
 SELECT * FROM `member`;
 SELECT * FROM `board`;
