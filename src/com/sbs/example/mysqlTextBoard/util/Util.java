@@ -17,12 +17,14 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sbs.example.mysqlTextBoard.apiDto.DisqusApiDataListThread;
+import com.sbs.example.mysqlTextBoard.dto.Article;
 
 public class Util {
 
@@ -219,6 +221,17 @@ public class Util {
 		}
 
 		return null;
+	}
+
+	public static String getJsonText(Object obj) {
+		ObjectMapper mapper = new ObjectMapper();
+		String rs = "";
+		try {
+			rs = mapper.writeValueAsString(obj);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return rs;
 	}
 
 }

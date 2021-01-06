@@ -31,6 +31,8 @@ public class BuildService {
 		Util.copy("site_template/app.css", "site/app.css");
 		Util.copy("site_template/app.js", "site/app.js");
 
+		
+
 		// site_template에 있는 images(원본)폴더를 복사해 site폴더 생성시 그 안에 복사본 붙여넣기
 		Util.copyDir("site_template/images", "site/images");
 
@@ -42,7 +44,38 @@ public class BuildService {
 		buildIndexPage(); // 인덱스 페이지 생성
 		buildArticleListPages(); // 각 게시판 별 게시물리스트 페이지 생성
 		buildArticleDetailPages(); // 게시판 별 게시물 상세페이지 생성
+		buildSearchPage(); //검색 페이지 생성
 
+	}
+	
+	//검색 페이지 생성
+	private void buildSearchPage() {
+		//전체 게시물 불러오기
+		List<Article> articles = articleService.getArticlesForPrint();
+		
+		//전체 게시물 리스트를 json파일로 만들기
+		String jsonText = Util.getJsonText(articles);
+		Util.writeFile("site/article_list.json", jsonText);
+		
+		Util.copy("site_template/search.js", "site/search.js");
+		
+		StringBuilder html = new StringBuilder();
+
+		String head = getHeadHtml("search");
+		String foot = Util.getFileContents("site_template/foot.html");
+		String sideBar = getSideBarHtml();
+		String mainHtml = Util.getFileContents("site_template/search.html");
+
+		html.append(head);
+		html.append(mainHtml);
+		html.append(sideBar);
+		html.append(foot);
+
+		String fileName = "search.html";
+		String path = "site/" + fileName;
+
+		Util.writeFile(path, html.toString());
+		
 	}
 
 	// GoogleAnalytics4 Data 가져오기
@@ -438,6 +471,10 @@ public class BuildService {
 		if (forPrintPageName.equals("index")) {
 			forPrintPageName = "home";
 		}
+		
+		if (forPrintPageName.equals("search")) {
+			forPrintPageName = "search";
+		}
 
 		forPrintPageName = forPrintPageName.toUpperCase(); // 대상 문자열을 모두 대문자로 변환
 		forPrintPageName = forPrintPageName.replace("_", " "); // pageName에 있는 _를 공백으로 변환
@@ -468,8 +505,8 @@ public class BuildService {
 			return "<i class=\"fas fa-users\"></i> <span>FREE</span>";
 		} else if (pageName.startsWith("article_list_java")) {
 			return "<i class=\"fab fa-java\"></i> <span>JAVA</span>";
-		} else if (pageName.startsWith("article_list_")) {
-			return "<i class=\"fas fa-clipboard-list\"></i> <span>NONAME BOARD</span>";
+		} else if (pageName.startsWith("search")) {
+			return "<i class=\"fas fa-search\"></i> <span>SEARCH</span>";
 		}
 		return "";
 	}
