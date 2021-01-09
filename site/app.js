@@ -22,6 +22,32 @@
 		el.innerHTML = `<div class="toast-ui-youtube-plugin-wrap"><iframe src="https://www.youtube.com/embed/${youtubeId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
 	}
 	/* 유튜브 함수 끝 */
+	
+	
+	
+	/* codepen 함수 시작 */
+function codepenPlugin() {
+  toastui.Editor.codeBlockManager.setReplacer('codepen', url => {
+    const wrapperId = `yt${Math.random().toString(36).substr(2, 10)}`;
+
+    // Avoid sanitizing iframe tag
+    setTimeout(renderCodepen.bind(null, wrapperId, url), 0);
+
+    return `<div id="${wrapperId}"></div>`;
+  });
+}
+
+function renderCodepen(wrapperId, url) {
+  const el = document.querySelector(`#${wrapperId}`);
+  
+  var urlParams = new URLSearchParams(url.split('?')[1]);
+  var height = urlParams.get('height');
+
+  el.innerHTML = `<div class="toast-ui-codepen-plugin-wrap"><iframe height="${height}" scrolling="no" src="${url}" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe></div>`;
+}
+/* codepen 함수 끝 */
+	
+	
 
 
 /* toastui-viewr 함수 시작 */
@@ -39,7 +65,7 @@ function ArticleDetail__Body__init() {
 		el: body,
 		initialValue: initValue,
 		viewer: true,
-		plugins: [toastui.Editor.plugin.codeSyntaxHighlight, youtubePlugin]
+		plugins: [toastui.Editor.plugin.codeSyntaxHighlight, youtubePlugin, codepenPlugin]
 	});
 };
 

@@ -817,6 +817,13 @@ a {
 
 
 
+/* 토스트에디터-codepen 플러그인 시작 */
+.toast-ui-codepen-plugin-wrap > iframe {
+  width:100%;
+}
+/* 토스트에디터-codepen 플러그인 끝 */
+
+
 
 /* Statistics 페이지 시작 */
 .count-box{
