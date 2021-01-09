@@ -506,6 +506,99 @@ a {
 
 
 
+/* 메인-about 페이지 시작 */
+.section-about{
+  padding:20px;
+  height:90vh;
+}
+
+.section-about > div{
+  height:100%;
+  width:100%; 
+}
+
+.section-about > div > div{
+  height:30%;
+  width:100%;
+}
+
+.welcome{
+  margin-top:350px;
+  margin-left:220px;
+  font-size:2.5rem;
+  position:relative;
+}
+
+.welcome::after{
+  content:"";
+  position:absolute;
+  transform:translateY(-50%);
+  top:50px;
+  right:100px;
+  width:5px;
+  height:200px;
+  background-color:black;
+}
+
+.welcome_title{
+  position:absolute;
+  right:190px;
+  font-weight:bold;
+}
+.welcome_contents{
+  position:absolute;
+  font-size:1.4rem;
+  top:40px;
+  right:217px;
+}
+
+.info{
+  margin-top:250px;
+}
+
+.info_title{
+  font-size:2.5rem;
+  font-weight:bold;
+  position:relative;
+}
+
+.info_title::after{
+  content:"";
+  position:absolute;
+  bottom:-7px;
+  left:0px;
+  transform:translateY(-50%);
+  width:85px;
+  height:2px;
+  background-color:black;
+}
+
+.info_title:first-child::after{
+  width:120px;
+}
+
+.info_contents{
+  font-size:1.4rem;
+}
+
+@media ( min-width:1100px ){
+
+}
+
+@media (max-width:1099px) and (min-width:750px ) {
+
+}
+
+@media ( max-width:749px ) {
+
+  
+}
+  
+
+/* 메인-about 페이지 끝 */
+
+
+
 
 /* 게시물 상세페이지 시작 */
 .section-2{
@@ -792,39 +885,6 @@ a {
 
 
 
-/* 토스트에디터-유튜브 플러그인 시작 */
-.toast-ui-youtube-plugin-wrap{
-  max-width:500px;
-  margin-left:auto;
-  margin-right:auto;
-  position:relative;
-}
-
-.toast-ui-youtube-plugin-wrap::before{
-  content:"";
-  display:block;
-  padding-top:calc(100% / 16 * 9);
-}
-
-.toast-ui-youtube-plugin-wrap > iframe{
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-}
-/* 토스트에디터-유튜브 플러그인 끝 */
-
-
-
-/* 토스트에디터-codepen 플러그인 시작 */
-.toast-ui-codepen-plugin-wrap > iframe {
-  width:100%;
-}
-/* 토스트에디터-codepen 플러그인 끝 */
-
-
-
 /* Statistics 페이지 시작 */
 .count-box{
   height:550px;
@@ -910,3 +970,35 @@ a {
 }
 
 /* 검색 페이지 끝 */
+
+
+
+/* 토스트에디터-유튜브 플러그인 시작 */
+.toast-ui-youtube-plugin-wrap{
+  max-width:500px;
+  margin-left:auto;
+  margin-right:auto;
+  position:relative;
+}
+
+.toast-ui-youtube-plugin-wrap::before{
+  content:"";
+  display:block;
+  padding-top:calc(100% / 16 * 9);
+}
+
+.toast-ui-youtube-plugin-wrap > iframe{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+}
+/* 토스트에디터-유튜브 플러그인 끝 */
+
+
+/* 토스트에디터-codepen 플러그인 시작 */
+.toast-ui-codepen-plugin-wrap > iframe {
+  width:100%;
+}
+/* 토스트에디터-codepen 플러그인 끝 */
