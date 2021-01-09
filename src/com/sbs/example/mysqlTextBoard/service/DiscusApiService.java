@@ -32,7 +32,7 @@ public class DiscusApiService {
 		Map<String, Object> rs = new HashMap<>();
 		rs.put("likesCount", disqusApiDataListThread.response.get(0).likes);
 		rs.put("commentsCount", disqusApiDataListThread.response.get(0).posts);
-		System.out.println(rs);
+		//System.out.println(rs);
 		
 		return rs;
 	}

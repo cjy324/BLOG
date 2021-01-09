@@ -295,7 +295,7 @@ public class BuildService {
 
 		for (Board board : boards) {
 
-			boardMenuLinkHtml.append("<li>");
+			boardMenuLinkHtml.append("<li title=\""+ board.code.toUpperCase() +"\">");
 
 			String link = board.code + "-list-1.html";
 
@@ -458,7 +458,7 @@ public class BuildService {
 		StringBuilder boardMenuContentHtml = new StringBuilder();
 
 		for (Board board : boards) {
-			boardMenuContentHtml.append("<li>");
+			boardMenuContentHtml.append("<li title=\""+ board.code.toUpperCase() +"\">");
 
 			String link = board.code + "-list-1.html";
 
