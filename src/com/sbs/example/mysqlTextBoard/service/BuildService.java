@@ -229,7 +229,7 @@ public class BuildService {
 		link(board, page);
 
 		if (boxStartNumBeforePageBtnNeedToShow) {
-			pageMenuBody.append("<li><a href=\"" + link(board, boxStartNumBeforePage)
+			pageMenuBody.append("<li class=\"before-btn\"><a href=\"" + link(board, boxStartNumBeforePage)
 					+ "\" class=\"flex flex-ai-c\"> &lt; 이전</a></li>");
 		}
 
@@ -238,11 +238,11 @@ public class BuildService {
 			if (i == page) {
 				selectedPageNum = "article-page-menu__link--selected";
 			}
-			pageMenuBody.append("<li><a href=\"" + link(board, i) + "\" class=\"flex flex-ai-c " + selectedPageNum
+			pageMenuBody.append("<li><a href=\"" + link(board, i) + "\" class=\"page-btn flex flex-ai-c " + selectedPageNum
 					+ "\">" + i + "</a></li>");
 		}
 		if (boxEndNumAfterPageBtnNeedToShow) {
-			pageMenuBody.append("<li><a href=\"" + link(board, boxEndNumAfterPage)
+			pageMenuBody.append("<li class=\"after-btn\"><a href=\"" + link(board, boxEndNumAfterPage)
 					+ "\" class=\"flex flex-ai-c\">다음 &gt;</a></li>");
 		}
 
