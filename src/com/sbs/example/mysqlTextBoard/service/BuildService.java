@@ -486,7 +486,7 @@ public class BuildService {
 			String link = board.code + "-list-1.html";
 
 			boardMenuContentHtml.append("<a href=\"" + link + "\" class=\"block\">");
-			boardMenuContentHtml.append(getTitleBarContentByPageName("article_list_" + board.code) + " BOARD");
+			boardMenuContentHtml.append(getTitleBarContentByPageName("article_list_" + board.code));
 			boardMenuContentHtml.append("</a>");
 			boardMenuContentHtml.append("</li>");
 
@@ -571,13 +571,13 @@ public class BuildService {
 		} else if (pageName.equals("article_detail")) {
 			return "<i class=\"fas fa-file-invoice\"></i> <span>ARTICLE DETAIL</span>";
 		} else if (pageName.startsWith("article_list_notice")) {
-			return "<i class=\"fas fa-exclamation\"></i> <span>NOTICE</span>";
+			return "<i class=\"fas fa-exclamation\"></i> <span>NOTICE BOARD</span>";
 		} else if (pageName.startsWith("article_list_free")) {
-			return "<i class=\"fas fa-users\"></i> <span>FREE</span>";
+			return "<i class=\"fas fa-users\"></i> <span>FREE BOARD</span>";
 		} else if (pageName.startsWith("article_list_java")) {
-			return "<i class=\"fab fa-java\"></i> <span>JAVA</span>";
+			return "<i class=\"fab fa-java\"></i> <span>JAVA BOARD</span>";
 		} else if (pageName.startsWith("article_list_html")) {
-			return "<i class=\"fab fa-html5\"></i> <span>HTML & CSS & JS</span>";
+			return "<i class=\"fab fa-html5\"></i> <span>HTML & CSS & JS BOARD</span>";
 		} else if (pageName.startsWith("search")) {
 			return "<i class=\"fas fa-search\"></i> <span>SEARCH</span>";
 		} else if (pageName.startsWith("statistics")) {
