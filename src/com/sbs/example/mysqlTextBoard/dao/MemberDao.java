@@ -52,5 +52,19 @@ public class MemberDao {
 		
 		return new Member(memberMap);
 	}
+	
+	//사이트 방문자 수 가져오기
+	public int getVisitorCount() {
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT hit ");
+		sql.append("FROM ga4DataPagePath AS GA4_PP ");
+		sql.append("WHERE GA4_PP.pagePath NOT LIKE '/?%' ");
+		sql.append("AND GA4_PP.pagePath NOT LIKE'%.html'");
+
+		int visitorCount = MysqlUtil.selectRowIntValue(sql);
+
+		return visitorCount;
+	}
 
 }

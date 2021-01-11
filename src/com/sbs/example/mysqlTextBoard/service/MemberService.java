@@ -26,4 +26,8 @@ public class MemberService {
 		return memberDao.getMemberById(loginMemberId);
 	}
 
+	public int getVisitorCount() {
+		return memberDao.getVisitorCount();
+	}
+
 }

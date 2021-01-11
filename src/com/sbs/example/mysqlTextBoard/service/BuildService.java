@@ -11,11 +11,13 @@ import com.sbs.example.mysqlTextBoard.dto.Board;
 import com.sbs.example.mysqlTextBoard.util.Util;
 
 public class BuildService {
+	MemberService memberService;
 	ArticleService articleService;
 	DiscusApiService discusApiService;
 	GoogleAnalyticsApiService googleAnalyticsApiService;
 
 	public BuildService() {
+		memberService = Container.memberService;
 		articleService = Container.articleService;
 		discusApiService = Container.discusApiService;
 		googleAnalyticsApiService = Container.googleAnalyticsApiService;
@@ -82,14 +84,16 @@ public class BuildService {
 		String mainHtml = Util.getFileContents("site_template/statistics.html");
 
 		html.append(head);
+		int visitorCount = memberService.getVisitorCount();
 		int boardCount = articleService.getBoardCount();
 		int articleCount = articleService.getArticleCount();
 		
 		StringBuilder body = new StringBuilder();
+		body.append("<div class=\"count-box__visitor\">방문자 현황: "+ visitorCount +"</div>");
 		body.append("<div class=\"count-box__board\">게시판 현황: " + boardCount + "</div>");
 		body.append("<div class=\"count-box__article\">게시글 현황: " + articleCount + "</div>");
 		
-		mainHtml = mainHtml.replace("[게시판, 게시물 현황]", body.toString());
+		mainHtml = mainHtml.replace("[방문자, 게시판, 게시물 현황]", body.toString());
 		html.append(mainHtml);
 		html.append(sideBar);
 		html.append(foot);
@@ -589,7 +593,7 @@ public class BuildService {
 		} else if (pageName.startsWith("search")) {
 			return "<i class=\"fas fa-search\"></i> <span>SEARCH</span>";
 		} else if (pageName.startsWith("statistics")) {
-			return "<i class=\"fas fa-chart-pie\"></i><span>STATISTICS</span>";
+			return "<i class=\"fas fa-chart-pie\"></i> <span>STATISTICS</span>";
 		} else if (pageName.startsWith("about")) {
 			return "";
 		}

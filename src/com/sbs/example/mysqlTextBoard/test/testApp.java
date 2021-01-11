@@ -36,17 +36,8 @@ public class testApp {
 		// testJackson5();
 
 		// testGoogleCredentials();
-		// testUpdateGoogleAnalyticsApi();
+		 testUpdateGoogleAnalyticsApi();
 		// testUpdatePageHitsByGa4Api();
-		testUpdateGoogleAnalyticsApi2();
-	}
-
-	private void testUpdateGoogleAnalyticsApi2() {
-		MysqlUtil.setDBInfo(Container.appConfig.getDBHost(), Container.appConfig.getDBId(),
-				Container.appConfig.getDBPw(), Container.appConfig.getDBName());
-
-		Container.googleAnalyticsApiService.updatePageHits2();
-
 	}
 
 	private void testUpdatePageHitsByGa4Api() {
