@@ -30,3 +30,13 @@ SET `name` = 'HTML & CSS & JS',
 SELECT * FROM `article`;
 SELECT * FROM `member`;
 SELECT * FROM `board`;
+SELECT * FROM ga4DataPagePath;
+
+
+SELECT COUNT(id)
+FROM `board`;
+
+SELECT COUNT(id)
+FROM `article`;
+
+
