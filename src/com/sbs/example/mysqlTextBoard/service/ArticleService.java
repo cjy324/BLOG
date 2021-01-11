@@ -137,4 +137,13 @@ public class ArticleService {
 		
 	}
 
+	public int getBoardCount() {
+		return articleDao.getBoardCount();
+	}
+
+	public int getArticleCount() {
+		// TODO Auto-generated method stub
+		return articleDao.getArticleCount();
+	}
+
 }

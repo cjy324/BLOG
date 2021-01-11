@@ -359,7 +359,8 @@ public class ArticleDao {
 
 		sql.append("UPDATE article AS AR ");
 		sql.append("INNER JOIN ( ");
-		sql.append("SELECT CAST(REPLACE(REPLACE(GA4_PP.pagePathWoQueryStr, '/article_detail_', ''), '.html', '') AS UNSIGNED) AS articleId, ");
+		sql.append(
+				"SELECT CAST(REPLACE(REPLACE(GA4_PP.pagePathWoQueryStr, '/article_detail_', ''), '.html', '') AS UNSIGNED) AS articleId, ");
 		sql.append("hit ");
 		sql.append("FROM ( ");
 		sql.append("SELECT  ");
@@ -376,8 +377,32 @@ public class ArticleDao {
 		sql.append(") AS GA4_PP ");
 		sql.append("ON AR.id = GA4_PP.articleId ");
 		sql.append("SET AR.hitCount = GA4_PP.hit; ");
-		
+
 		MysqlUtil.update(sql);
-		
+
+	}
+
+	// 전체 게시판 수 가져오기
+	public int getBoardCount() {
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT COUNT(id) ");
+		sql.append("FROM `board`");
+
+		int bodyCount = MysqlUtil.selectRowIntValue(sql);
+
+		return bodyCount;
+	}
+
+	// 전체 게시물 수 가져오기
+	public int getArticleCount() {
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT COUNT(id) ");
+		sql.append("FROM `article`");
+
+		int articleCount = MysqlUtil.selectRowIntValue(sql);
+
+		return articleCount;
 	}
 }

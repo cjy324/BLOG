@@ -31,58 +31,68 @@ public class testApp {
 	}
 
 	public void run() {
-		 //testApp3();
+		// testApp3();
 
-		//testJackson5();
-		
-	//	testGoogleCredentials();
-		testUpdateGoogleAnalyticsApi();
-	//	testUpdatePageHitsByGa4Api();
+		// testJackson5();
+
+		// testGoogleCredentials();
+		// testUpdateGoogleAnalyticsApi();
+		// testUpdatePageHitsByGa4Api();
+		testUpdateGoogleAnalyticsApi2();
+	}
+
+	private void testUpdateGoogleAnalyticsApi2() {
+		MysqlUtil.setDBInfo(Container.appConfig.getDBHost(), Container.appConfig.getDBId(),
+				Container.appConfig.getDBPw(), Container.appConfig.getDBName());
+
+		Container.googleAnalyticsApiService.updatePageHits2();
+
 	}
 
 	private void testUpdatePageHitsByGa4Api() {
-		MysqlUtil.setDBInfo(Container.appConfig.getDBHost(), Container.appConfig.getDBId(), Container.appConfig.getDBPw(), Container.appConfig.getDBName());
-		
+		MysqlUtil.setDBInfo(Container.appConfig.getDBHost(), Container.appConfig.getDBId(),
+				Container.appConfig.getDBPw(), Container.appConfig.getDBName());
+
 		Container.googleAnalyticsApiService.updatePageHits();
 	}
 
 	private void testUpdateGoogleAnalyticsApi() {
-		//GoogleAnalytics 버전4의 PropertyId 가져오기
+		// GoogleAnalytics 버전4의 PropertyId 가져오기
 		String ga4PropertyId = Container.appConfig.getGa4PropertyId();
 
-	    try (AlphaAnalyticsDataClient analyticsData = AlphaAnalyticsDataClient.create()) {
-	      RunReportRequest request = RunReportRequest.newBuilder()
-	          .setEntity(Entity.newBuilder().setPropertyId(ga4PropertyId)) //검색(데이터 가져올) 대상
-	          //해설 참고: http://www.goldenplanet.co.kr/blog/2017/01/24/google-analytics-dimension-metric/
-	          //공식 정보: https://developers.google.com/analytics/devguides/reporting/data/v1/api-schema
-	          //Dimension(측정 기준): 웹사이트 방문자들의 특성(속성)
-	          .addDimensions(
-	              Dimension.newBuilder().setName("pagePath")) //pagePath: The web pages visited, listed by URI.
-	          //Metric(측정 항목): Dimension을 측정하는 “숫자”
-	          .addMetrics(Metric.newBuilder().setName("activeUsers")) //activeUsers: The number of distinct users who visited your site or app.
-	          .addDateRanges(
-	              DateRange.newBuilder().setStartDate("2021-01-01").setEndDate("today")).build();
+		try (AlphaAnalyticsDataClient analyticsData = AlphaAnalyticsDataClient.create()) {
+			RunReportRequest request = RunReportRequest.newBuilder()
+					.setEntity(Entity.newBuilder().setPropertyId(ga4PropertyId)) // 검색(데이터 가져올) 대상
+					// 해설 참고:
+					// http://www.goldenplanet.co.kr/blog/2017/01/24/google-analytics-dimension-metric/
+					// 공식 정보:
+					// https://developers.google.com/analytics/devguides/reporting/data/v1/api-schema
+					// Dimension(측정 기준): 웹사이트 방문자들의 특성(속성)
+					.addDimensions(Dimension.newBuilder().setName("pagePath")) // pagePath: The web pages visited,
+																				// listed by URI.
+					// Metric(측정 항목): Dimension을 측정하는 “숫자”
+					.addMetrics(Metric.newBuilder().setName("activeUsers")) // activeUsers: The number of distinct users
+																			// who visited your site or app.
+					.addDateRanges(DateRange.newBuilder().setStartDate("2021-01-01").setEndDate("today")).build();
 
-	      // Make the request
-	      RunReportResponse response = analyticsData.runReport(request);
+			// Make the request
+			RunReportResponse response = analyticsData.runReport(request);
 
-	      System.out.println("Report result:");
-	      for (Row row : response.getRowsList()) {
-	        System.out.printf("%s, %s%n", row.getDimensionValues(0).getValue(),
-	            row.getMetricValues(0).getValue());
-	      }
-	    } catch (IOException e) {
+			System.out.println("Report result:");
+			for (Row row : response.getRowsList()) {
+				System.out.printf("%s, %s%n", row.getDimensionValues(0).getValue(), row.getMetricValues(0).getValue());
+			}
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	private void testGoogleCredentials() {
-		//환경변수 경로를 가져오기
+		// 환경변수 경로를 가져오기
 		String variablesPath = System.getenv("GOOGLE_APPLICATION_CREDENTIALS");
 		System.out.println(variablesPath);
-		
-		
+
 	}
 
 	// HTTP REQUEST 후 응답 받아오는 함수 구현
@@ -99,32 +109,32 @@ public class testApp {
 
 	private void testApp2() {
 		String url = "https://disqus.com/api/3.0/forums/listThreads.json";
-		
-		for(int i = 1; i < 11; i++ ) {
-		Map<String, Object> rs = Util.callApiResponseToMap(url,
-				"api_key=mr5Mv3I4DJ893SADMVmxOu7iUzXrkL3GvNnWxJ4dBy5ZBHvd32lKlEw0qYI5x76F", "forum=devj-blog",
-				"thread:ident=article_detail_"+ i +".html");
 
-		List<Map<String, Object>> response = (List<Map<String, Object>>) rs.get("response");
+		for (int i = 1; i < 11; i++) {
+			Map<String, Object> rs = Util.callApiResponseToMap(url,
+					"api_key=mr5Mv3I4DJ893SADMVmxOu7iUzXrkL3GvNnWxJ4dBy5ZBHvd32lKlEw0qYI5x76F", "forum=devj-blog",
+					"thread:ident=article_detail_" + i + ".html");
 
-		Map<String, Object> thread = response.get(0);
+			List<Map<String, Object>> response = (List<Map<String, Object>>) rs.get("response");
 
-		System.out.println("likes " + (int) thread.get("likes"));
-		System.out.println("comments " + (int) thread.get("posts"));
+			Map<String, Object> thread = response.get(0);
+
+			System.out.println("likes " + (int) thread.get("likes"));
+			System.out.println("comments " + (int) thread.get("posts"));
 		}
 	}
 
 	private void testApp3() {
 		String url = "https://disqus.com/api/3.0/forums/listThreads.json";
-		
-		for(int i = 1; i < 11; i++ ) {
+
+		for (int i = 1; i < 11; i++) {
 			DisqusApiDataListThread rs = (DisqusApiDataListThread) Util.callApiResponseTo(DisqusApiDataListThread.class,
 					url, "api_key=mr5Mv3I4DJ893SADMVmxOu7iUzXrkL3GvNnWxJ4dBy5ZBHvd32lKlEw0qYI5x76F", "forum=devj-blog",
 					"thread:ident=article_detail_" + i + ".html");
 			System.out.println("likes " + rs.response.get(0).likes);
 			System.out.println("comments " + rs.response.get(0).posts);
 		}
-		
+
 	}
 
 	// Jackson 라이브러리 추가 및 테스트

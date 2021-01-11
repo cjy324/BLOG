@@ -82,6 +82,14 @@ public class BuildService {
 		String mainHtml = Util.getFileContents("site_template/statistics.html");
 
 		html.append(head);
+		int boardCount = articleService.getBoardCount();
+		int articleCount = articleService.getArticleCount();
+		
+		StringBuilder body = new StringBuilder();
+		body.append("<div class=\"count-box__board\">게시판 현황: " + boardCount + "</div>");
+		body.append("<div class=\"count-box__article\">게시글 현황: " + articleCount + "</div>");
+		
+		mainHtml = mainHtml.replace("[게시판, 게시물 현황]", body.toString());
 		html.append(mainHtml);
 		html.append(sideBar);
 		html.append(foot);
@@ -571,7 +579,7 @@ public class BuildService {
 		} else if (pageName.equals("article_detail")) {
 			return "<i class=\"fas fa-file-invoice\"></i> <span>ARTICLE DETAIL</span>";
 		} else if (pageName.startsWith("article_list_notice")) {
-			return "<i class=\"fas fa-exclamation\"></i> <span>NOTICE BOARD</span>";
+			return "<i class=\"fas fa-bullhorn\"></i> <span>NOTICE BOARD</span>";
 		} else if (pageName.startsWith("article_list_free")) {
 			return "<i class=\"fas fa-users\"></i> <span>FREE BOARD</span>";
 		} else if (pageName.startsWith("article_list_java")) {

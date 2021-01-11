@@ -22,7 +22,8 @@ public class GoogleAnalyticsApiService {
 		ga4DataDao = Container.ga4DataDao;
 		articleService = Container.articleService;
 	}
-
+	
+	// 게시물별 조회수
 	public boolean  updateGa4DataPageHits() {
 		String ga4PropertyId = Container.appConfig.getGa4PropertyId();
 
@@ -73,6 +74,12 @@ public class GoogleAnalyticsApiService {
 		updateGa4DataPageHits();
 		//article 테이블의 hitCount 정보 업데이트
 		articleService.updatePageHits();
+		
+	}
+
+	// 방문자수
+	public void updatePageHits2() {
+		// TODO Auto-generated method stub
 		
 	}
 
