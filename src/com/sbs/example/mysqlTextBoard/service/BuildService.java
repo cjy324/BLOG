@@ -207,7 +207,10 @@ public class BuildService {
 			mainBody.append("<div class=\"article-list__cell-reg-date\">" + article.regDate + "</div>");
 			mainBody.append("<div class=\"article-list__cell-writer\">" + article.extra_memberName + "</a></div>");
 			mainBody.append("<div class=\"article-list__cell-title\"><a href=\"article_detail_" + article.id
-					+ ".html\" class=\"hover-underline\">" + article.title + "</a></div>");
+					+ ".html\" class=\"hover-underline\">" + article.title + "</a>");
+			mainBody.append("<span>[" + article.commentsCount + "]</span></div>");
+			mainBody.append("<div class=\"article-list__cell-hitsCount\">" + article.hitCount + "</div>");
+			mainBody.append("<div class=\"article-list__cell-likesCount\">" + article.likesCount + "</div>");
 			mainBody.append("</div>");
 		}
 
@@ -387,7 +390,7 @@ public class BuildService {
 				body.append("</div>");
 				body.append("<div class=\"article-detail-cell__id\">");
 				body.append("<div>");
-				body.append("<span>게시물 번호 : </span><span>" + article.id + "</span>");
+				body.append("<span>번호 : </span><span>" + article.id + "</span>");
 				body.append("</div>");
 				body.append("</div>");
 				body.append("<div class=\"article-detail-cell__member-id\">");
@@ -405,17 +408,17 @@ public class BuildService {
 				body.append("<span>수정일 : </span><span>" + article.updateDate + "</span>");
 				body.append("</div>");
 				body.append("</div>");
-				body.append("<div class=\"article-detail-cell__update-date\">");
+				body.append("<div class=\"article-detail-cell__hitsCount\">");
 				body.append("<div>");
 				body.append("<span>조회수 : </span><span>" + article.hitCount + "</span>");
 				body.append("</div>");
 				body.append("</div>");
-				body.append("<div class=\"article-detail-cell__update-date\">");
+				body.append("<div class=\"article-detail-cell__likesCount\">");
 				body.append("<div>");
 				body.append("<span>추천수 : </span><span>" + article.likesCount + "</span>");
 				body.append("</div>");
 				body.append("</div>");
-				body.append("<div class=\"article-detail-cell__update-date\">");
+				body.append("<div class=\"article-detail-cell__commentsCount\">");
 				body.append("<div>");
 				body.append("<span>댓글수 : </span><span>" + article.commentsCount + "</span>");
 				body.append("</div><br>");

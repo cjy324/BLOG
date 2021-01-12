@@ -564,7 +564,9 @@ a {
   --article-list__cell-id__width:100px;
   --article-list__cell-reg-date__width:220px;
   --article-list__cell-writer__width:150px;
-  --article-list__cell-title__width:calc(100% - var(--article-list__cell-id__width) - var(--article-list__cell-reg-date__width) - var(--article-list__cell-writer__width));
+  --article-list__cell-hitsCount__width:100px;
+  --article-list__cell-likesCount__width:100px;
+  --article-list__cell-title__width:calc(100% - var(--article-list__cell-id__width) - var(--article-list__cell-reg-date__width) - var(--article-list__cell-writer__width) - var(--article-list__cell-hitsCount__width) - var(--article-list__cell-likesCount__width));
 }
 
 .article-list{
@@ -602,6 +604,9 @@ a {
   padding-left:30px;
 }
 
+.article-list__cell-body > div> .article-list__cell-title > span{
+  padding-left:5px;
+}
 
 .article-list__cell-id {
   width:var(--article-list__cell-id__width);
@@ -613,6 +618,14 @@ a {
 
 .article-list__cell-writer {
   width:var(--article-list__cell-writer__width);
+}
+
+.article-list__cell-hitsCount {
+  width:var(--article-list__cell-hitsCount__width);
+}
+
+.article-list__cell-likesCount {
+  width:var(--article-list__cell-likesCount__width);
 }
 
 .article-list__cell-title {
