@@ -510,9 +510,23 @@ a {
   font-size:2rem;
   padding:15px 0;
 }
+
 .article-detail-cell__body .tui-editor-contents{
   font-size:1.1rem;
 }
+
+.article-detail-cell__tag{
+  display:flex;
+}
+
+.article-detail-cell__tag > nav{
+  margin-left:10px;
+  background-color:rgba(200, 200, 200, 0.2);
+  border:2.7px solid;
+  border-radius:10px;
+  padding:5px;
+}
+
 /* 게시물 상세페이지 끝 */
 /* 게시물 상세페이지 하단 메뉴 시작 */
 .article-list-bottom-cell{

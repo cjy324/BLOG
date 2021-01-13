@@ -1,9 +1,7 @@
 package com.sbs.example.mysqlTextBoard.service;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.sbs.example.mysqlTextBoard.container.Container;
 import com.sbs.example.mysqlTextBoard.dto.Article;
@@ -432,6 +430,9 @@ public class BuildService {
 				body.append("<div>");
 				body.append("<span>" + article.body + "</span>");
 				body.append("</div>");
+				body.append("</div><br>");
+				body.append("<div class=\"article-detail-cell__tag\">");
+				body.append("<nav># <a href=\"#\" target=\"_blank\">" + "tag.title" + "</a></nav>");
 				body.append("</div><br><br>");
 
 				// discus에게 정확한 페이지 경로 알려주기
