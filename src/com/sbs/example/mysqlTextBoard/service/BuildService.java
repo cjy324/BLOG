@@ -426,9 +426,12 @@ public class BuildService {
 				body.append("<span>제목 : </span><span>" + article.getTitle() + "</span>");
 				body.append("</div>");
 				body.append("</div>");
-				body.append("<div class=\"article-detail-cell__body height-70p \">");
+				body.append("<script type\"text/x-template\">");
+				body.append(article.getBody());
+				body.append("</script>");
+				body.append("<div class=\"article-detail-cell__body height-70p toast-ui-viewer\">");
 				body.append("<div>");
-				body.append("<span>" + article.getBody() + "</span>");
+				//body.append("<span>" + article.getBody() + "</span>");
 				body.append("</div>");
 				body.append("</div><br>");
 				body.append("<div class=\"article-detail-cell__tag\">");
