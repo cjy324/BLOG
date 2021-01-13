@@ -23,11 +23,11 @@
           </header>
           <div class="main">
             <div v-for="article in filtered">
-              <div class="article-search-list__cell-id">{{article.getId()}}</div>
-              <div class="article-search-list__cell-reg-date">{{article.getRegDate()}}</div>
+              <div class="article-search-list__cell-id">{{article.id}}</div>
+              <div class="article-search-list__cell-reg-date">{{article.regDate}}</div>
               <div class="article-search-list__cell-writer">{{article.writer}}</div>
               <div class="article-search-list__cell-title">
-                <a :href="'article_detail_' + article.getId() + '.html'" class="hover-underline">{{article.getTitle()}}</a>
+                <a :href="'article_detail_' + article.id + '.html'" class="hover-underline">{{article.title}}</a>
               </div>
             </div>
           </div>

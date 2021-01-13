@@ -9,3 +9,7 @@
  - GA4 환경변수
    -- GOOGLE_APPLICATION_CREDENTIALS
    -- C:\work\cjy_google_keys\devj-basic-project-c6e4f48d46f5.json
+   
+ - 임시 localhost로 사이트 보기
+   -- site폴더에서 cmd 접속
+   -- C:\xampp\php\php.exe -S localhost:8090

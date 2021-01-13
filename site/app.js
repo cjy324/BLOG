@@ -59,7 +59,6 @@ function renderCodepen(wrapperId, url) {
 function EditorViewer__init() {
 	  $('.toast-ui-viewer').each(function(index, node) {
 	    var initialValue = $(node).prev().html().trim();
-//.replace(/t-script/gi, 'script')
 
 //	var body = document.querySelector('.article-detail-cell__body > div > span');
 //	var initValue = body.innerHTML.trim();
