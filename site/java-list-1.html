@@ -28,8 +28,8 @@
 <meta name="title" content="Dev_J BLOG" />
 <meta name="keywords" content="JAVA, HTML, CSS, JavaScript, MySQL" />
 <meta name="copyright" content="Dev_J BLOG" />
-<meta name="pubdate" content="2021-01-13T18:06:01" />
-<meta name="lastmod" content="2021-01-13T18:06:01" />
+<meta name="pubdate" content="2021-01-13T23:49:30" />
+<meta name="lastmod" content="2021-01-13T23:49:30" />
 <!-- OPENGRAPH -->
 <meta property="og:site_name" content="Dev_J BLOG" />
 <meta property="og:type" content="blog" />
@@ -40,8 +40,8 @@
 <meta property="og:image:alt" content="blog.devj.me" />
 <meta property="og:image:width" content="486" />
 <meta property="og:image:height" content="254" />
-<meta property="og:updated_time" content="2021-01-13T18:06:01"/>
-<meta property="og:pubdate" content="2021-01-13T18:06:01" />
+<meta property="og:updated_time" content="2021-01-13T23:49:30"/>
+<meta property="og:pubdate" content="2021-01-13T23:49:30" />
 <meta property="og:url" content="https://blog.devj.me" />
 <!-- TWITTER -->
 <meta name="twitter:card" content="summary_large_image" />
@@ -96,6 +96,8 @@
 <link rel="stylesheet" href="app.css">
 <!-- app.js 불러오기 -->
 <script src="app.js" defer></script>
+<!-- index.js 불러오기 -->
+<script src="index.js" defer></script>
 
 </head>
 
@@ -106,7 +108,7 @@
   <header class="logo-bar con-min-width" id="header">
     <div class="con height-100p flex flex-jc-c" title="HOME">
       <a href="index.html" class="logo flex flex-ai-c"> 
-        <img class="logo__img" src="images/Dev_J_logo/facebook_cover_photo_1.png" alt="">
+        <img class="logo__img" src="images/Dev_J_logo/logo_transparent.png" alt="">
         <span>
           BLOG
         </span>
@@ -115,11 +117,16 @@
   </header>
   <!-- 로고바 끝 -->
 
-  <!-- 메뉴바 시작 -->
+  <!-- 메뉴바 시작-->
   <header class="menu-bar con-min-width">
-    <div class="con height-100p">
-      <nav class="menu-bar__menu-1">
-        <ul class="flex">
+   <div class="menu-bar__status-icon" title="Menu">
+     <div></div>
+     <div></div>
+     <div></div>
+   </div>
+   <div class="con hide">
+    <nav class="menu-bar__menu">
+      <ul class="flex">
           <li title="ABOUT">
             <a href="about.html" class="block">
               <i class="far fa-address-card"></i>
@@ -141,7 +148,7 @@
               <span>LINK</span>
             </a>
             <ul>
-             <li title="T-STORY">
+              <li title="T-STORY">
                 <a href="https://cjy324.tistory.com/" target="_blank" class="block">
                   <i class="fas fa-rss-square"></i>
                   <span>T-STORY</span>
@@ -152,9 +159,9 @@
                   <i class="fab fa-github"></i>
                   <span>GITHUB</span>
                 </a>
-             </li>
+              </li>
             </ul>
-           </li> 
+          </li>
           <li title="SEARCH">
             <a href="search.html" class="block">
               <i class="fas fa-search"></i>
@@ -169,19 +176,21 @@
           </li>
         </ul>
       </nav>
-    </div>
+   </div>
   </header>
   <!-- 메뉴바 끝 --> 
 
   <!-- 메인 컨텐츠 박스 시작 -->
   <main class="main-box flex-grow-1">
+  <section class="main-box-section con-min-width">
    <!-- 메인-타이틀바 시작 -->
 	<div class="title-bar con-min-width">
 		<h1 class="con">
 			<i class="fab fa-java"></i> <span>JAVA BOARD</span>
 		</h1>
 	</div>
-   <!-- 메인-타이틀바 종료 -->   <!-- 메인-리스트페이지 시작 -->  
+   <!-- 메인-타이틀바 종료 -->
+   <!-- 메인-리스트페이지 시작 -->  
    <section class="section-1 con-min-width ">
     <div class="con">
       <div class="article-list">
@@ -211,72 +220,14 @@
      </div>
    </div>
    <!-- 메인-리스트 하단 메뉴 끝 --> 
+   </section>
   </main>
-  <!-- 메인 컨텐츠 박스 끝 -->  <!-- 사이드바 시작 -->
-  <header class="side-bar flex flex-column">
-   <div class="side-bar__status-icon">
-    <div>Menu<i class="fas fa-stream"></i></div>
-    <div>▶</div>
-    <div>▼</div>
-   </div>
-   <nav class="side-bar__menu">
-    <ul>
-      <li title="ABOUT">
-        <a href="about.html" class="block">
-          <i class="far fa-address-card"></i>
-          <span>ABOUT</span>
-        </a>
-      </li>
-      <li>
-        <a class="block">
-          <i class="fas fa-list"></i>
-          <span>ARTICLES</span>
-        </a>
-        <ul>
-          <li title="NOTICE"><a href="notice-list-1.html" class="block"><i class="fas fa-bullhorn"></i> <span>NOTICE BOARD</span></a></li><li title="JAVA"><a href="java-list-1.html" class="block"><i class="fab fa-java"></i> <span>JAVA BOARD</span></a></li><li title="HTML"><a href="html-list-1.html" class="block"><i class="fab fa-html5"></i> <span>HTML & CSS & JS BOARD</span></a></li>
-        </ul>
-      </li>
-      <li>
-        <a class="block">
-          <i class="fas fa-link"></i>
-          <span>LINK</span>
-        </a>
-        <ul>
-          <li title="T-STORY">
-            <a href="https://cjy324.tistory.com/" target="_blank" class="block">
-            <i class="fas fa-rss-square"></i>
-            <span>T-STORY</span>
-            </a>
-          </li>
-          <li title="GITHUB">
-           <a href="https://github.com/cjy324/TIL_Jooyoung" target="_blank" class="block">
-           <i class="fab fa-github"></i>
-           <span>GITHUB</span>
-           </a>
-          </li>
-        </ul>
-      </li>
-      <li title="SEARCH">
-        <a href="search.html" class="block">
-          <i class="fas fa-search"></i>
-          <span>SEARCH</span>
-        </a>
-      </li>
-      <li title="STATISTICS">
-        <a href="statistics.html" class="block">
-          <i class="fas fa-chart-pie"></i>
-          <span>STATISTICS</span>
-        </a>
-      </li>
-    </ul>
-   </nav>
-  </header>
-  <!-- 사이드바 끝 -->  
+  <!-- 메인 컨텐츠 박스 끝 -->
   <!-- 푸터 시작 -->
   <footer class="bottom-bar con-min-width">
     <div class="con flex flex-ai-c">
       <a href="index.html" class="logo logo--mini flex flex-ai-c" title="HOME">
-        <img class="logo--mini__img" src="images/Dev_J_logo/facebook_cover_photo_1.png" alt="">
+        <img class="logo--mini__img" src="images/Dev_J_logo/logo_transparent.png" alt="">
       </a>
       <div class="bottom-bar__site-info">
         <span><i class="far fa-envelope"></i> juy32400@gmail.com</span>

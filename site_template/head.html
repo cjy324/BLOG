@@ -96,6 +96,8 @@
 <link rel="stylesheet" href="app.css">
 <!-- app.js 불러오기 -->
 <script src="app.js" defer></script>
+<!-- index.js 불러오기 -->
+<script src="index.js" defer></script>
 
 </head>
 
@@ -106,7 +108,7 @@
   <header class="logo-bar con-min-width" id="header">
     <div class="con height-100p flex flex-jc-c" title="HOME">
       <a href="index.html" class="logo flex flex-ai-c"> 
-        <img class="logo__img" src="images/Dev_J_logo/facebook_cover_photo_1.png" alt="">
+        <img class="logo__img" src="images/Dev_J_logo/logo_transparent.png" alt="">
         <span>
           BLOG
         </span>
@@ -115,11 +117,16 @@
   </header>
   <!-- 로고바 끝 -->
 
-  <!-- 메뉴바 시작 -->
+  <!-- 메뉴바 시작-->
   <header class="menu-bar con-min-width">
-    <div class="con height-100p">
-      <nav class="menu-bar__menu-1">
-        <ul class="flex">
+   <div class="menu-bar__status-icon" title="Menu">
+     <div></div>
+     <div></div>
+     <div></div>
+   </div>
+   <div class="con hide">
+    <nav class="menu-bar__menu">
+      <ul class="flex">
           <li title="ABOUT">
             <a href="about.html" class="block">
               <i class="far fa-address-card"></i>
@@ -141,7 +148,7 @@
               <span>LINK</span>
             </a>
             <ul>
-             <li title="T-STORY">
+              <li title="T-STORY">
                 <a href="https://cjy324.tistory.com/" target="_blank" class="block">
                   <i class="fas fa-rss-square"></i>
                   <span>T-STORY</span>
@@ -152,9 +159,9 @@
                   <i class="fab fa-github"></i>
                   <span>GITHUB</span>
                 </a>
-             </li>
+              </li>
             </ul>
-           </li> 
+          </li>
           <li title="SEARCH">
             <a href="search.html" class="block">
               <i class="fas fa-search"></i>
@@ -169,12 +176,13 @@
           </li>
         </ul>
       </nav>
-    </div>
+   </div>
   </header>
   <!-- 메뉴바 끝 --> 
 
   <!-- 메인 컨텐츠 박스 시작 -->
   <main class="main-box flex-grow-1">
+  [메인 박스 섹션 태그 시작]
    <!-- 메인-타이틀바 시작 -->
 	<div class="title-bar con-min-width">
 		<h1 class="con">

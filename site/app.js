@@ -1,3 +1,41 @@
+/* 메뉴바 토글-아이콘 애니메이션 시작 */
+function MobileTopBar__init() {
+  $('.menu-bar__status-icon').click(function() {
+    let $this = $(this);
+    
+    if ( $this.hasClass('active') ) {
+      $this.removeClass('active');
+    }
+    else {
+      $this.addClass('active');
+    }
+  });
+}
+
+MobileTopBar__init();
+
+/* 메뉴바 토글-아이콘 애니메이션 끝 */
+
+
+/* 메뉴바 토글-메뉴 나오기 시작 */ 
+$(document).ready(function(){
+        $(".menu-bar__status-icon").click(function(){
+          var submenu = $(this).next("div");
+
+       if( submenu.is(":visible") ){
+                submenu.slideUp();
+            }else{
+                submenu.slideDown();
+            }
+
+        });
+    });
+// https://stove99.tistory.com/103
+/* 메뉴바 토글-메뉴 나오기 끝 */ 
+
+
+
+
 function ArticleDetail__Body__init() {
 	if (toastui === undefined) {
 		return;
@@ -58,7 +96,7 @@ function renderCodepen(wrapperId, url) {
 /* toastui-viewr 함수 시작 */
 function EditorViewer__init() {
 	  $('.toast-ui-viewer').each(function(index, node) {
-	    var initialValue = $(node).prev().html().trim();
+	    var initialValue = $(node).prev().html().trim().replace(/t-script/gi, 'script');
 
 //	var body = document.querySelector('.article-detail-cell__body > div > span');
 //	var initValue = body.innerHTML.trim();

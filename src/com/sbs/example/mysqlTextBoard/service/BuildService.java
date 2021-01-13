@@ -54,13 +54,14 @@ public class BuildService {
 		StringBuilder html = new StringBuilder();
 
 		String head = getHeadHtml("about");
+		head = head.replace("[메인 박스 섹션 태그 시작]", "");
 		String foot = Util.getFileContents("site_template/foot.html");
-		String sideBar = getSideBarHtml();
+	//	String sideBar = getSideBarHtml();
 		String mainHtml = Util.getFileContents("site_template/about.html");
 
 		html.append(head);
 		html.append(mainHtml);
-		html.append(sideBar);
+	//	html.append(sideBar);
 		html.append(foot);
 
 		String fileName = "about.html";
@@ -77,8 +78,10 @@ public class BuildService {
 		StringBuilder html = new StringBuilder();
 
 		String head = getHeadHtml("statistics");
+		String mainBoxSectionStart = "<section class=\"main-box-section con-min-width\">";
+		head = head.replace("[메인 박스 섹션 태그 시작]", mainBoxSectionStart);
 		String foot = Util.getFileContents("site_template/foot.html");
-		String sideBar = getSideBarHtml();
+	//	String sideBar = getSideBarHtml();
 		String mainHtml = Util.getFileContents("site_template/statistics.html");
 
 		html.append(head);
@@ -93,7 +96,7 @@ public class BuildService {
 		
 		mainHtml = mainHtml.replace("[방문자, 게시판, 게시물 현황]", body.toString());
 		html.append(mainHtml);
-		html.append(sideBar);
+	//	html.append(sideBar);
 		html.append(foot);
 
 		String fileName = "statistics.html";
@@ -117,13 +120,15 @@ public class BuildService {
 		StringBuilder html = new StringBuilder();
 
 		String head = getHeadHtml("search");
+		String mainBoxSectionStart = "<section class=\"main-box-section con-min-width\">";
+		head = head.replace("[메인 박스 섹션 태그 시작]", mainBoxSectionStart);
 		String foot = Util.getFileContents("site_template/foot.html");
-		String sideBar = getSideBarHtml();
+	//	String sideBar = getSideBarHtml();
 		String mainHtml = Util.getFileContents("site_template/search.html");
 
 		html.append(head);
 		html.append(mainHtml);
-		html.append(sideBar);
+	//	html.append(sideBar);
 		html.append(foot);
 
 		String fileName = "search.html";
@@ -179,7 +184,9 @@ public class BuildService {
 		System.out.println("= " + board.getName() + " 리스트 페이지 생성 =");
 
 		String head = getHeadHtml("article_list_" + board.getCode());
-		String sideBar = getSideBarHtml();
+		String mainBoxSectionStart = "<section class=\"main-box-section con-min-width\">";
+		head = head.replace("[메인 박스 섹션 태그 시작]", mainBoxSectionStart);
+	//	String sideBar = getSideBarHtml();
 		String foot = Util.getFileContents("site_template/foot.html");
 
 		StringBuilder html = new StringBuilder();
@@ -261,7 +268,7 @@ public class BuildService {
 
 		String bodyTemplate = template.replace("[게시물 리스트 블록]", mainBody); // list 템플릿에 mainBody 끼워넣고
 		html.append(bodyTemplate.replace("[게시물 리스트 페이지메뉴 블록]", pageMenuBody)); // bodyTemplate에 다시 pageMenuBody 끼워넣기
-		html.append(sideBar);
+	//	html.append(sideBar);
 		html.append(foot);
 
 		String fileName = board.getCode() + "-list-" + page + ".html";
@@ -283,35 +290,56 @@ public class BuildService {
 		System.out.println("= INDEX 페이지 생성 =");
 
 		String head = getHeadHtml("index");
-		String sideBar = getSideBarHtml();
+		head = head.replace("[메인 박스 섹션 태그 시작]", "");
+	//	String sideBar = getSideBarHtml();
 		String foot = Util.getFileContents("site_template/foot.html");
 		String template = Util.getFileContents("site_template/index.html");
+		
+		Util.copy("site_template/index.js", "site/index.js");
 
 		StringBuilder html = new StringBuilder();
 
 		html.append(head);
 
 		StringBuilder mainBody = new StringBuilder();
-		List<Article> articles = articleService.getBoardArticlesByCodeForPrint("notice");
+		List<Article> articlesInNotice = articleService.getBoardArticlesByCodeForPrint("notice");
+		List<Article> articlesRecent = articleService.getArticlesExceptNotice();
 
-		Collections.reverse(articles);
+		Collections.reverse(articlesInNotice);
+		Collections.reverse(articlesRecent);
 
 		for (int i = 0; i < 5; i++) {
-			if (articles.size() <= i) {
+			if (articlesInNotice.size() <= i) {
 				continue;
 			}
-			Article article = articles.get(i);
+			Article article = articlesInNotice.get(i);
 			mainBody.append("<div>");
 			mainBody.append("<div class=\"home-list__cell-id\">" + article.getId() + "</div>");
 			mainBody.append("<div class=\"home-list__cell-title\"><a href=\"article_detail_" + article.getId()
 					+ ".html\" class=\"hover-underline\">" + article.getTitle() + "</a></div>");
 			mainBody.append("</div>");
 		}
+		
 		String mainHtml = template.replace("[인덱스 페이지 공지 리스트]", mainBody);
+		StringBuilder secondBody = new StringBuilder();
 
+		for (int i = 0; i < 5; i++) {
+			if (articlesRecent.size() <= i) {
+				continue;
+			}
+			Article article = articlesRecent.get(i);
+			secondBody.append("<div>");
+			secondBody.append("<div class=\"home-list__cell-id\">" + article.getId() + "</div>");
+			secondBody.append("<div class=\"home-list__cell-title\"><a href=\"article_detail_" + article.getId()
+					+ ".html\" class=\"hover-underline\">" + article.getTitle() + "</a></div>");
+			secondBody.append("</div>");
+		}
+		
+		mainHtml = mainHtml.replace("[인덱스 페이지 최신글 리스트]", secondBody);
+		
 		html.append(mainHtml);
 
-		html.append(sideBar);
+	//	html.append(sideBar);
 		html.append(foot);
 
 		String fileName = "index.html";
@@ -363,7 +391,7 @@ public class BuildService {
 			int beforeArticleId = articles.get(x).getId();
 
 			// String head = getHeadHtml("article_detail");
-			String sideBar = getSideBarHtml();
+	//		String sideBar = getSideBarHtml();
 			String topButton = Util.getFileContents("site_template/top-button.html");
 			String foot = Util.getFileContents("site_template/foot.html");
 
@@ -374,11 +402,16 @@ public class BuildService {
 			for (Article article : articles) {
 
 				String head = getHeadHtml("article_detail", article);
+				String mainBoxSectionStart = "<section class=\"main-box-section con-min-width\">";
+				head = head.replace("[메인 박스 섹션 태그 시작]", mainBoxSectionStart);
 
 				StringBuilder html = new StringBuilder();
 
 				html.append(head);
-
+				
+				String articleBody = article.getBody();
+				articleBody = articleBody.replaceAll("script", "t-script");
+				
 				StringBuilder body = new StringBuilder();
 
 				body.append("<div class=\"article-detail-cell__board-name\">");
@@ -427,7 +460,7 @@ public class BuildService {
 				body.append("</div>");
 				body.append("</div>");
 				body.append("<script type\"text/x-template\">");
-				body.append(article.getBody());
+				body.append(articleBody);
 				body.append("</script>");
 				body.append("<div class=\"article-detail-cell__body height-70p toast-ui-viewer\">");
 				body.append("<div>");
@@ -463,7 +496,7 @@ public class BuildService {
 				bodyTemplate = bodyTemplate.replace("[사이트 이름.html]", pageUrl);
 				html.append(bodyTemplate.replace("[상세페이지 하단 메뉴 블록]", pageMenuBody)); // bodyTemplate에 다시 pageMenuBody
 																						// 끼워넣기
-				html.append(sideBar);
+			//	html.append(sideBar);
 				html.append(topButton);
 				html.append(foot);
 

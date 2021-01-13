@@ -146,4 +146,8 @@ public class ArticleService {
 		return articleDao.getArticleCount();
 	}
 
+	public List<Article> getArticlesExceptNotice() {
+		return articleDao.getArticlesExceptNotice();
+	}
+
 }

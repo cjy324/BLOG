@@ -405,4 +405,27 @@ public class ArticleDao {
 
 		return articleCount;
 	}
+
+	public List<Article> getArticlesExceptNotice() {
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT article.*, ");
+		sql.append("member.name AS extra_memberName");
+		sql.append("FROM article");
+		sql.append("INNER JOIN member");
+		sql.append("ON article.memberId = member.id");
+		sql.append("WHERE NOT article.boardId = 1");
+
+		List<Article> articles = new ArrayList<>();
+		List<Map<String, Object>> articlesMapList = MysqlUtil.selectRows(sql);
+
+		for (Map<String, Object> articlesMap : articlesMapList) {
+			Article article = new Article(articlesMap);
+
+			articles.add(article);
+
+		}
+		// Collections.reverse(articles);
+		return articles;
+	}
 }
