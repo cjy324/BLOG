@@ -124,7 +124,7 @@ public class ArticleService {
 
 	public List<Article> getBoardArticlesByCodeForPrint(String code) {
 		Board board = articleDao.getBoardByCode(code);
-		return articleDao.getBoardArticlesForPrint(board.id);
+		return articleDao.getBoardArticlesForPrint(board.getId());
 	}
 
 	public void articleModify(Map<String, Object> modifyArgs) {

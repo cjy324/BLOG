@@ -59,9 +59,9 @@ public class MemberController extends Controller{
 		Member member = memberService.getMemberById(Container.session.loginMemberId);
 
 		System.out.println("== 회원 정보 ==");
-		System.out.printf("회원 번호: %d\n", member.id);
-		System.out.printf("회원 아이디: %s\n", member.loginId);
-		System.out.printf("회원 이름: %s\n", member.name);
+		System.out.printf("회원 번호: %d\n", member.getId());
+		System.out.printf("회원 아이디: %s\n", member.getLoginId());
+		System.out.printf("회원 이름: %s\n", member.getName());
 		System.out.printf("회원 유형: %s\n", member.memberType());
 		System.out.println("--------------------------------------------------");
 
@@ -90,20 +90,20 @@ public class MemberController extends Controller{
 		System.out.printf("비밀번호 입력) ");
 		String loginPw = sc.nextLine();
 
-		if (member.loginPw.equals(loginPw) == false) {
+		if (member.getLoginPw().equals(loginPw) == false) {
 			System.out.println("(비밀번호가 틀렸습니다.)");
 			return;
 		}
 
 		if (member.isAdmin()) {
 			System.out.printf("('관리자', 로그인 완료)\n");
-			Container.session.loginMemberId = member.id;
-			Container.session.loginAdminMemberId = member.id;
+			Container.session.loginMemberId = member.getId();
+			Container.session.loginAdminMemberId = member.getId();
 			System.out.println("--------------------------------------------------");
 			return;
 		}
-		System.out.printf("(%s님, 로그인 완료)\n", member.name);
-		Container.session.loginMemberId = member.id;
+		System.out.printf("(%s님, 로그인 완료)\n", member.getName());
+		Container.session.loginMemberId = member.getId();
 		System.out.println("--------------------------------------------------");
 	}
 

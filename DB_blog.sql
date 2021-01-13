@@ -219,7 +219,7 @@ ALTER TABLE article ADD COLUMN hitCount INT(10) UNSIGNED NOT NULL;
 # 구글 애널리틱스에서 가져온 데이터를 기반으로 모든 게시물의 hit 정보를 갱신
 
 # 1단계, 조인
-SELECT AR.id, AR.hitCount, GA4_PP.hit
+SELECT AR.getId(), AR.hitCount, GA4_PP.hit
 FROM article AS AR
 INNER JOIN (
     SELECT CAST(REPLACE(REPLACE(GA4_PP.pagePathWoQueryStr, '/article_detail_', ''), '.html', '') AS UNSIGNED) AS articleId,
@@ -237,7 +237,7 @@ INNER JOIN (
         GROUP BY pagePathWoQueryStr
     ) AS GA4_PP
 ) AS GA4_PP
-ON AR.id = GA4_PP.articleId;
+ON AR.getId() = GA4_PP.articleId;
 
 # 2단계, 실제 적용 쿼리
 UPDATE article AS AR
@@ -257,5 +257,5 @@ INNER JOIN (
         GROUP BY pagePathWoQueryStr
     ) AS GA4_PP
 ) AS GA4_PP
-ON AR.id = GA4_PP.articleId
+ON AR.getId() = GA4_PP.articleId
 SET AR.hitCount = GA4_PP.hit;

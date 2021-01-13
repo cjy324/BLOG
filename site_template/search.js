@@ -10,7 +10,7 @@ $.get(
         data.forEach((row, index) => {
 
         const article = {
-        id:row.id,
+        id:row.getId(),
         regDate:row.regDate,
         writer:row.extra_memberName,
         title:row.title,

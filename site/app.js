@@ -2,7 +2,7 @@
 
 	//유튜브 영상임을 감지하고 공간을 형성하는 함수
 	function youtubePlugin() {
-		toastui.Editor.codeBlockManager.setReplacer('youtube', youtubeId => {
+		toastui.Editor.getCode()BlockManager.setReplacer('youtube', youtubeId => {
 			// Indentify multiple code blocks
 			const wrapperId = `yt${Math.random()
 				.toString(36)
@@ -26,7 +26,7 @@
 	
 	/* codepen 함수 시작 */
 function codepenPlugin() {
-  toastui.Editor.codeBlockManager.setReplacer('codepen', url => {
+  toastui.Editor.getCode()BlockManager.setReplacer('codepen', url => {
     const wrapperId = `yt${Math.random().toString(36).substr(2, 10)}`;
 
     // Avoid sanitizing iframe tag
@@ -64,7 +64,7 @@ function ArticleDetail__Body__init() {
 		el: body,
 		initialValue: initValue,
 		viewer: true,
-		plugins: [toastui.Editor.plugin.codeSyntaxHighlight, youtubePlugin, codepenPlugin]
+		plugins: [toastui.Editor.plugin.getCode()SyntaxHighlight, youtubePlugin, codepenPlugin]
 	});
 };
 

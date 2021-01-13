@@ -98,14 +98,14 @@ public class ArticleController extends Controller {
 
 		int recommandMemberId = Container.session.loginMemberId;
 
-		Recommand recommand = articleService.getRecommand(article.id, recommandMemberId);
+		Recommand recommand = articleService.getRecommand(article.getId(), recommandMemberId);
 
 		if (recommand == null) {
 			System.out.println("(회원님은 해당 게시물을 추천하지 않았습니다.)");
 			return;
 		}
 
-		articleService.recomandDelete(article.id, recommandMemberId);
+		articleService.recomandDelete(article.getId(), recommandMemberId);
 
 		System.out.printf("(%d번 게시물 추천 취소)\n", inputedId);
 		System.out.println("--------------------------------------------------");
@@ -131,16 +131,16 @@ public class ArticleController extends Controller {
 
 		int recommandMemberId = Container.session.loginMemberId;
 
-		Recommand recommand = articleService.getRecommand(article.id, recommandMemberId);
+		Recommand recommand = articleService.getRecommand(article.getId(), recommandMemberId);
 
 		if (recommand != null) {
 			System.out.println("(이미 추천하셨습니다.)");
 			return;
 		}
 
-		int id = articleService.recommandAdd(article.id, recommandMemberId);
+		int id = articleService.recommandAdd(article.getId(), recommandMemberId);
 
-		System.out.printf("(%d번 게시물 추천 완료)\n", article.id);
+		System.out.printf("(%d번 게시물 추천 완료)\n", article.getId());
 		System.out.println("--------------------------------------------------");
 	}
 
@@ -217,9 +217,9 @@ public class ArticleController extends Controller {
 		String replyBody = sc.nextLine();
 		int replyMemberId = Container.session.loginMemberId;
 
-		int id = articleService.replyAdd(article.id, replyBody, replyMemberId);
+		int id = articleService.replyAdd(article.getId(), replyBody, replyMemberId);
 
-		System.out.printf("(%d번 게시물, %d번 댓글 생성 완료)\n", article.id, id);
+		System.out.printf("(%d번 게시물, %d번 댓글 생성 완료)\n", article.getId(), id);
 		System.out.println("--------------------------------------------------");
 	}
 
@@ -235,12 +235,12 @@ public class ArticleController extends Controller {
 			System.out.println("(해당 게시물은 존재하지 않습니다.)");
 			return;
 		}
-		if (article.memberId != Container.session.loginMemberId) {
+		if (article.getMemberId() != Container.session.loginMemberId) {
 			System.out.println("(권한이 없습니다.)");
 			return;
 		}
 
-		articleService.articleDelete(article.id);
+		articleService.articleDelete(article.getId());
 
 		System.out.printf("(%d번 게시물 삭제 완료)\n", inputedId);
 		System.out.println("--------------------------------------------------");
@@ -258,7 +258,7 @@ public class ArticleController extends Controller {
 			System.out.println("(해당 게시물은 존재하지 않습니다.)");
 			return;
 		}
-		if (article.memberId != Container.session.loginMemberId) {
+		if (article.getMemberId() != Container.session.loginMemberId) {
 			System.out.println("(권한이 없습니다.)");
 			return;
 		}
@@ -268,9 +268,9 @@ public class ArticleController extends Controller {
 		System.out.printf("수정할 내용 입력) ");
 		String body = sc.nextLine();
 
-		articleService.articleModify(article.id, title, body);
+		articleService.articleModify(article.getId(), title, body);
 
-		System.out.printf("(%d번 게시물 수정 완료)\n", article.id);
+		System.out.printf("(%d번 게시물 수정 완료)\n", article.getId());
 		System.out.println("--------------------------------------------------");
 	}
 
@@ -292,25 +292,25 @@ public class ArticleController extends Controller {
 			System.out.println("(해당 게시물은 존재하지 않습니다.)");
 			return;
 		}
-		Board board = articleService.getBoardById(article.boardId);
-		List<Recommand> recommands = articleService.getRecommands(article.id);
+		Board board = articleService.getBoardById(article.getBoardId());
+		List<Recommand> recommands = articleService.getRecommands(article.getId());
 
-		articleService.addView(article.id);
-		List<View> views = articleService.getViews(article.id);
+		articleService.addView(article.getId());
+		List<View> views = articleService.getViews(article.getId());
 
 		System.out.println("== 게시물 정보 ==");
-		System.out.printf("번호: %d\n", article.id);
-		System.out.printf("작성일: %s\n", article.regDate);
-		System.out.printf("최근수정일: %s\n", article.updateDate);
-		System.out.printf("제목: %s\n", article.title);
-		System.out.printf("내용: %s\n", article.body);
+		System.out.printf("번호: %d\n", article.getId());
+		System.out.printf("작성일: %s\n", article.getRegDate());
+		System.out.printf("최근수정일: %s\n", article.getUpdateDate());
+		System.out.printf("제목: %s\n", article.getTitle());
+		System.out.printf("내용: %s\n", article.getBody());
 		System.out.printf("추천수: %d\n", recommands.size());
 		System.out.printf("조회수: %d\n", views.size());
-		System.out.printf("작성자: %s\n", article.extra_memberName);
-		System.out.printf("게시판 이름: %s\n", board.name);
+		System.out.printf("작성자: %s\n", article.getExtra_memberName());
+		System.out.printf("게시판 이름: %s\n", board.getName());
 		System.out.println("-------- 댓글 --------");
 
-		List<Reply> replies = articleService.getRepliesForPrint(article.id);
+		List<Reply> replies = articleService.getRepliesForPrint(article.getId());
 
 		if (replies.size() <= 0) {
 			System.out.println("(댓글이 없습니다.)");
@@ -336,9 +336,9 @@ public class ArticleController extends Controller {
 
 		Board board = articleService.getBoardById(Container.session.selectedBoardId);
 
-		System.out.printf("== %s 게시판 글 리스트 ==\n", board.name);
+		System.out.printf("== %s 게시판 글 리스트 ==\n", board.getName());
 
-		List<Article> articles = articleService.getBoardArticlesForPrint(board.id);
+		List<Article> articles = articleService.getBoardArticlesForPrint(board.getId());
 
 		if (articles.size() <= 0) {
 			System.out.println("(현재 등록된 게시물이 없습니다.)");
@@ -348,10 +348,10 @@ public class ArticleController extends Controller {
 		System.out.println("번호 / 제목 / 작성일 / 작성자 / 조회수 / 추천수");
 
 		for (Article article : articles) {
-			List<Recommand> recommands = articleService.getRecommands(article.id);
-			List<View> views = articleService.getViews(article.id);
-			System.out.printf("%d / %s / %s / %s / %d / %d \n", article.id, article.title, article.regDate,
-					article.extra_memberName, recommands.size(), views.size());
+			List<Recommand> recommands = articleService.getRecommands(article.getId());
+			List<View> views = articleService.getViews(article.getId());
+			System.out.printf("%d / %s / %s / %s / %d / %d \n", article.getId(), article.getTitle(), article.getRegDate(),
+					article.getExtra_memberName(), recommands.size(), views.size());
 		}
 		System.out.println("------------------------------------------------------------------------");
 	}
@@ -391,8 +391,8 @@ public class ArticleController extends Controller {
 		
 		System.out.println("--------- 게시판 현황 ---------");
 		for(Board board : boards) {
-			List<Article> articles = articleService.getBoardArticlesForPrint(board.id);
-			System.out.printf("번호: %s / 이름: %s / 코드: %s / 게시물 수: %d\n", board.id, board.name, board.code, articles.size());
+			List<Article> articles = articleService.getBoardArticlesForPrint(board.getId());
+			System.out.printf("번호: %s / 이름: %s / 코드: %s / 게시물 수: %d\n", board.getId(), board.getName(), board.getCode(), articles.size());
 		}
 		
 		System.out.println("-------------------------------------------------------------");
@@ -407,9 +407,9 @@ public class ArticleController extends Controller {
 			return;
 		}
 
-		System.out.printf("((%s) 게시판 선택 완료)\n", board.name);
+		System.out.printf("((%s) 게시판 선택 완료)\n", board.getName());
 		System.out.println("--------------------------------------------------");
-		Container.session.selectedBoardId = board.id;
+		Container.session.selectedBoardId = board.getId();
 
 	}
 

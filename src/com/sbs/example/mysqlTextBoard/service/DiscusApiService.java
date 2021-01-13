@@ -48,7 +48,7 @@ public class DiscusApiService {
 				int commentsCount = (int) discusArticleData.get("commentsCount");
 				
 				Map<String, Object> modifyArgs = new HashMap<>();
-				modifyArgs.put("id", article.id);
+				modifyArgs.put("id", article.getId());
 				modifyArgs.put("likesCount", likesCount);
 				modifyArgs.put("commentsCount", commentsCount);
 
