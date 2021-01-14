@@ -40,7 +40,7 @@ FROM `board`;
 SELECT COUNT(id)
 FROM `article`;
 
-# 게시물 + 태그정보 조회
+# 전체게시물 + 태그정보 조회
 SELECT A.id,
 A.title,
 IFNULL(GROUP_CONCAT(T.body), '없음') AS tags
@@ -58,3 +58,12 @@ GROUP BY A.id
 #IFNULL(칼럼명, '원하는 대답')
 #만약 해당 칼럼명안의 데이터가 null이면 '원하는 대답'이 나타나게 한다.
 
+# 게시물 + 태그정보 조회
+SELECT
+IFNULL(GROUP_CONCAT(T.body), '없음') AS tags
+FROM article AS A
+LEFT JOIN tag AS T
+ON A.id = T.relId
+AND T.relTypeCode = 'article'
+WHERE A.id = 12
+GROUP BY A.id

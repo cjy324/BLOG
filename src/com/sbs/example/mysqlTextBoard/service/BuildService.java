@@ -440,7 +440,8 @@ public class BuildService {
 				body.append("<div>");
 				body.append("<span>수정일 : </span><span>" + article.getUpdateDate() + "</span>");
 				body.append("</div>");
-				body.append("</div>");
+				body.append("</div><br>");
+				body.append("<div class=\"article-detail-cell__title-contents flex flex-jc-fe\">");
 				body.append("<div class=\"article-detail-cell__hitsCount\">");
 				body.append("<div>");
 				body.append("<span>조회수 : </span><span>" + article.getHitCount() + "</span>");
@@ -454,7 +455,8 @@ public class BuildService {
 				body.append("<div class=\"article-detail-cell__commentsCount\">");
 				body.append("<div>");
 				body.append("<span>댓글수 : </span><span>" + article.getCommentsCount() + "</span>");
-				body.append("</div><br>");
+				body.append("</div>");
+				body.append("</div>");
 				body.append("</div>");
 				body.append("<div class=\"article-detail-cell__title\">");
 				body.append("<div>");
