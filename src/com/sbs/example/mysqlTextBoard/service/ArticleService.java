@@ -1,6 +1,5 @@
 package com.sbs.example.mysqlTextBoard.service;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -148,6 +147,10 @@ public class ArticleService {
 
 	public List<Article> getArticlesExceptNotice() {
 		return articleDao.getArticlesExceptNotice();
+	}
+
+	public String getArticleTagsByArticleId(int articleId) {
+		return articleDao.getArticleTagsByArticleId(articleId);
 	}
 
 }

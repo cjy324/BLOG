@@ -428,4 +428,19 @@ public class ArticleDao {
 		// Collections.reverse(articles);
 		return articles;
 	}
+
+	public String getArticleTagsByArticleId(int articleId) {
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT");
+		sql.append("IFNULL(GROUP_CONCAT(T.body), '없음') AS tags");
+		sql.append("FROM article AS A");
+		sql.append("LEFT JOIN tag AS T");
+		sql.append("ON A.id = T.relId");
+		sql.append("AND T.relTypeCode = 'article'");
+		sql.append("WHERE A.id = ?", articleId);
+		sql.append("GROUP BY A.id");
+
+		return MysqlUtil.selectRowStringValue(sql);
+	}
 }

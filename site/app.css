@@ -642,6 +642,13 @@ body{ background:url("https://images.unsplash.com/photo-1494088644719-c75cad020c
 .article-detail-cell__body .tui-editor-contents{
   font-size:1.1rem;
 }
+
+.article-detail-cell__tag > nav{
+  margin-right:10px;
+  padding:5px;
+  background-color:rgba(220, 220, 220, 1);
+  border-radius:10px 5px 5px 5px; 
+}
 /* 게시물 상세페이지 끝 */
 /* 게시물 상세페이지 하단 메뉴 시작 */
 .section-3{

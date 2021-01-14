@@ -400,7 +400,9 @@ public class BuildService {
 			System.out.println("= article 상세페이지 생성 =");
 
 			for (Article article : articles) {
-
+				String getArticleTags = articleService.getArticleTagsByArticleId(article.getId());
+				String[] tags = getArticleTags.split(","); 
+				
 				String head = getHeadHtml("article_detail", article);
 				String mainBoxSectionStart = "<section class=\"main-box-section con-min-width\">";
 				head = head.replace("[메인 박스 섹션 태그 시작]", mainBoxSectionStart);
@@ -467,8 +469,19 @@ public class BuildService {
 				//body.append("<span>" + article.getBody() + "</span>");
 				body.append("</div>");
 				body.append("</div><br>");
-				body.append("<div class=\"article-detail-cell__tag\">");
-				body.append("<nav># <a href=\"#\" target=\"_blank\">" + "tag.title" + "</a></nav>");
+				body.append("<div class=\"article-detail-cell__tag flex\">");
+				
+				for(int i = 0; i < tags.length; i++) {
+					String tag = tags[i];
+					if(tag.equals("없음")) {
+						continue;
+					}
+					
+					body.append("<nav># <a href=\"#\" target=\"_blank\">" + tag + "</a></nav>");
+				}
+				
+				
+				
 				body.append("</div><br><br>");
 
 				// discus에게 정확한 페이지 경로 알려주기
