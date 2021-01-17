@@ -1,8 +1,8 @@
 USE textBoard;
 
 # 변수 세팅 필요 시작 #
-SET @articleId = 12;
-SET @hashsStr = '#HTML #태그 #엘리먼트';
+SET @articleId = 15;
+SET @hashsStr = '#SQL #MySQL';
 # 변수 세팅 필요 끝 #
 
 # 해시태그 구분자

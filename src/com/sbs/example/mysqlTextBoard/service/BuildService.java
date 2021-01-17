@@ -655,6 +655,8 @@ public class BuildService {
 			return "<i class=\"fab fa-java\"></i> <span>JAVA BOARD</span>";
 		} else if (pageName.startsWith("article_list_html")) {
 			return "<i class=\"fab fa-html5\"></i> <span>HTML & CSS & JS BOARD</span>";
+		} else if (pageName.startsWith("article_list_mysql")) {
+			return "<i class=\"fas fa-database\"></i> <span>MySQL BOARD</span>";
 		} else if (pageName.startsWith("search")) {
 			return "<i class=\"fas fa-search\"></i> <span>SEARCH</span>";
 		} else if (pageName.startsWith("statistics")) {

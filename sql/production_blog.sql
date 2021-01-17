@@ -27,6 +27,11 @@ INSERT INTO `board`
 SET `name` = 'HTML & CSS & JS',
 `code` = 'html';
 
+# MySQL 관련 게시판 생성
+INSERT INTO `board`
+SET `name` = 'MySQL',
+`code` = 'mysql';
+
 SELECT * FROM `article`;
 SELECT * FROM `member`;
 SELECT * FROM `board`;
