@@ -36,8 +36,16 @@ public class testApp {
 		// testJackson5();
 
 		// testGoogleCredentials();
-		 testUpdateGoogleAnalyticsApi();
+		// testUpdateGoogleAnalyticsApi();
 		// testUpdatePageHitsByGa4Api();
+		 testMakeTagJsonFile();
+	}
+
+	private void testMakeTagJsonFile() {
+		MysqlUtil.setDBInfo(Container.appConfig.getDBHost(), Container.appConfig.getDBId(),
+				Container.appConfig.getDBPw(), Container.appConfig.getDBName());
+		
+		Container.buildService.buildTagPage();
 	}
 
 	private void testUpdatePageHitsByGa4Api() {

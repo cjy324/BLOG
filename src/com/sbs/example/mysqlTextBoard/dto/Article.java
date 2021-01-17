@@ -23,6 +23,12 @@ public class Article {
 		if (articlesMap.containsKey("extra_memberName")) {
 			this.extra_memberName = (String) articlesMap.get("extra_memberName");
 		}
+		if (articlesMap.containsKey("extra_boardName")) {
+			this.extra_boardName = (String) articlesMap.get("extra_boardName");
+		}
+		if (articlesMap.containsKey("extra_boardCode")) {
+			this.extra_boardCode = (String) articlesMap.get("extra_boardCode");
+		}
 
 	}
 
@@ -36,13 +42,12 @@ public class Article {
 	private String title;
 	private String body;
 	private int boardId;
+	private String extra_boardName;
+	private String extra_boardCode;
 	private int memberId;
 	private String extra_memberName;
 	private int likesCount;
 	private int commentsCount;
 	private int hitCount;
-	public int getId() {
-		return id;
-	}
 
 }

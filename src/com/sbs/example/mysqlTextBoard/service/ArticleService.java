@@ -1,6 +1,7 @@
 package com.sbs.example.mysqlTextBoard.service;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,16 +11,18 @@ import com.sbs.example.mysqlTextBoard.dto.Article;
 import com.sbs.example.mysqlTextBoard.dto.Board;
 import com.sbs.example.mysqlTextBoard.dto.Recommand;
 import com.sbs.example.mysqlTextBoard.dto.Reply;
+import com.sbs.example.mysqlTextBoard.dto.Tag;
 import com.sbs.example.mysqlTextBoard.dto.View;
 
 public class ArticleService {
 
 	ArticleDao articleDao;
+	TagService tagService;
 
 	public ArticleService() {
 
 		articleDao = Container.articleDao;
-
+		tagService = Container.tagService;
 	}
 
 	public int boardAdd(String name, String code) {
@@ -151,6 +154,30 @@ public class ArticleService {
 
 	public String getArticleTagsByArticleId(int articleId) {
 		return articleDao.getArticleTagsByArticleId(articleId);
+	}
+
+	public Map<String, List<Article>> getArticlesByTagMap() {
+
+		// 중복이 제거된 태그 body 리스트 먼저 가져오기
+		List<String> tagBodies = tagService.getDedupTagBodiesByRelTypeCode("article");
+		
+		
+		Map<String, List<Article>> articlesMap = new LinkedHashMap<>();
+		
+		for(String tagBody : tagBodies) {
+			// tagBody가 달려있는 article 리스트 가져오기
+			List<Article> articles = getForPrintArticlesByTag(tagBody);
+			
+			// article 리스트 map에 담기
+			articlesMap.put(tagBody, articles);
+			
+		}
+		
+		return articlesMap;
+	}
+
+	private List<Article> getForPrintArticlesByTag(String tagBody) {
+		return articleDao.getForPrintArticlesByTag(tagBody);
 	}
 
 }
