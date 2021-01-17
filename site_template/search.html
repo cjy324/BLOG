@@ -1,12 +1,13 @@
-<!-- Vue.js 불러오기 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+<!-- vue 불러오기 -->
+<!-- 개발버전, 도움되는 콘솔 경고를 포함. -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 <!-- lodash : debounce 불러오기 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js"></script>
 
 
    <!-- 메인-검색 페이지 시작 -->  
-   <section id="article-search-section" class="section-1 con-min-width">
+   <section v-cloak  id="article-search-section" class="section-1 con-min-width">
       <div class="con">
         <div class="search-div">
           <form class="search-form flex flex-jc-c">

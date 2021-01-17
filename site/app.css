@@ -873,6 +873,11 @@ body{ background:url("https://images.unsplash.com/photo-1494088644719-c75cad020c
 /* Statistics 페이지 끝 */
 
 /* 검색 페이지 시작 */
+/* vue 시작 */
+[v-cloak] {
+	display:none;
+}
+/* vue 끝 */
 .article-search-list{
   font-size:1.1rem;
 }
