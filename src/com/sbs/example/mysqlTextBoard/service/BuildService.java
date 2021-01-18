@@ -59,6 +59,27 @@ public class BuildService {
 		String jsonText = Util.getJsonText(getArticlesByTagMap);
 		Util.writeFile("site/article_tag.json", jsonText);
 
+		
+		Util.copy("site_template/tag.js", "site/tag.js");
+
+		StringBuilder html = new StringBuilder();
+
+		String head = getHeadHtml("search");
+		String mainBoxSectionStart = "<section class=\"main-box-section con-min-width\">";
+		head = head.replace("[메인 박스 섹션 태그 시작]", mainBoxSectionStart);
+		String foot = Util.getFileContents("site_template/foot.html");
+		// String sideBar = getSideBarHtml();
+		String mainHtml = Util.getFileContents("site_template/tag.html");
+
+		html.append(head);
+		html.append(mainHtml);
+		// html.append(sideBar);
+		html.append(foot);
+
+		String fileName = "tag.html";
+		String path = "site/" + fileName;
+
+		Util.writeFile(path, html.toString());
 	}
 
 	// about 페이지 생성

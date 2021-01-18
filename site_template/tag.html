@@ -1,0 +1,49 @@
+<!-- vue 불러오기 -->
+<!-- 개발버전, 도움되는 콘솔 경고를 포함. -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<!-- lodash : debounce 불러오기 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js"></script>
+
+
+   <!-- 메인-검색 페이지 시작 -->  
+   <section v-cloak  id="article-search-section" class="section-1 con-min-width">
+      <div class="con">
+        <div class="search-div">
+          <form class="search-form flex flex-jc-c">
+            <input class="input" @input="source" v-model="keyword" type="text" placeholder=" Keyword를 입력하세요.">
+          </form>
+        </div>
+        <div class="article-search-list">
+          <header>
+            <div>
+              <div class="article-search-list__cell-id">번호</div>
+              <div class="article-search-list__cell-reg-date">날짜</div>
+              <div class="article-search-list__cell-writer">작성자</div>
+              <div class="article-search-list__cell-title">제목</div>
+            </div>
+          </header>
+          <div class="main">
+            <div v-for="article in filtered">
+              <div class="article-search-list__cell-id">{{article.id}}</div>
+              <div class="article-search-list__cell-reg-date">{{article.regDate}}</div>
+              <div class="article-search-list__cell-writer">{{article.writer}}</div>
+              <div class="article-search-list__cell-title">
+                <a :href="'article_detail_' + article.id + '.html'" class="hover-underline">{{article.title}}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+   <!-- 메인-검색 페이지 끝 -->   
+   <!-- 메인-검색 페이지 하단 메뉴 시작 --> 
+
+   <!-- 메인-검색 페이지 하단 메뉴 끝 --> 
+   </section>
+  </main>
+  <!-- 메인 컨텐츠 박스 끝 -->
+  
+  <!-- tag.js 불러오기 -->
+<script src="tag.js"></script>
+  
