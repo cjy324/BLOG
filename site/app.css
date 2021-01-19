@@ -141,7 +141,7 @@ a {
 /* 커스텀 */
 
 .con-min-width {
-  min-width:320px;
+  min-width:200px;
   padding:0 20px;
 }
 
@@ -873,11 +873,6 @@ body{ background:url("https://images.unsplash.com/photo-1494088644719-c75cad020c
 /* Statistics 페이지 끝 */
 
 /* 검색 페이지 시작 */
-/* vue 시작 */
-[v-cloak] {
-	display:none;
-}
-/* vue 끝 */
 .article-search-list{
   font-size:1.1rem;
 }
@@ -932,6 +927,7 @@ body{ background:url("https://images.unsplash.com/photo-1494088644719-c75cad020c
 
 .article-search-list > .main > div {
   border-top:1px solid black;
+
 }
 
 .search-div{
@@ -1475,6 +1471,11 @@ font-size:1.6rem;
 
 
 @media (max-width: 480px) and (min-width: 320px){
+  
+    .con-min-width {
+  padding-left:0px;
+  padding-right:0px;
+}
 
   .logo-bar{
     height:100px;
@@ -1562,7 +1563,10 @@ font-size:1.5rem;
 
 }
   
-  
+  .section-about{
+  margin-left:0px;
+  margin-right:0px;
+}
   .section-about > .con{
     flex-direction:column;
   }
@@ -1600,9 +1604,18 @@ font-size:1.5rem;
   text-align:center;
 }
   
+  .main-box-section{
+  margin-left:0px;
+  margin-right:0px;
+}
+  
+  
   .title-bar {
   font-size:1.2rem;
 }
+   .title-bar >.con{
+    width:70%;
+  }
   .article-list{
   font-size:0.9rem;
 }
@@ -1632,10 +1645,17 @@ font-size:1.5rem;
     text-align:center;
   }
   
+  .article-detail-cell{
+    padding-left:45px;
+    padding-right:45px;
+  }
+  
     .article-detail-cell__body{
   border-top:5px solid black;
   border-bottom:5px solid black;
   padding:20px;
+      padding-left:10px;
+    padding-right:10px;
 }
   
   .section-2{
@@ -1647,7 +1667,7 @@ font-size:1.5rem;
 }
 
   .article-detail-cell__title-contents{
-  padding-right:20px;
+  padding-right:0px;
   font-size:0.7rem;
 }
 
@@ -1656,12 +1676,12 @@ font-size:1.5rem;
 }
   
   .article-detail-cell__title{
-  font-size:1.5rem;
-  padding:15px 0 15px 20px;
+  font-size:1.3rem;
+  padding:15px 0 15px 5px;
   
 }
   .article-detail-cell__body .tui-editor-contents{
-  font-size:1.1rem;
+  font-size:0.9rem;
 }
   
       .article-search-list{
@@ -1696,14 +1716,25 @@ font-size:1.5rem;
 }
 
 @media (max-width: 319px){
+    .con-min-width {
+  padding-left:0px;
+  padding-right:0px;
+}
+    .con {
+  padding-left:0px;
+  padding-right:0px;
+}
+
+  
   .logo-bar{
     height:100px;
   }
   .logo {
     font-size:2rem;
+   
   }
   .logo__img{
-    width:150px;
+    width:120px;
   }
 
   .menu-bar__menu li >a>span{
@@ -1764,6 +1795,10 @@ font-size:1.5rem;
 
 }
 
+    .section-about{
+  margin-left:0px;
+  margin-right:0px;
+}
   .section-about > .con{
     flex-direction:column;
   }
@@ -1801,9 +1836,25 @@ font-size:1.5rem;
   text-align:center;
 }
   
+    .main-box-section{
+  margin-left:0px;
+  margin-right:0px;
+}
+  
+  :root {
+  --article-list__cell-id__width:40px;
+  --article-list__cell-title__width:calc(80% - var(--article-list__cell-id__width));
+}
+  
   .title-bar {
   font-size:1.1rem;
+   
+    
 }
+  .title-bar >.con{
+    width:70%;
+  }
+  
   .article-list{
   font-size:0.8rem;
 }
@@ -1812,7 +1863,10 @@ font-size:1.5rem;
   font-size:0.8rem;
 }
   
-  
+  .section-1{
+    padding-left:30px;
+    padding-right:30px;
+  }
   
   .article-list__cell-id {
   width:30%;
@@ -1836,6 +1890,45 @@ font-size:1.5rem;
     text-align:center;
   }
   
+    .article-detail-cell{
+    padding-left:45px;
+    padding-right:45px;
+  }
+  
+    .article-detail-cell__body{
+  border-top:5px solid black;
+  border-bottom:5px solid black;
+  padding:20px;
+      padding-left:10px;
+    padding-right:10px;
+}
+  
+  .section-2{
+  font-size:0.9rem;
+}
+    .section-2 > .con {
+  padding-left:2px;
+  padding-right:2px;
+}
+
+  .article-detail-cell__title-contents{
+  padding-right:0px;
+  font-size:0.7rem;
+}
+
+.article-detail-cell__title-contents > div:after {
+  height:10px;
+}
+  
+  .article-detail-cell__title{
+  font-size:1.3rem;
+  padding:15px 0 15px 5px;
+  
+}
+  .article-detail-cell__body .tui-editor-contents{
+  font-size:0.9rem;
+}
+  
         .article-search-list{
   font-size:0.9rem;
 }
@@ -1846,7 +1939,7 @@ font-size:1.5rem;
 }
   
   .article-search-list__cell-id {
-  width:30%;
+
 }
   .article-search-list__cell-writer{
     display:none;
@@ -1856,12 +1949,15 @@ font-size:1.5rem;
     display:none;
   }
   .article-search-list__cell-title{
-    width:80%;
+
   }
   
       .count-box{
   font-size:0.9rem;
   padding:10px;
+  padding-left:50px;
 }
+  
+
   
 }
