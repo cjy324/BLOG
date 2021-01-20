@@ -32,6 +32,11 @@ INSERT INTO `board`
 SET `name` = 'MySQL',
 `code` = 'mysql';
 
+# JSP 관련 게시판 생성
+INSERT INTO `board`
+SET `name` = 'P.JSP',
+`code` = 'jsp';
+
 SELECT * FROM `article`;
 SELECT * FROM `member`;
 SELECT * FROM `board`;

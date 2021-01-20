@@ -678,7 +678,9 @@ public class BuildService {
 			return "<i class=\"fab fa-html5\"></i> <span>HTML & CSS & JS BOARD</span>";
 		} else if (pageName.startsWith("article_list_mysql")) {
 			return "<i class=\"fas fa-database\"></i> <span>MySQL BOARD</span>";
-		} else if (pageName.startsWith("search")) {
+		} else if (pageName.startsWith("article_list_jsp")) {
+			return "<i class=\"fas fa-database\"></i> <span>P.JSP BOARD(임시)</span>";
+		}  else if (pageName.startsWith("search")) {
 			return "<i class=\"fas fa-search\"></i> <span>SEARCH</span>";
 		} else if (pageName.startsWith("statistics")) {
 			return "<i class=\"fas fa-chart-pie\"></i> <span>STATISTICS</span>";
