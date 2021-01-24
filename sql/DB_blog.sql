@@ -284,5 +284,3 @@ ALTER TABLE `textBoard`.`tag` ADD INDEX (`relTypeCode`, `body`);
 # select * from tag where relTypeCode = 'article' AND relId = 5;
 # select * from tag where relTypeCode = 'article' AND relId = 5 AND `body` = 'SQL';
 ALTER TABLE `textBoardTest`.`tag` ADD UNIQUE INDEX (`relTypeCode`, `relId`, `body`); 
-
-

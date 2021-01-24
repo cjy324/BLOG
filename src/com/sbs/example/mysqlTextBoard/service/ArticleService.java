@@ -9,6 +9,7 @@ import com.sbs.example.mysqlTextBoard.container.Container;
 import com.sbs.example.mysqlTextBoard.dao.ArticleDao;
 import com.sbs.example.mysqlTextBoard.dto.Article;
 import com.sbs.example.mysqlTextBoard.dto.Board;
+import com.sbs.example.mysqlTextBoard.dto.Project;
 import com.sbs.example.mysqlTextBoard.dto.Recommand;
 import com.sbs.example.mysqlTextBoard.dto.Reply;
 import com.sbs.example.mysqlTextBoard.dto.Tag;
@@ -178,6 +179,10 @@ public class ArticleService {
 
 	private List<Article> getForPrintArticlesByTag(String tagBody) {
 		return articleDao.getForPrintArticlesByTag(tagBody);
+	}
+
+	public List<Project> getProjects() {
+		return articleDao.getProjects();
 	}
 
 }

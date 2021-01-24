@@ -32,17 +32,21 @@ INSERT INTO `board`
 SET `name` = 'MySQL',
 `code` = 'mysql';
 
+# BLOG 관련 게시판 생성
+INSERT INTO `board`
+SET `name` = 'P.BLOG',
+`code` = 'p_blog';
+
 # JSP 관련 게시판 생성
 INSERT INTO `board`
 SET `name` = 'P.JSP',
-`code` = 'jsp';
+`code` = 'p_jsp';
 
 SELECT * FROM `article`;
 SELECT * FROM `member`;
 SELECT * FROM `board`;
 SELECT * FROM ga4DataPagePath;
 SELECT * FROM tag;
-
 
 SELECT COUNT(id)
 FROM `board`;

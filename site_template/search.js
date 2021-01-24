@@ -40,7 +40,7 @@ const articleListBox = new Vue({
     },
     filtered:function(){
       if(this.filteredKeyword.length == 0){
-        return this.articleList;
+        return;
       }
       
       return this.articleList.filter((row)=>{

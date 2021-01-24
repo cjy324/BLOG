@@ -7,6 +7,7 @@ import java.util.Map;
 import com.sbs.example.mysqlTextBoard.container.Container;
 import com.sbs.example.mysqlTextBoard.dto.Article;
 import com.sbs.example.mysqlTextBoard.dto.Board;
+import com.sbs.example.mysqlTextBoard.dto.Project;
 import com.sbs.example.mysqlTextBoard.util.Util;
 
 public class BuildService {
@@ -575,22 +576,39 @@ public class BuildService {
 	private String getHeadHtml(String pageName, Object object) {
 		List<Board> boards = articleService.getBoards();
 
+
 		String head = Util.getFileContents("site_template/head.html"); // head.html 가져오기
 		StringBuilder boardMenuContentHtml = new StringBuilder();
+		StringBuilder projectMenuContentHtml = new StringBuilder();
 
 		for (Board board : boards) {
-			boardMenuContentHtml.append("<li title=\"" + board.getCode().toUpperCase() + "\">");
+			
+			if(board.getCode().contains("p_")) {
+				projectMenuContentHtml.append("<li title=\"" + board.getCode().toUpperCase() + "\">");
 
-			String link = board.getCode() + "-list-1.html";
+				String link = board.getCode() + "-list-1.html";
 
-			boardMenuContentHtml.append("<a href=\"" + link + "\" class=\"block\">");
-			boardMenuContentHtml.append(getTitleBarContentByPageName("article_list_" + board.getCode()));
-			boardMenuContentHtml.append("</a>");
-			boardMenuContentHtml.append("</li>");
+				projectMenuContentHtml.append("<a href=\"" + link + "\" class=\"block\">");
+				projectMenuContentHtml.append(getTitleBarContentByPageName("project_list_" + board.getCode()));
+				projectMenuContentHtml.append("</a>");
+				projectMenuContentHtml.append("</li>");
 
+			}
+			else {
+				boardMenuContentHtml.append("<li title=\"" + board.getCode().toUpperCase() + "\">");
+
+				String link = board.getCode() + "-list-1.html";
+
+				boardMenuContentHtml.append("<a href=\"" + link + "\" class=\"block\">");
+				boardMenuContentHtml.append(getTitleBarContentByPageName("article_list_" + board.getCode()));
+				boardMenuContentHtml.append("</a>");
+				boardMenuContentHtml.append("</li>");
+			}
 		}
 
 		head = head.replace("[게시판 이름 블록]", boardMenuContentHtml.toString());
+		head = head.replace("[프로젝트 이름 블록]", projectMenuContentHtml.toString());
+
 
 		String titleBarContentHtml = getTitleBarContentByPageName(pageName);
 		// 입력받은 pageName에 맞는 타이틀바 컨텐츠를 리턴
@@ -678,9 +696,11 @@ public class BuildService {
 			return "<i class=\"fab fa-html5\"></i> <span>HTML & CSS & JS BOARD</span>";
 		} else if (pageName.startsWith("article_list_mysql")) {
 			return "<i class=\"fas fa-database\"></i> <span>MySQL BOARD</span>";
-		} else if (pageName.startsWith("article_list_jsp")) {
-			return "<i class=\"fas fa-database\"></i> <span>P.JSP BOARD(임시)</span>";
-		}  else if (pageName.startsWith("search")) {
+		} else if (pageName.startsWith("project_list_p_blog")) {
+			return "<i class=\"fab fa-blogger\"></i> <span>P.BLOG PROJECT</span>";
+		} else if (pageName.startsWith("project_list_p_jsp")) {
+			return "<i class=\"fas fa-file-word\"></i> <span>P.JSP PROJECT</span>";
+		} else if (pageName.startsWith("search")) {
 			return "<i class=\"fas fa-search\"></i> <span>SEARCH</span>";
 		} else if (pageName.startsWith("statistics")) {
 			return "<i class=\"fas fa-chart-pie\"></i> <span>STATISTICS</span>";

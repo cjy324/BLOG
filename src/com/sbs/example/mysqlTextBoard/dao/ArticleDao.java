@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.sbs.example.mysqlTextBoard.dto.Article;
 import com.sbs.example.mysqlTextBoard.dto.Board;
+import com.sbs.example.mysqlTextBoard.dto.Project;
 import com.sbs.example.mysqlTextBoard.dto.Recommand;
 import com.sbs.example.mysqlTextBoard.dto.Reply;
 import com.sbs.example.mysqlTextBoard.dto.View;
@@ -470,5 +471,24 @@ public class ArticleDao {
 		}
 
 		return articles;
+	}
+
+	public List<Project> getProjects() {
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT *");
+		sql.append("FROM project");
+
+		List<Project> projects = new ArrayList<>();
+		List<Map<String, Object>> projectsMapList = MysqlUtil.selectRows(sql);
+
+		for (Map<String, Object> projectsMap : projectsMapList) {
+			Project project = new Project(projectsMap);
+
+			projects.add(project);
+		}
+
+		return projects;
+
 	}
 }

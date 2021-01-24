@@ -97,6 +97,10 @@ a {
   background-color:pink;
 }
 
+.bd {
+  border:3px solid;
+}
+
 .bd-green {
   border:3px solid green;
 }
@@ -176,7 +180,22 @@ body{ background:url("https://images.unsplash.com/photo-1494088644719-c75cad020c
   color:white;
   height:100px;
 }
+
 /* 로고바 끝 */
+
+
+/* 검색아이콘 시작 */
+.logo-bar{
+  position:relative;
+}
+.search-icon{
+  position:absolute;
+  font-size:1.5rem;
+  top:55px;
+  right:60px;
+}
+
+/* 검색아이콘 끝 */
 
 
 /* 로고 시작 */
