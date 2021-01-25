@@ -9,27 +9,177 @@
 
 <url>
   <loc>https://blog.devj.me/</loc>
-  <lastmod>2020-12-18T02:40:53+00:00</lastmod>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>https://blog.devj.me/index.html</loc>
-  <lastmod>2020-12-18T02:40:53+00:00</lastmod>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/search.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/about.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/notice-list-1.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://blog.devj.me/java-list-1.html</loc>
-  <lastmod>2020-12-18T02:40:53+00:00</lastmod>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://blog.devj.me/1.html</loc>
-  <lastmod>2020-12-18T02:40:53+00:00</lastmod>
+  <loc>https://blog.devj.me/html-list-1.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/mysql-list-1.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/p_blog-list-1.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/p_jsp-list-1.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/statistics.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/article_detail_13.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/article_detail_6.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/article_detail_1.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/article_detail_24.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/article_detail_23.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/article_detail_22.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/article_detail_21.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/article_detail_20.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/article_detail_16.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://blog.devj.me/2.html</loc>
-  <lastmod>2020-12-18T02:40:53+00:00</lastmod>
+  <loc>https://blog.devj.me/article_detail_10.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/article_detail_9.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/article_detail_8.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/article_detail_7.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/article_detail_5.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/article_detail_4.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/article_detail_3.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/article_detail_2.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/article_detail_12.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/article_detail_11.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/article_detail_15.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/article_detail_14.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/article_detail_19.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/article_detail_18.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://blog.devj.me/article_detail_17.html</loc>
+  <lastmod>2021-01-25T07:17:42+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 

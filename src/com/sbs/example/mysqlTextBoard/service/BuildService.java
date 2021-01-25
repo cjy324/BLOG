@@ -299,7 +299,7 @@ public class BuildService {
 			pageMenuBody.append("<li class=\"after-btn\"><a href=\"" + link(board, boxEndNumAfterPage)
 					+ "\" class=\"flex flex-ai-c\">다음 &gt;</a></li>");
 		}
-
+		
 		String bodyTemplate = template.replace("[게시물 리스트 블록]", mainBody); // list 템플릿에 mainBody 끼워넣고
 		html.append(bodyTemplate.replace("[게시물 리스트 페이지메뉴 블록]", pageMenuBody)); // bodyTemplate에 다시 pageMenuBody 끼워넣기
 		// html.append(sideBar);
@@ -497,6 +497,14 @@ public class BuildService {
 				body.append("<span>제목 : </span><span>" + article.getTitle() + "</span>");
 				body.append("</div>");
 				body.append("</div>");
+				
+				// 구글 애드센스2
+				body.append("<!-- 구글 애드센스2 -->");
+				body.append("<script async src=\"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js\"></script>");
+				body.append("<!-- 수평 반응형2 -->");
+				body.append("<ins class=\"adsbygoogle\" style=\"display: block\" data-ad-client=\"ca-pub-7996879977557531\" data-ad-slot=\"2278060237\" data-ad-format=\"auto\" data-full-width-responsive=\"true\"></ins>");
+				body.append("<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>");
+				
 				body.append("<script type\"text/x-template\">");
 				body.append(articleBody);
 				body.append("</script>");
@@ -517,6 +525,14 @@ public class BuildService {
 				}
 
 				body.append("</div><br><br>");
+				
+				// 구글 애드센스1
+				body.append("<!-- 구글 애드센스1 -->");
+				body.append("<script async src=\"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js\"></script>");
+				body.append("<!-- 수평 반응형1 -->");
+				body.append("<ins class=\"adsbygoogle\" style=\"display: block\" data-ad-client=\"ca-pub-7996879977557531\" data-ad-slot=\"6812185708\" data-ad-format=\"auto\" data-full-width-responsive=\"true\"></ins>");
+				body.append("<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>");
+				
 
 				// discus에게 정확한 페이지 경로 알려주기
 				String domainUrl = Container.appConfig.getSiteDomain();
