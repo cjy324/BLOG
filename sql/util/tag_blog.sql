@@ -1,7 +1,7 @@
 USE textBoard;
 
 # 변수 세팅 필요 시작 #
-SET @articleId = 24;
+SET @articleId = 26;
 SET @hashsStr = '#project #개발일지 #JSP';
 # 변수 세팅 필요 끝 #
 
