@@ -217,7 +217,15 @@ public class BuildService {
 
 		System.out.println("= " + board.getName() + " 리스트 페이지 생성 =");
 
-		String head = getHeadHtml("article_list_" + board.getCode());
+		String head = "";
+		
+		if(board.getCode().contains("p_")) {
+			head = getHeadHtml("project_list_" + board.getCode());
+		}
+		else{
+			head = getHeadHtml("article_list_" + board.getCode());
+		}
+		
 		String mainBoxSectionStart = "<section class=\"main-box-section con-min-width\">";
 		head = head.replace("[메인 박스 섹션 태그 시작]", mainBoxSectionStart);
 		// String sideBar = getSideBarHtml();
@@ -630,7 +638,7 @@ public class BuildService {
 		// 입력받은 pageName에 맞는 타이틀바 컨텐츠를 리턴
 
 		head = head.replace("[타이틀바 컨텐츠]", titleBarContentHtml);
-
+		
 		String pageTitle = getPageTitle(pageName, object);
 		// 입력받은 pageName에 맞는 페이지의 타이틀을 리턴
 
@@ -678,7 +686,7 @@ public class BuildService {
 		if (forPrintPageName.equals("search")) {
 			forPrintPageName = "search";
 		}
-
+		
 		forPrintPageName = forPrintPageName.toUpperCase(); // 대상 문자열을 모두 대문자로 변환
 		forPrintPageName = forPrintPageName.replace("_", " "); // pageName에 있는 _를 공백으로 변환
 
