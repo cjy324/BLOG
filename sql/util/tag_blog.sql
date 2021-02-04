@@ -1,8 +1,8 @@
 USE textBoard;
 
 # 변수 세팅 필요 시작 #
-SET @articleId = 26;
-SET @hashsStr = '#project #개발일지 #JSP';
+SET @articleId = 31;
+SET @hashsStr = '#project #개발일지 #blog';
 # 변수 세팅 필요 끝 #
 
 # 해시태그 구분자
