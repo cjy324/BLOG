@@ -36,9 +36,9 @@ public class GoogleAnalyticsApiService {
 	          .addDimensions(
 	              Dimension.newBuilder().setName("pagePath")) //pagePath: The web pages visited, listed by URI.
 	          //Metric(측정 항목): Dimension을 측정하는 “숫자”
-	          .addMetrics(Metric.newBuilder().setName("activeUsers")) //activeUsers: The number of distinct users who visited your site or app.
+	          .addMetrics(Metric.newBuilder().setName("screenPageViews")) //activeUsers: The number of distinct users who visited your site or app.
 	          .addDateRanges(
-	              DateRange.newBuilder().setStartDate("2021-01-01").setEndDate("today")).build();
+	              DateRange.newBuilder().setStartDate("2021-01-01").setEndDate("today")).setLimit(-1).build();
 
 	      // Make the request
 	      RunReportResponse response = analyticsData.runReport(request);
