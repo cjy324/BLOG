@@ -434,7 +434,7 @@ public class BuildService {
 
 			// String head = getHeadHtml("article_detail");
 			// String sideBar = getSideBarHtml();
-			String topButton = Util.getFileContents("site_template/top-button.html");
+			//String topButton = Util.getFileContents("site_template/top-button.html");
 			String foot = Util.getFileContents("site_template/foot.html");
 
 			String template = Util.getFileContents("site_template/detail.html");
@@ -568,7 +568,7 @@ public class BuildService {
 				html.append(bodyTemplate.replace("[상세페이지 하단 메뉴 블록]", pageMenuBody)); // bodyTemplate에 다시 pageMenuBody
 																						// 끼워넣기
 				// html.append(sideBar);
-				html.append(topButton);
+				//html.append(topButton);
 				html.append(foot);
 
 				String fileName = getArticleFileName(article);

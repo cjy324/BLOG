@@ -20,7 +20,7 @@ MobileTopBar__init();
 /* 메뉴바 토글-메뉴 나오기 시작 */ 
 $(document).ready(function(){
         $(".menu-bar__status-icon").click(function(){
-          var submenu = $(this).next("div");
+          var submenu = $(this).parent().next("div");
 
        if( submenu.is(":visible") ){
                 submenu.slideUp();
@@ -32,6 +32,75 @@ $(document).ready(function(){
     });
 // https://stove99.tistory.com/103
 /* 메뉴바 토글-메뉴 나오기 끝 */ 
+
+
+
+
+
+/* wellcome 애니메이션 시작 */
+const showWelcome = $( document ).ready( function() {
+        var visTime = 600;
+        $( '.span1' ).animate( {
+          opacity: '1'
+        }, visTime, function() {
+          $( '.span2' ).animate( {
+            opacity: '1'
+          }, visTime, function() {
+            $( '.span3' ).animate( {
+              opacity: '1'
+            }, visTime, function() {
+            $( '.span4' ).animate( {
+              opacity: '1'
+            }, visTime, function() {
+            $( '.span5' ).animate( {
+              opacity: '1'
+            }, visTime, function() {
+            $( '.span6' ).animate( {
+              opacity: '1'
+            }, visTime, function() {
+            $( '.span7' ).animate( {
+              opacity: '1'
+            }, visTime, function() {
+            $( '.span8' ).animate( {
+              opacity: '0'
+            }, visTime, function() {
+            $( '.span8' ).animate( {
+              opacity: '1'
+            }, visTime );
+                   });
+                  } );
+                 } );
+               } );
+              } );
+            } );
+          } );
+        } );
+      } );
+
+/* wellcome 애니메이션 끝 */
+
+
+/* top-button 옵션 시작 */
+$(function() {  
+  // 보이기 | 숨기기
+  $(window).scroll(function() { 
+    if ($(this).scrollTop() < 200) { 
+    //200 넘으면 버튼이 보임 
+     $('.top-button').fadeOut(); 
+  } else { 
+    $('.top-button').fadeIn();
+  } 
+  }); 
+  // 버튼 클릭시 0 까지 animation 이동합니다. 
+  $(".top-button").click(function() {
+    $('html, body').animate({ 
+      scrollTop : 0 }, 200); // 속도 200 
+    return false; 
+  }); 
+
+});
+
+/* top-button 옵션 끝 */
 
 
 
@@ -116,28 +185,3 @@ function EditorViewer__init() {
 ArticleDetail__Body__init();
 
 /* toastui-viewr 함수 끝 */
-
-
-
-
-/* top-button 옵션 시작 */
-$(function() {  
-  // 보이기 | 숨기기
-  $(window).scroll(function() { 
-    if ($(this).scrollTop() < 200) { 
-    //200 넘으면 버튼이 보임 
-     $('.top-button').fadeOut(); 
-  } else { 
-    $('.top-button').fadeIn();
-  } 
-  }); 
-  // 버튼 클릭시 0 까지 animation 이동합니다. 
-  $(".top-button").click(function() {
-    $('html, body').animate({ 
-      scrollTop : 0 }, 200); // 속도 200 
-    return false; 
-  }); 
-
-});
-
-/* top-button 옵션 끝 */
