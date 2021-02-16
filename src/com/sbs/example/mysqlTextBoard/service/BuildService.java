@@ -521,7 +521,7 @@ public class BuildService {
 				// body.append("<span>" + article.getBody() + "</span>");
 				body.append("</div>");
 				body.append("</div><br>");
-				body.append("<div class=\"article-detail-cell__tag flex\">");
+				body.append("<div class=\"article-detail-cell__tag flex flex-wrap\">");
 
 				for (int i = 0; i < tags.length; i++) {
 					String tag = tags[i];
@@ -709,7 +709,7 @@ public class BuildService {
 		if (pageName.equals("index")) {
 			return "";
 		} else if (pageName.equals("article_detail")) {
-			return "<i class=\"fas fa-file-invoice\"></i> <span>ARTICLE DETAIL</span>";
+			return "<i class=\"fas fa-file-invoice\"></i> <span>ARTICLE</span>";
 		} else if (pageName.startsWith("article_list_notice")) {
 			return "<i class=\"fas fa-bullhorn\"></i> <span>NOTICE BOARD</span>";
 		} else if (pageName.startsWith("article_list_free")) {
