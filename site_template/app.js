@@ -34,6 +34,65 @@ $(document).ready(function(){
 /* 메뉴바 토글-메뉴 나오기 끝 */ 
 
 
+/* MobileTopBar 옵션 시작 */
+function MobileSideBar__init() {
+  $('.mobile-menu-bar__status-icon').click(function() {
+    let $this = $(this);
+    
+    if ( $this.hasClass('active') ) {
+      $this.removeClass('active');
+      $('.mobile-side-bar').removeClass('active');
+      $('.mobile-side-bar').off('scroll touchmove mousewheel');
+      $('.mobile-menu-bar').off('scroll touchmove mousewheel');
+      $('.logo-bar').off('scroll touchmove mousewheel');
+    }
+    else {
+      $this.addClass('active');
+      $('.mobile-side-bar').addClass('active');
+      $('.mobile-side-bar').on('scroll touchmove mousewheel', function(e) {
+         e.preventDefault();
+         e.stopPropagation();
+       return false;
+      })
+      $('.mobile-menu-bar').on('scroll touchmove mousewheel', function(e) {
+         e.preventDefault();
+         e.stopPropagation();
+       return false;
+      })
+      $('.logo-bar').on('scroll touchmove mousewheel', function(e) {
+         e.preventDefault();
+         e.stopPropagation();
+       return false;
+      })
+
+
+      
+    }
+  });
+}
+
+MobileSideBar__init();
+/* MobileTopBar 옵션 끝 */
+/* mobile-side-bar_menu 옵션 시작 */
+
+    $(document).ready(function(){
+
+        $(".mobile-side-bar_menu>ul>li>a").click(function(){
+            var submenu = $(this).next(".hide2");
+
+            if( submenu.is(":visible") ){
+                submenu.slideUp();
+            }else{
+                submenu.slideDown();
+            }
+        });
+    });
+
+
+//출처: https://stove99.tistory.com/103 [스토브 훌로구]
+/* mobile-side-bar_menu 옵션 끝 */
+
+
 
 
 
