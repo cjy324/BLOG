@@ -37,41 +37,30 @@ $(document).ready(function(){
 /* MobileTopBar 옵션 시작 */
 function MobileSideBar__init() {
   $('.mobile-menu-bar__status-icon').click(function() {
-    let $this = $(this);
     
-    if ( $this.hasClass('active') ) {
-      $this.removeClass('active');
-      $('.mobile-side-bar').removeClass('active');
-      $('.mobile-side-bar').off('scroll touchmove mousewheel');
-      $('.mobile-menu-bar').off('scroll touchmove mousewheel');
-      $('.logo-bar').off('scroll touchmove mousewheel');
-    }
-    else {
-      $this.addClass('active');
       $('.mobile-side-bar').addClass('active');
       $('.mobile-side-bar').on('scroll touchmove mousewheel', function(e) {
          e.preventDefault();
          e.stopPropagation();
        return false;
       })
-      $('.mobile-menu-bar').on('scroll touchmove mousewheel', function(e) {
-         e.preventDefault();
-         e.stopPropagation();
-       return false;
-      })
-      $('.logo-bar').on('scroll touchmove mousewheel', function(e) {
-         e.preventDefault();
-         e.stopPropagation();
-       return false;
-      })
-
-
-      
-    }
   });
 }
 
+function MobileSideBar__cancle() {
+  $('.mobile-side-bar_X').click(function() {
+    let $this = $(this);
+      $this.removeClass('active');
+      $('.mobile-side-bar').removeClass('active');
+      $('.mobile-side-bar').off('scroll touchmove mousewheel');
+
+  });
+}
+
+
+
 MobileSideBar__init();
+MobileSideBar__cancle();
 /* MobileTopBar 옵션 끝 */
 /* mobile-side-bar_menu 옵션 시작 */
 
