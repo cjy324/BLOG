@@ -42,6 +42,11 @@ INSERT INTO `board`
 SET `name` = 'P.JSP',
 `code` = 'p_jsp';
 
+# ETC 게시판 생성
+INSERT INTO `board`
+SET `name` = 'ETC',
+`code` = 'etc';
+
 SELECT * FROM `article`;
 SELECT * FROM `member`;
 SELECT * FROM `board`;
