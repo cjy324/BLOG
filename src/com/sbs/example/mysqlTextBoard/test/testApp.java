@@ -38,14 +38,14 @@ public class testApp {
 		// testGoogleCredentials();
 		// testUpdateGoogleAnalyticsApi();
 		// testUpdatePageHitsByGa4Api();
-		 testMakeTagJsonFile();
+		// testMakeTagJsonFile();
 	}
 
 	private void testMakeTagJsonFile() {
 		MysqlUtil.setDBInfo(Container.appConfig.getDBHost(), Container.appConfig.getDBId(),
 				Container.appConfig.getDBPw(), Container.appConfig.getDBName());
 		
-		Container.buildService.buildTagPage();
+	//	Container.buildService.buildTagPage();
 	}
 
 	private void testUpdatePageHitsByGa4Api() {

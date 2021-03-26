@@ -47,40 +47,7 @@ public class BuildService {
 		buildArticleDetailPages(); // 게시판 별 게시물 상세페이지 생성
 		buildStatisticsPage(); // statistics 페이지 생성
 		buildSearchPage(); // 검색 페이지 생성
-		buildTagPage(); // 태그 페이지 생성
 
-	}
-
-	// 태그 페이지 생성
-	public void buildTagPage() {
-		// 게시물 관련 전체 태그 불러오기
-		Map<String, List<Article>> getArticlesByTagMap = articleService.getArticlesByTagMap();
-		
-		// 게시물 관련 태그 리스트를 json파일로 만들기
-		String jsonText = Util.getJsonText(getArticlesByTagMap);
-		Util.writeFile("site/article_tag.json", jsonText);
-
-		
-		Util.copy("site_template/tag.js", "site/tag.js");
-
-		StringBuilder html = new StringBuilder();
-
-		String head = getHeadHtml("search");
-		String mainBoxSectionStart = "<section class=\"main-box-section con-min-width\">";
-		head = head.replace("[메인 박스 섹션 태그 시작]", mainBoxSectionStart);
-		String foot = Util.getFileContents("site_template/foot.html");
-		// String sideBar = getSideBarHtml();
-		String mainHtml = Util.getFileContents("site_template/tag.html");
-
-		html.append(head);
-		html.append(mainHtml);
-		// html.append(sideBar);
-		html.append(foot);
-
-		String fileName = "tag.html";
-		String path = "site/" + fileName;
-
-		Util.writeFile(path, html.toString());
 	}
 
 	// about 페이지 생성
@@ -91,12 +58,10 @@ public class BuildService {
 		String head = getHeadHtml("about");
 		head = head.replace("[메인 박스 섹션 태그 시작]", "");
 		String foot = Util.getFileContents("site_template/foot.html");
-		// String sideBar = getSideBarHtml();
 		String mainHtml = Util.getFileContents("site_template/about.html");
 
 		html.append(head);
 		html.append(mainHtml);
-		// html.append(sideBar);
 		html.append(foot);
 
 		String fileName = "about.html";
@@ -115,7 +80,6 @@ public class BuildService {
 		String mainBoxSectionStart = "<section class=\"main-box-section con-min-width\">";
 		head = head.replace("[메인 박스 섹션 태그 시작]", mainBoxSectionStart);
 		String foot = Util.getFileContents("site_template/foot.html");
-		// String sideBar = getSideBarHtml();
 		String mainHtml = Util.getFileContents("site_template/statistics.html");
 
 		html.append(head);
@@ -130,7 +94,6 @@ public class BuildService {
 
 		mainHtml = mainHtml.replace("[방문자, 게시판, 게시물 현황]", body.toString());
 		html.append(mainHtml);
-		// html.append(sideBar);
 		html.append(foot);
 
 		String fileName = "statistics.html";
@@ -140,7 +103,7 @@ public class BuildService {
 
 	}
 
-	// 검색 페이지 생성
+	// search 페이지 생성
 	private void buildSearchPage() {
 		// 전체 게시물 불러오기
 		List<Article> articles = articleService.getArticlesForPrint();
@@ -157,12 +120,10 @@ public class BuildService {
 		String mainBoxSectionStart = "<section class=\"main-box-section con-min-width\">";
 		head = head.replace("[메인 박스 섹션 태그 시작]", mainBoxSectionStart);
 		String foot = Util.getFileContents("site_template/foot.html");
-		// String sideBar = getSideBarHtml();
 		String mainHtml = Util.getFileContents("site_template/search.html");
 
 		html.append(head);
 		html.append(mainHtml);
-		// html.append(sideBar);
 		html.append(foot);
 
 		String fileName = "search.html";
@@ -218,17 +179,15 @@ public class BuildService {
 		System.out.println("= " + board.getName() + " 리스트 페이지 생성 =");
 
 		String head = "";
-		
-		if(board.getCode().contains("p_")) {
+
+		if (board.getCode().contains("p_")) {
 			head = getHeadHtml("project_list_" + board.getCode());
-		}
-		else{
+		} else {
 			head = getHeadHtml("article_list_" + board.getCode());
 		}
-		
+
 		String mainBoxSectionStart = "<section class=\"main-box-section con-min-width\">";
 		head = head.replace("[메인 박스 섹션 태그 시작]", mainBoxSectionStart);
-		// String sideBar = getSideBarHtml();
 		String foot = Util.getFileContents("site_template/foot.html");
 
 		StringBuilder html = new StringBuilder();
@@ -261,7 +220,7 @@ public class BuildService {
 			mainBody.append("</div>");
 		}
 
-		// 하단 페이지 이동 버튼 메뉴 만들기
+		/* 하단 페이지 이동 버튼 메뉴 시작 */
 		// 1. pageMenuBox내 시작 번호, 끝 번호 설정
 
 		int previousPageNumCount = (page - 1) / pageMenuBoxSize; // 현재 페이지가 2이면 previousPageNumCount = 1/5
@@ -307,10 +266,13 @@ public class BuildService {
 			pageMenuBody.append("<li class=\"after-btn\"><a href=\"" + link(board, boxEndNumAfterPage)
 					+ "\" class=\"flex flex-ai-c\">다음 &gt;</a></li>");
 		}
-		
+
 		String bodyTemplate = template.replace("[게시물 리스트 블록]", mainBody); // list 템플릿에 mainBody 끼워넣고
 		html.append(bodyTemplate.replace("[게시물 리스트 페이지메뉴 블록]", pageMenuBody)); // bodyTemplate에 다시 pageMenuBody 끼워넣기
-		// html.append(sideBar);
+		
+		/* 하단 페이지 이동 버튼 메뉴 끝 */
+		
+		
 		html.append(foot);
 
 		String fileName = board.getCode() + "-list-" + page + ".html";
@@ -326,14 +288,13 @@ public class BuildService {
 
 	}
 
-	// 인덱스 페이지 생성
+	// index 페이지 생성
 	private void buildIndexPage() {
 
 		System.out.println("= INDEX 페이지 생성 =");
 
 		String head = getHeadHtml("index");
 		head = head.replace("[메인 박스 섹션 태그 시작]", "");
-		// String sideBar = getSideBarHtml();
 		String foot = Util.getFileContents("site_template/foot.html");
 		String template = Util.getFileContents("site_template/index.html");
 
@@ -380,8 +341,7 @@ public class BuildService {
 		mainHtml = mainHtml.replace("[인덱스 페이지 최신글 리스트]", secondBody);
 
 		html.append(mainHtml);
-
-		// html.append(sideBar);
+		
 		html.append(foot);
 
 		String fileName = "index.html";
@@ -390,31 +350,6 @@ public class BuildService {
 		Util.writeFile(path, html.toString());
 
 		System.out.println("= INDEX 페이지 생성 종료 =");
-	}
-
-	// side-bar.html 가져오기
-	private String getSideBarHtml() {
-		List<Board> boards = articleService.getBoards();
-
-		String sideBar = Util.getFileContents("site_template/side-bar.html");
-		StringBuilder boardMenuLinkHtml = new StringBuilder();
-
-		for (Board board : boards) {
-
-			boardMenuLinkHtml.append("<li title=\"" + board.getCode().toUpperCase() + "\">");
-
-			String link = board.getCode() + "-list-1.html";
-
-			boardMenuLinkHtml.append("<a href=\"" + link + "\" class=\"block\">");
-			boardMenuLinkHtml.append(getTitleBarContentByPageName("article_list_" + board.getCode()));
-			boardMenuLinkHtml.append("</a>");
-			boardMenuLinkHtml.append("</li>");
-
-		}
-
-		sideBar = sideBar.replace("[게시판 메뉴 링크 블록]", boardMenuLinkHtml.toString());
-
-		return sideBar;
 	}
 
 	// 게시판 별 게시물 상세페이지 생성
@@ -432,11 +367,7 @@ public class BuildService {
 			int x = beforeArticleIndex;
 			int beforeArticleId = articles.get(x).getId();
 
-			// String head = getHeadHtml("article_detail");
-			// String sideBar = getSideBarHtml();
-			//String topButton = Util.getFileContents("site_template/top-button.html");
 			String foot = Util.getFileContents("site_template/foot.html");
-
 			String template = Util.getFileContents("site_template/detail.html");
 
 			System.out.println("= article 상세페이지 생성 =");
@@ -505,23 +436,24 @@ public class BuildService {
 				body.append("<span>제목 : </span><span>" + article.getTitle() + "</span>");
 				body.append("</div>");
 				body.append("</div>");
-				
+
 				// 구글 애드센스2
-				
+
 				body.append("<nav class=\"ad\">");
 				body.append("<!-- 구글 애드센스2 -->");
-				body.append("<script async src=\"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js\"></script>");
+				body.append(
+						"<script async src=\"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js\"></script>");
 				body.append("<!-- 수평 반응형2 -->");
-				body.append("<ins class=\"adsbygoogle\" style=\"display: block\" data-ad-client=\"ca-pub-7996879977557531\" data-ad-slot=\"2278060237\" data-ad-format=\"auto\" data-full-width-responsive=\"true\"></ins>");
+				body.append(
+						"<ins class=\"adsbygoogle\" style=\"display: block\" data-ad-client=\"ca-pub-7996879977557531\" data-ad-slot=\"2278060237\" data-ad-format=\"auto\" data-full-width-responsive=\"true\"></ins>");
 				body.append("<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>");
 				body.append("</nav>");
-				
+
 				body.append("<script type\"text/x-template\">");
 				body.append(articleBody);
 				body.append("</script>");
 				body.append("<div class=\"article-detail-cell__body height-70p toast-ui-viewer\">");
 				body.append("<div>");
-				// body.append("<span>" + article.getBody() + "</span>");
 				body.append("</div>");
 				body.append("</div><br>");
 				body.append("<div class=\"article-detail-cell__tag flex flex-wrap\">");
@@ -532,27 +464,28 @@ public class BuildService {
 						continue;
 					}
 
-					body.append("<nav># <a href=\"#\" target=\"_blank\">" + tag + "</a></nav>");
+					body.append("<nav># " + tag + "</nav>");
 				}
 
 				body.append("</div><br><br>");
-				
+
 				// 구글 애드센스1
 				body.append("<nav class=\"ad\">");
 				body.append("<!-- 구글 애드센스1 -->");
-				body.append("<script async src=\"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js\"></script>");
+				body.append(
+						"<script async src=\"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js\"></script>");
 				body.append("<!-- 수평 반응형1 -->");
-				body.append("<ins class=\"adsbygoogle\" style=\"display: block\" data-ad-client=\"ca-pub-7996879977557531\" data-ad-slot=\"6812185708\" data-ad-format=\"auto\" data-full-width-responsive=\"true\"></ins>");
+				body.append(
+						"<ins class=\"adsbygoogle\" style=\"display: block\" data-ad-client=\"ca-pub-7996879977557531\" data-ad-slot=\"6812185708\" data-ad-format=\"auto\" data-full-width-responsive=\"true\"></ins>");
 				body.append("<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>");
 				body.append("</nav>");
-				
 
 				// discus에게 정확한 페이지 경로 알려주기
 				String domainUrl = Container.appConfig.getSiteDomain();
 				String pageUrl = getArticleFileName(article);
 
-				// 상세페이지 하단 메뉴
-
+				
+				/* 상세페이지 하단 메뉴 시작 */
 				StringBuilder pageMenuBody = new StringBuilder();
 
 				if (article.getId() > beforeArticleId) {
@@ -572,8 +505,8 @@ public class BuildService {
 				bodyTemplate = bodyTemplate.replace("[사이트 이름.html]", pageUrl);
 				html.append(bodyTemplate.replace("[상세페이지 하단 메뉴 블록]", pageMenuBody)); // bodyTemplate에 다시 pageMenuBody
 																						// 끼워넣기
-				// html.append(sideBar);
-				//html.append(topButton);
+				/* 상세페이지 하단 메뉴 끝 */
+				
 				html.append(foot);
 
 				String fileName = getArticleFileName(article);
@@ -605,14 +538,13 @@ public class BuildService {
 	private String getHeadHtml(String pageName, Object object) {
 		List<Board> boards = articleService.getBoards();
 
-
 		String head = Util.getFileContents("site_template/head.html"); // head.html 가져오기
 		StringBuilder boardMenuContentHtml = new StringBuilder();
 		StringBuilder projectMenuContentHtml = new StringBuilder();
 
 		for (Board board : boards) {
-			
-			if(board.getCode().contains("p_")) {
+
+			if (board.getCode().contains("p_")) {
 				projectMenuContentHtml.append("<li title=\"" + board.getCode().toUpperCase() + "\">");
 
 				String link = board.getCode() + "-list-1.html";
@@ -622,8 +554,7 @@ public class BuildService {
 				projectMenuContentHtml.append("</a>");
 				projectMenuContentHtml.append("</li>");
 
-			}
-			else {
+			} else {
 				boardMenuContentHtml.append("<li title=\"" + board.getCode().toUpperCase() + "\">");
 
 				String link = board.getCode() + "-list-1.html";
@@ -638,18 +569,15 @@ public class BuildService {
 		head = head.replace("[게시판 이름 블록]", boardMenuContentHtml.toString());
 		head = head.replace("[프로젝트 이름 블록]", projectMenuContentHtml.toString());
 
-
-		String titleBarContentHtml = getTitleBarContentByPageName(pageName);
 		// 입력받은 pageName에 맞는 타이틀바 컨텐츠를 리턴
-
+		String titleBarContentHtml = getTitleBarContentByPageName(pageName);
 		head = head.replace("[타이틀바 컨텐츠]", titleBarContentHtml);
-		
-		String pageTitle = getPageTitle(pageName, object);
-		// 입력받은 pageName에 맞는 페이지의 타이틀을 리턴
 
+		// 입력받은 pageName에 맞는 페이지의 타이틀을 리턴
+		String pageTitle = getPageTitle(pageName, object);
 		head = head.replace("[페이지 타이틀]", pageTitle);
 
-		// Meta Tag & Open Graph 작업
+		/* Meta Tag & Open Graph 작업 시작 */
 		String siteTitle = "Dev_J BLOG";
 		String siteSubject = "Dev_J의 BLOG";
 		String siteKeywords = "JAVA, HTML, CSS, JavaScript, MySQL";
@@ -675,6 +603,8 @@ public class BuildService {
 		head = head.replace("[사이트 URL]", siteMainUrl);
 		head = head.replace("[날짜]", currentDate);
 
+		/* Meta Tag & Open Graph 작업 끝 */
+		
 		return head;
 	}
 
@@ -691,7 +621,7 @@ public class BuildService {
 		if (forPrintPageName.equals("search")) {
 			forPrintPageName = "search";
 		}
-		
+
 		forPrintPageName = forPrintPageName.toUpperCase(); // 대상 문자열을 모두 대문자로 변환
 		forPrintPageName = forPrintPageName.replace("_", " "); // pageName에 있는 _를 공백으로 변환
 
@@ -703,13 +633,13 @@ public class BuildService {
 			Article article = (Article) object;
 
 			pageTitle.insert(0, article.getTitle() + " | ");
-			// 형변환이 가능하면 0번 위치에? article.getTitle() + "|" 삽입
+			// 형변환이 가능하면 0번 위치에 article.getTitle() + "|" 삽입
 		}
 
 		return pageTitle.toString();
 	}
 
-	// 페이지이름에 따라 메인부분 타이틀바 아이콘 가져오기
+	// pageName에 따라 타이틀바 아이콘 가져오기
 	private String getTitleBarContentByPageName(String pageName) {
 		if (pageName.equals("index")) {
 			return "";

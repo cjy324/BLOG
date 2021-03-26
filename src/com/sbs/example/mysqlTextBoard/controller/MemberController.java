@@ -25,7 +25,7 @@ public class MemberController extends Controller{
 		else if (cmd.equals("member login")) {
 			login(cmd);
 		}
-		// whoami
+		// 회원정보
 		else if (cmd.equals("member whoami")) {
 			whoami(cmd);
 		}
@@ -49,7 +49,7 @@ public class MemberController extends Controller{
 		System.out.println("--------------------------------------------------");
 	}
 
-	// whoami
+	// 회원정보
 	private void whoami(String cmd) {
 		if (Container.session.loginStatus() == false) {
 			System.out.println("(로그인 후 이용가능)");

@@ -25,7 +25,4 @@ public class Tag {
 	private int relId;
 	private String body;
 
-	
-	
-	
 }

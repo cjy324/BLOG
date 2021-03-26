@@ -19,6 +19,7 @@ public class ArticleDao {
 
 	}
 
+	// 게시판 추가
 	public int boardAdd(String name, String code) {
 		SecSql sql = new SecSql();
 
@@ -29,6 +30,7 @@ public class ArticleDao {
 		return MysqlUtil.insert(sql);
 	}
 
+	// 게시판 아이디로 게시판 정보 가져오기
 	public Board getBoardById(int inputedId) {
 		SecSql sql = new SecSql();
 
@@ -44,6 +46,101 @@ public class ArticleDao {
 		return new Board(boardMap);
 	}
 
+	// 게시판 코드로 게시판 정보 가져오기
+	public Board getBoardByCode(String code) {
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT * FROM board");
+		sql.append("WHERE code = ?", code);
+
+		Map<String, Object> boardMap = MysqlUtil.selectRow(sql);
+
+		if (boardMap.isEmpty()) {
+			return null;
+		}
+
+		return new Board(boardMap);
+	}
+
+	// 게시판 리스트 가져오기
+	public List<Board> getBoards() {
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT *");
+		sql.append("FROM board");
+
+		List<Board> boards = new ArrayList<>();
+		List<Map<String, Object>> boardsMapList = MysqlUtil.selectRows(sql);
+
+		for (Map<String, Object> boardsMap : boardsMapList) {
+			Board board = new Board(boardsMap);
+
+			boards.add(board);
+		}
+
+		return boards;
+
+	}
+
+	// 전체 게시판 수 가져오기
+	public int getBoardCount() {
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT COUNT(id) ");
+		sql.append("FROM `board`");
+
+		int bodyCount = MysqlUtil.selectRowIntValue(sql);
+
+		return bodyCount;
+	}
+
+	// 모든 게시물 리스트 가져오기
+	public List<Article> articles() {
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT article.*, ");
+		sql.append("member.name AS extra_memberName");
+		sql.append("FROM article");
+		sql.append("INNER JOIN member");
+		sql.append("ON article.memberId = member.id");
+
+		List<Article> articles = new ArrayList<>();
+		List<Map<String, Object>> articlesMapList = MysqlUtil.selectRows(sql);
+
+		for (Map<String, Object> articlesMap : articlesMapList) {
+			Article article = new Article(articlesMap);
+
+			articles.add(article);
+		}
+
+		return articles;
+	}
+
+	// 공지사항 게시물을 제외한 모든 게시물 리스트 가져오기
+	public List<Article> getArticlesExceptNotice() {
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT article.*, ");
+		sql.append("member.name AS extra_memberName");
+		sql.append("FROM article");
+		sql.append("INNER JOIN member");
+		sql.append("ON article.memberId = member.id");
+		sql.append("WHERE NOT article.boardId = 1");
+
+		List<Article> articles = new ArrayList<>();
+		List<Map<String, Object>> articlesMapList = MysqlUtil.selectRows(sql);
+
+		for (Map<String, Object> articlesMap : articlesMapList) {
+			Article article = new Article(articlesMap);
+
+			articles.add(article);
+
+		}
+		// Collections.reverse(articles);
+		return articles;
+	}
+
+	// 게시물 추가
 	public int add(int boardId, String title, String body, int memberId) {
 		SecSql sql = new SecSql();
 
@@ -58,6 +155,7 @@ public class ArticleDao {
 		return MysqlUtil.insert(sql);
 	}
 
+	// 해당 게시판에 속한 게시물 리스트 가져오기
 	public List<Article> getBoardArticlesForPrint(int boardId) {
 		SecSql sql = new SecSql();
 
@@ -81,6 +179,7 @@ public class ArticleDao {
 		return articles;
 	}
 
+	// 게시물 상세정보 가져오기
 	public Article getArticleById(int inputedId) {
 		SecSql sql = new SecSql();
 
@@ -100,6 +199,7 @@ public class ArticleDao {
 		return new Article(articleMap);
 	}
 
+	// 게시물 수정
 	public void articleModify(Map<String, Object> modifyArgs) {
 		SecSql sql = new SecSql();
 
@@ -130,6 +230,7 @@ public class ArticleDao {
 
 	}
 
+	// 게시물 삭제
 	public void articleDelete(int id) {
 		SecSql sql = new SecSql();
 
@@ -140,6 +241,7 @@ public class ArticleDao {
 
 	}
 
+	// 댓글 추가
 	public int replyAdd(int articleId, String replyBody, int replyMemberId) {
 		SecSql sql = new SecSql();
 
@@ -152,6 +254,7 @@ public class ArticleDao {
 		return MysqlUtil.insert(sql);
 	}
 
+	// 댓글 가져오기
 	public Reply getReply(int inputedId) {
 		SecSql sql = new SecSql();
 
@@ -167,6 +270,7 @@ public class ArticleDao {
 		return new Reply(replyMap);
 	}
 
+	// 댓글 수정
 	public void replyModify(int id, String replyBody) {
 		SecSql sql = new SecSql();
 
@@ -179,6 +283,7 @@ public class ArticleDao {
 
 	}
 
+	// 댓글 삭제
 	public void replyDelete(int id) {
 		SecSql sql = new SecSql();
 
@@ -188,6 +293,7 @@ public class ArticleDao {
 		MysqlUtil.delete(sql);
 	}
 
+	// 해당 게시물에 달린 댓글 리스트 가져오기
 	public List<Reply> getRepliesForPrint(int articleId) {
 		SecSql sql = new SecSql();
 
@@ -210,7 +316,8 @@ public class ArticleDao {
 		return replise;
 	}
 
-	public int recommandAdd(int articleId, int recommandMemberId) {
+	// 추천 추가
+	public void recommandAdd(int articleId, int recommandMemberId) {
 		SecSql sql = new SecSql();
 
 		sql.append("INSERT INTO recommand");
@@ -218,9 +325,10 @@ public class ArticleDao {
 		sql.append("recommandArticleId = ?,", articleId);
 		sql.append("recommandMemberId = ?", recommandMemberId);
 
-		return MysqlUtil.insert(sql);
+		MysqlUtil.insert(sql);
 	}
 
+	// 추천 가져오기
 	public Recommand getRecommand(int articleId, int recommandMemberId) {
 		SecSql sql = new SecSql();
 
@@ -238,6 +346,7 @@ public class ArticleDao {
 		return new Recommand(recomandMap);
 	}
 
+	// 추천 삭제
 	public void recomandDelete(int articleId, int recommandMemberId) {
 		SecSql sql = new SecSql();
 
@@ -250,6 +359,7 @@ public class ArticleDao {
 
 	}
 
+	// 해당 게시물에 달린 추천 리스트 가져오기
 	public List<Recommand> getRecommands(int articleId) {
 		SecSql sql = new SecSql();
 
@@ -269,6 +379,7 @@ public class ArticleDao {
 		return recommands;
 	}
 
+	// 해당 게시물의 조회수 추가
 	public void addView(int articleId) {
 
 		SecSql sql = new SecSql();
@@ -281,6 +392,7 @@ public class ArticleDao {
 
 	}
 
+	// 해당 게시물의 조회수 가져오기
 	public List<View> getViews(int articleId) {
 		SecSql sql = new SecSql();
 
@@ -300,61 +412,7 @@ public class ArticleDao {
 		return views;
 	}
 
-	public List<Board> getBoards() {
-		SecSql sql = new SecSql();
-
-		sql.append("SELECT *");
-		sql.append("FROM board");
-
-		List<Board> boards = new ArrayList<>();
-		List<Map<String, Object>> boardsMapList = MysqlUtil.selectRows(sql);
-
-		for (Map<String, Object> boardsMap : boardsMapList) {
-			Board board = new Board(boardsMap);
-
-			boards.add(board);
-		}
-
-		return boards;
-
-	}
-
-	public Board getBoardByCode(String code) {
-		SecSql sql = new SecSql();
-
-		sql.append("SELECT * FROM board");
-		sql.append("WHERE code = ?", code);
-
-		Map<String, Object> boardMap = MysqlUtil.selectRow(sql);
-
-		if (boardMap.isEmpty()) {
-			return null;
-		}
-
-		return new Board(boardMap);
-	}
-
-	public List<Article> articles() {
-		SecSql sql = new SecSql();
-
-		sql.append("SELECT article.*, ");
-		sql.append("member.name AS extra_memberName");
-		sql.append("FROM article");
-		sql.append("INNER JOIN member");
-		sql.append("ON article.memberId = member.id");
-
-		List<Article> articles = new ArrayList<>();
-		List<Map<String, Object>> articlesMapList = MysqlUtil.selectRows(sql);
-
-		for (Map<String, Object> articlesMap : articlesMapList) {
-			Article article = new Article(articlesMap);
-
-			articles.add(article);
-		}
-
-		return articles;
-	}
-
+	// 해당 페이지의 조회수 업데이트(구글애널리틱스 API로 정보 가져오기)
 	public void updatePageHits() {
 		SecSql sql = new SecSql();
 
@@ -383,18 +441,6 @@ public class ArticleDao {
 
 	}
 
-	// 전체 게시판 수 가져오기
-	public int getBoardCount() {
-		SecSql sql = new SecSql();
-
-		sql.append("SELECT COUNT(id) ");
-		sql.append("FROM `board`");
-
-		int bodyCount = MysqlUtil.selectRowIntValue(sql);
-
-		return bodyCount;
-	}
-
 	// 전체 게시물 수 가져오기
 	public int getArticleCount() {
 		SecSql sql = new SecSql();
@@ -407,29 +453,7 @@ public class ArticleDao {
 		return articleCount;
 	}
 
-	public List<Article> getArticlesExceptNotice() {
-		SecSql sql = new SecSql();
-
-		sql.append("SELECT article.*, ");
-		sql.append("member.name AS extra_memberName");
-		sql.append("FROM article");
-		sql.append("INNER JOIN member");
-		sql.append("ON article.memberId = member.id");
-		sql.append("WHERE NOT article.boardId = 1");
-
-		List<Article> articles = new ArrayList<>();
-		List<Map<String, Object>> articlesMapList = MysqlUtil.selectRows(sql);
-
-		for (Map<String, Object> articlesMap : articlesMapList) {
-			Article article = new Article(articlesMap);
-
-			articles.add(article);
-
-		}
-		// Collections.reverse(articles);
-		return articles;
-	}
-
+	// 해당 게시물에 달린 태그 리스트 가져오기
 	public String getArticleTagsByArticleId(int articleId) {
 		SecSql sql = new SecSql();
 
@@ -445,6 +469,7 @@ public class ArticleDao {
 		return MysqlUtil.selectRowStringValue(sql);
 	}
 
+	// 태그와 관련된 게시물 리스트 가져오기
 	public List<Article> getForPrintArticlesByTag(String tagBody) {
 		List<Article> articles = new ArrayList<>();
 
@@ -473,6 +498,7 @@ public class ArticleDao {
 		return articles;
 	}
 
+	// 프로젝트 리스트 가져오기
 	public List<Project> getProjects() {
 		SecSql sql = new SecSql();
 

@@ -39,6 +39,7 @@
 			<version>2.12.0</version>
 		</dependency>
 
+		<!-- 구글 애널리틱스 API 의존성 추가 -->
 		<dependency>
 			<groupId>com.google.analytics</groupId>
 			<artifactId>google-analytics-data</artifactId>

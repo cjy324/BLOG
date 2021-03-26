@@ -38,16 +38,18 @@ public class Container {
 	public static TagDao tagDao;
 	
 	static {
+		//필수 선행
 		scanner = new Scanner(System.in);
 		session = new Session();
 		appConfig = new AppConfig();
 		
+		//Dao
 		tagDao = new TagDao();
 		memberDao = new MemberDao();
 		articleDao = new ArticleDao();
 		ga4DataDao = new Ga4DataDao();
 		
-		
+		//Service
 		tagService = new TagService();
 		memberService = new MemberService();
 		articleService = new ArticleService();
@@ -55,6 +57,7 @@ public class Container {
 		googleAnalyticsApiService = new GoogleAnalyticsApiService();
 		buildService = new BuildService();
 		
+		//Controller
 		memberController = new MemberController();
 		articleController = new ArticleController();
 		buildController = new BuildController();

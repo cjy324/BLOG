@@ -7,12 +7,12 @@ import com.sbs.example.mysqlTextBoard.dao.TagDao;
 import com.sbs.example.mysqlTextBoard.dto.Tag;
 
 public class TagService {
-	
+
 	TagDao tagDao;
-	
+
 	public TagService() {
 		tagDao = Container.tagDao;
-		
+
 	}
 
 	// relTypeCode가 article인 태그 리스트만 가져오기(일단 안쓰임)

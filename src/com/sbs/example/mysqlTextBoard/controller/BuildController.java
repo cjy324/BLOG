@@ -16,7 +16,7 @@ public class BuildController extends Controller {
 	}
 
 	public void doCmd(String cmd) {
-		// 사이트 생성
+		// 사이트 생성 명령어 필터링
 		if (cmd.equals("build site")) {
 			buildSite(cmd);
 		}

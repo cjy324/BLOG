@@ -28,7 +28,7 @@ import com.sbs.example.mysqlTextBoard.dto.Article;
 
 public class Util {
 
-	// 신규 폴더 생성
+	// 신규 폴더 생성 유틸
 	public static void mkdir(String path) {
 
 		File dir = new File(path);
@@ -39,7 +39,7 @@ public class Util {
 
 	}
 
-	// 파일 생성
+	// 파일 생성 유틸
 	public static void writeFile(String path, String body) { // body = sb.toString
 		File file = new File(path);
 
@@ -53,7 +53,7 @@ public class Util {
 
 	}
 
-	// 기존 폴더 삭제
+	// 기존 폴더 삭제 유틸
 	public static boolean rmdir(String path) {
 		return rmdir(new File(path));
 	}
@@ -69,7 +69,7 @@ public class Util {
 		return dirToBeDeleted.delete();
 	}
 
-	// 파일내용 읽어오기
+	// 파일내용 읽어오는 유틸
 	public static String getFileContents(String filePath) {
 		String rs = null;
 		try {
@@ -92,7 +92,7 @@ public class Util {
 		return rs;
 	}
 
-	// 파일 복붙
+	// 파일 복붙 유틸
 	public static boolean copy(String sourcePath, String destPath) {
 		Path source = Paths.get(sourcePath);
 		Path target = Paths.get(destPath);
@@ -115,7 +115,7 @@ public class Util {
 		return true;
 	}
 
-	// 폴더 복붙
+	// 폴더 복붙 유틸
 	public static void copyDir(String sourceDirectoryLocation, String destinationDirectoryLocation) {
 		rmdir(destinationDirectoryLocation);
 
@@ -139,7 +139,7 @@ public class Util {
 
 	}
 
-	// url을 자바 내에서 확인하고 싶을때 사용하는 유틸?
+	// url을 자바 내에서 확인하고 싶을때 사용하는 유틸
 	public static String callApi(String urlStr, String... args) {
 		// URL 구성 시작
 		StringBuilder queryString = new StringBuilder();
@@ -194,6 +194,7 @@ public class Util {
 		return content.toString();
 	}
 
+	// API 응답을 jsonString과 Map형태로 변환하는 유틸
 	public static Map<String, Object> callApiResponseToMap(String url, String... args) {
 
 		String jsonString = callApi(url, args);
@@ -209,6 +210,7 @@ public class Util {
 		return null;
 	}
 
+	// API 응답을 jsonString과 클래스로 변환하는 유틸
 	public static Object callApiResponseTo(Class cls, String url, String... args) {
 		String jsonString = callApi(url, args);
 
@@ -223,6 +225,7 @@ public class Util {
 		return null;
 	}
 
+	// JSON 형태로 변환하는 유틸
 	public static String getJsonText(Object obj) {
 		ObjectMapper mapper = new ObjectMapper();
 		String rs = "";

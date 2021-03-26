@@ -12,6 +12,7 @@ public class MemberDao {
 
 	}
 
+	// 회원가입
 	public int join(String loginId, String loginPw, String name) {
 		SecSql sql = new SecSql();
 
@@ -23,6 +24,7 @@ public class MemberDao {
 		return MysqlUtil.insert(sql);
 	}
 
+	// 로그인아이디로 회원정보 가져오기
 	public Member getMemberByLoginId(String loginId) {
 		SecSql sql = new SecSql();
 
@@ -38,6 +40,7 @@ public class MemberDao {
 		return new Member(memberMap);
 	}
 
+	// 회원번호로 회원정보 가져오기
 	public Member getMemberById(int loginMemberId) {
 		SecSql sql = new SecSql();
 
@@ -53,7 +56,7 @@ public class MemberDao {
 		return new Member(memberMap);
 	}
 	
-	//사이트 방문자 수 가져오기
+	//사이트 방문자 수 가져오기(구글애널리틱스 API로 정보 가져오기)
 	public int getVisitorCount() {
 		SecSql sql = new SecSql();
 

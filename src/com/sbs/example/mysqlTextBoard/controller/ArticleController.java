@@ -51,10 +51,6 @@ public class ArticleController extends Controller {
 		else if (cmd.startsWith("article delete ")) {
 			delete(cmd);
 		}
-		// 게시물 삭제
-		else if (cmd.startsWith("article delete ")) {
-			delete(cmd);
-		}
 		// 댓글 추가
 		else if (cmd.startsWith("article reply ")) {
 			reply(cmd);
@@ -138,7 +134,7 @@ public class ArticleController extends Controller {
 			return;
 		}
 
-		int id = articleService.recommandAdd(article.getId(), recommandMemberId);
+		articleService.recommandAdd(article.getId(), recommandMemberId);
 
 		System.out.printf("(%d번 게시물 추천 완료)\n", article.getId());
 		System.out.println("--------------------------------------------------");

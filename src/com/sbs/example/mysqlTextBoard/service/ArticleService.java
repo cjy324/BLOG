@@ -47,15 +47,15 @@ public class ArticleService {
 	}
 
 	public void articleModify(int id, String title, String body) {
-		
+
 		Map<String, Object> modifyArgs = new HashMap<>();
 		modifyArgs.put("id", id);
 		modifyArgs.put("title", title);
 		modifyArgs.put("body", body);
-		
+
 		articleDao.articleModify(modifyArgs);
-		
-		//articleDao.articleModify(id, title, body);
+
+		// articleDao.articleModify(id, title, body);
 
 	}
 
@@ -86,8 +86,8 @@ public class ArticleService {
 		return articleDao.getRepliesForPrint(articleId);
 	}
 
-	public int recommandAdd(int articleId, int recommandMemberId) {
-		return articleDao.recommandAdd(articleId, recommandMemberId);
+	public void recommandAdd(int articleId, int recommandMemberId) {
+		articleDao.recommandAdd(articleId, recommandMemberId);
 	}
 
 	public Recommand getRecommand(int articleId, int recommandMemberId) {
@@ -124,7 +124,6 @@ public class ArticleService {
 		return articleDao.articles();
 	}
 
-
 	public List<Article> getBoardArticlesByCodeForPrint(String code) {
 		Board board = articleDao.getBoardByCode(code);
 		return articleDao.getBoardArticlesForPrint(board.getId());
@@ -132,12 +131,12 @@ public class ArticleService {
 
 	public void articleModify(Map<String, Object> modifyArgs) {
 		articleDao.articleModify(modifyArgs);
-		
+
 	}
 
 	public void updatePageHits() {
 		articleDao.updatePageHits();
-		
+
 	}
 
 	public int getBoardCount() {
@@ -145,7 +144,6 @@ public class ArticleService {
 	}
 
 	public int getArticleCount() {
-		// TODO Auto-generated method stub
 		return articleDao.getArticleCount();
 	}
 
@@ -161,19 +159,18 @@ public class ArticleService {
 
 		// 중복이 제거된 태그 body 리스트 먼저 가져오기
 		List<String> tagBodies = tagService.getDedupTagBodiesByRelTypeCode("article");
-		
-		
+
 		Map<String, List<Article>> articlesMap = new LinkedHashMap<>();
-		
-		for(String tagBody : tagBodies) {
+
+		for (String tagBody : tagBodies) {
 			// tagBody가 달려있는 article 리스트 가져오기
 			List<Article> articles = getForPrintArticlesByTag(tagBody);
-			
+
 			// article 리스트 map에 담기
 			articlesMap.put(tagBody, articles);
-			
+
 		}
-		
+
 		return articlesMap;
 	}
 

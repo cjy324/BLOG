@@ -19,7 +19,6 @@ public class Article {
 		this.commentsCount = (int) articlesMap.get("commentsCount");
 		this.hitCount = (int) articlesMap.get("hitCount");
 
-
 		if (articlesMap.containsKey("extra_memberName")) {
 			this.extra_memberName = (String) articlesMap.get("extra_memberName");
 		}
