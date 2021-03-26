@@ -1,9 +1,9 @@
 ## 사이트 운영 시작 ##
 
 #기존 사이트 게시글 및 사용자 초기화 
-TRUNCATE `article`;
-TRUNCATE `member`;
-TRUNCATE `board`;
+# TRUNCATE `article`;
+# TRUNCATE `member`;
+# TRUNCATE `board`;
 
 # 관리자 생성
 SELECT * FROM `member`;
@@ -46,6 +46,16 @@ SET `name` = 'P.JSP',
 INSERT INTO `board`
 SET `name` = 'ETC',
 `code` = 'etc';
+
+# lamplight 관련 게시판 생성
+INSERT INTO `board`
+SET `name` = 'P.Lamplight',
+`code` = 'p_lamp';
+
+# WhatIsMyName 관련 게시판 생성
+INSERT INTO `board`
+SET `name` = 'P.WhatIsMyName',
+`code` = 'p_what';
 
 SELECT * FROM `article`;
 SELECT * FROM `member`;

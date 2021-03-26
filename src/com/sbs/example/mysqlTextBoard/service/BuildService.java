@@ -660,7 +660,11 @@ public class BuildService {
 		} else if (pageName.startsWith("project_list_p_blog")) {
 			return "<i class=\"fab fa-blogger\"></i> <span>P.BLOG PROJECT</span>";
 		} else if (pageName.startsWith("project_list_p_jsp")) {
-			return "<i class=\"fas fa-file-word\"></i> <span>P.JSP PROJECT</span>";
+			return "<i class=\"fas fa-users\"></i> <span>P.JSP PROJECT</span>";
+		} else if (pageName.startsWith("project_list_p_lamp")) {
+			return "<i class=\"fab fa-vuejs\"></i> <span>P.Lamplight PROJECT</span>";
+		} else if (pageName.startsWith("project_list_p_what")) {
+			return "<i class=\"fas fa-file-word\"></i> <span>P.WhatIsMyName PROJECT</span>";
 		} else if (pageName.startsWith("search")) {
 			return "<i class=\"fas fa-search\"></i> <span>SEARCH</span>";
 		} else if (pageName.startsWith("statistics")) {
