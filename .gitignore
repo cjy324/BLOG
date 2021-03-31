@@ -5,3 +5,4 @@ target/
 site/
 bin/
 .factorypath
+.readme.md

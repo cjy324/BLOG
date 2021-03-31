@@ -40,8 +40,7 @@ public class App {
 			}
 
 			Controller controller = getControllerByCmd(cmd);
-			
-			
+
 			if (controller != null) {
 				controller.doCmd(cmd);
 			}
@@ -61,8 +60,7 @@ public class App {
 			return articleController;
 		} else if (cmd.startsWith("member ")) {
 			return memberController;
-		}
-		else if (cmd.startsWith("build ")) {
+		} else if (cmd.startsWith("build ")) {
 			return buildController;
 		}
 		return null;

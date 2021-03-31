@@ -508,19 +508,14 @@ public class BuildService {
 				/* 상세페이지 하단 메뉴 끝 */
 				
 				html.append(foot);
-
 				String fileName = getArticleFileName(article);
 				String path = "site/" + fileName;
-
 				Util.writeFile(path, html.toString());
-
 				System.out.println(path + " 생성");
 				x++;
 				beforeArticleId = articles.get(x - 1).getId();
-
 			}
 			System.out.println("= article 상세페이지 생성 종료 =");
-
 		}
 	}
 
