@@ -108,7 +108,7 @@ const showWelcome = $(document).ready(function() {
 					});
 				});
 			});
-		};
+		});
 	});
 });
 
